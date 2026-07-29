@@ -12,7 +12,7 @@ This repository contains an implementation-ready pre-release website:
 - visual seven-step quick start;
 - searchable Starlight documentation;
 - FAQ and email-based support;
-- draft privacy, legal, accessibility, and license pages;
+- configurable privacy and legal notices, plus accessibility and license pages;
 - responsive desktop and iPad design;
 - Docker and Compose deployment configuration; and
 - GitHub Actions image publishing to GitHub Container Registry.
@@ -69,6 +69,10 @@ Shared marketing copy is typed in the site content module. Starlight documentati
 
 See [Content and localization](docs/content.md).
 
+## Privacy-first usage analytics
+
+Optional self-hosted Umami analytics is built in but disabled until both `UMAMI_SCRIPT_URL` and `UMAMI_WEBSITE_ID` repository variables are set. The analytics script is consent-gated and is never requested before opt-in. Legal publisher, hosting, Cloudflare, and retention values are also supplied as public build variables. See `docs/privacy-and-analytics.md` before enabling analytics or setting `LEGAL_REVIEWED=true`.
+
 ## Docker image
 
 Build locally when Docker is available:
@@ -79,7 +83,7 @@ docker build -t filius-app-website:local .
 
 The runtime image contains only NGINX and the generated static files. It listens on port `8080` as an unprivileged user.
 
-Production images are intended to be built by GitHub Actions and published to GHCR. Pull requests validate the image without publishing. Pushes to `main`, version tags, scheduled builds, and manual dispatches publish signed metadata and attestations.
+Production images are intended to be built by GitHub Actions and published to GHCR. Pull requests validate the image without publishing. Pushes to `main`, version tags, scheduled builds, and manual dispatches publish signed metadata; artifact attestations run for public repositories or when explicitly enabled for a supported private repository.
 
 ## Nginx Proxy Manager
 

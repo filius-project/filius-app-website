@@ -86,3 +86,191 @@ test("mobile navigation exposes all primary destinations", async ({ page }) => {
     page.locator(".mobile-panel").getByRole("link", { name: "Dokumentation" }),
   ).toBeVisible();
 });
+
+const analyticsConfig = {
+  enabled: true,
+  provider: "Umami",
+  scriptUrl: "/mock-analytics.js",
+  websiteId: "playwright-test-site",
+  domains: "127.0.0.1",
+  consentStorageDays: 180,
+};
+
+test("analytics is not loaded until the visitor opts in", async ({ page }) => {
+  let analyticsRequests = 0;
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, "doNotTrack", {
+      configurable: true,
+      value: "0",
+    });
+    Object.defineProperty(navigator, "globalPrivacyControl", {
+      configurable: true,
+      value: false,
+    });
+    Object.defineProperty(window, "doNotTrack", {
+      configurable: true,
+      value: "0",
+    });
+  });
+  await page.route("**/*", async (route) => {
+    const pathname = new URL(route.request().url()).pathname.replace(/\/$/, "");
+    if (pathname === "/analytics-config.json") {
+      await route.fulfill({ json: analyticsConfig });
+      return;
+    }
+    if (pathname === "/mock-analytics.js") {
+      analyticsRequests += 1;
+      await route.fulfill({
+        contentType: "application/javascript",
+        body: "window.__filiusAnalyticsLoaded = true;",
+      });
+      return;
+    }
+    await route.continue();
+  });
+
+  await page.goto("/en/");
+  const banner = page.locator("#privacy-consent-root");
+  await expect(banner).toBeVisible();
+  await expect(
+    banner.getByRole("button", { name: "Necessary storage only" }),
+  ).toHaveClass(/privacy-consent__button/);
+  await expect(
+    banner.getByRole("button", { name: "Allow analytics" }),
+  ).toHaveClass(/privacy-consent__button/);
+  expect(analyticsRequests).toBe(0);
+  await expect(
+    page.evaluate(() =>
+      Boolean(Reflect.get(window, "__filiusAnalyticsLoaded")),
+    ),
+  ).resolves.toBe(false);
+
+  await banner.getByRole("button", { name: "Necessary storage only" }).click();
+  await expect(banner).toBeHidden();
+  expect(analyticsRequests).toBe(0);
+
+  await page.getByRole("button", { name: "Privacy settings" }).click();
+  await expect(banner).toBeVisible();
+  await banner.getByRole("button", { name: "Allow analytics" }).click();
+  await expect
+    .poll(() => analyticsRequests, { message: "analytics script request" })
+    .toBe(1);
+  await expect
+    .poll(() =>
+      page.evaluate(() =>
+        Boolean(Reflect.get(window, "__filiusAnalyticsLoaded")),
+      ),
+    )
+    .toBe(true);
+
+  await page.reload();
+  await expect(banner).toBeHidden();
+  await expect
+    .poll(() => analyticsRequests, { message: "analytics after reload" })
+    .toBe(2);
+});
+
+test("a privacy signal keeps optional analytics disabled", async ({ page }) => {
+  let analyticsRequests = 0;
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, "globalPrivacyControl", {
+      configurable: true,
+      value: true,
+    });
+  });
+  await page.route("**/*", async (route) => {
+    const pathname = new URL(route.request().url()).pathname.replace(/\/$/, "");
+    if (pathname === "/analytics-config.json") {
+      await route.fulfill({ json: analyticsConfig });
+      return;
+    }
+    if (pathname === "/mock-analytics.js") {
+      analyticsRequests += 1;
+      await route.fulfill({ body: "" });
+      return;
+    }
+    await route.continue();
+  });
+
+  await page.goto("/");
+  await expect(page.locator("#privacy-consent-root")).toHaveCount(0);
+  await expect(
+    page.getByRole("button", { name: "Datenschutzeinstellungen" }),
+  ).toBeVisible();
+  expect(analyticsRequests).toBe(0);
+});
+
+test("crawler and security disclosure files are published", async ({
+  request,
+}) => {
+  const robots = await request.get("/robots.txt");
+  expect(robots.ok()).toBe(true);
+  const robotsBody = await robots.text();
+  expect(robotsBody).toContain("Sitemap: https://filius.app/sitemap-index.xml");
+  expect(robotsBody).toContain("User-agent: GPTBot");
+  expect(robotsBody).toContain("Disallow: /analytics-config.json");
+
+  const security = await request.get("/.well-known/security.txt");
+  expect(security.ok()).toBe(true);
+  const securityBody = await security.text();
+  expect(securityBody).toContain("Contact: mailto:support@filius.app");
+  expect(securityBody).toContain("Policy: https://filius.app/security/");
+});
+
+for (const path of [
+  "/privacy/",
+  "/imprint/",
+  "/security/",
+  "/en/privacy/",
+  "/en/imprint/",
+  "/en/security/",
+  "/fr/privacy/",
+  "/fr/imprint/",
+  "/fr/security/",
+]) {
+  test(`${path} publishes a readable legal or trust page`, async ({ page }) => {
+    await page.goto(path);
+    await expect(page.locator("h1")).toHaveCount(1);
+    await expect(page.locator("main")).toBeVisible();
+    await expect(page.locator("footer")).toBeVisible();
+  });
+}
+
+test("privacy notice names infrastructure processors and remains draft until deployment details are complete", async ({
+  page,
+}) => {
+  await page.goto("/en/privacy/");
+  await expect(page.locator("main")).toContainText(
+    "Oracle Cloud Infrastructure",
+  );
+  await expect(page.locator("main")).toContainText("Cloudflare, Inc.");
+  await expect(page.locator("main")).toContainText("eu-frankfurt-1");
+  await expect(page.locator("main")).toContainText("Cloudflare Email Routing");
+  await expect(page.locator("main")).toContainText("Google Ireland Limited");
+  await expect(page.locator("main")).toContainText("personal Gmail mailbox");
+  await expect(page.locator("main")).toContainText("independent controller");
+  await expect(page.locator("main")).toContainText(
+    "EU Standard Contractual Clauses",
+  );
+  await expect(page.locator("main")).toContainText("approximately 35 days");
+  await expect(page.locator("main")).toContainText("approximately 77 days");
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+    "content",
+    /noindex/,
+  );
+});
+
+test("legal notice publishes the individual operator details without inapplicable register placeholders", async ({
+  page,
+}) => {
+  await page.goto("/en/imprint/");
+  await expect(page.locator("main")).toContainText("Sören Schröder");
+  await expect(page.locator("main")).toContainText(
+    "Max-Brauer-Allee 167f, 22765 Hamburg, Germany",
+  );
+  await expect(page.locator("main")).not.toContainText("To be completed");
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+    "content",
+    /noindex/,
+  );
+});

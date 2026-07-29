@@ -1,4 +1,43 @@
+# Search engines may index the public marketing and documentation pages.
 User-agent: *
 Allow: /
+Disallow: /analytics-config.json
+Disallow: /healthz
+Disallow: /404.html
+
+# Do not use the site for generative-AI training or answer extraction.
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Claude-SearchBot
+Disallow: /
+
+User-agent: Claude-User
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
 
 Sitemap: https://filius.app/sitemap-index.xml
+Host: filius.app

@@ -10,7 +10,7 @@ const body = encodeURIComponent(`Filius on iPad version:\niPadOS version:\niPad 
 ---
 <section class="page-hero support-hero"><div class="shell"><p class="eyebrow">{c.nav.support}</p><h1>{c.support.title}</h1><p class="lede">{c.support.intro}</p></div></section>
 <section class="section support-section"><div class="shell support-grid">
-  <article class="email-card"><div class="mail-icon" aria-hidden="true">@</div><p class="eyebrow">{c.support.emailTitle}</p><h2>{site.supportEmail}</h2><p>{c.support.emailBody}</p><a class="button button--primary" href={`mailto:${site.supportEmail}?subject=${subject}&body=${body}`}>{c.common.supportEmail}</a></article>
+  <article class="email-card"><div class="mail-icon" aria-hidden="true">@</div><p class="eyebrow">{c.support.emailTitle}</p><h2>{site.supportEmail}</h2><p>{c.support.emailBody}</p><a class="button button--primary" href={`mailto:${site.supportEmail}?subject=${subject}&body=${body}`} data-umami-event="support-email-open">{c.common.supportEmail}</a></article>
   <article class="checklist-card"><p class="eyebrow">{c.support.checklistTitle}</p><ol>{c.support.checklist.map((item) => <li>{item}</li>)}</ol></article>
 </div></section>
 <section class="section--compact form-note"><div class="reading content-card"><h2>{locale === 'de' ? 'Kontaktformular' : locale === 'fr' ? 'Formulaire de contact' : 'Contact form'}</h2><p>{c.support.formNote}</p></div></section>

@@ -1,10 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import TrustPage from '../components/TrustPage.astro';
-import { copy } from '../lib/content';
+import ImprintPage from '../components/ImprintPage.astro';
+import { legalNoticeReady } from '../config';
 const locale = 'de' as const;
-const c = copy[locale];
+const title = 'Impressum';
+const description = 'Anbieterkennzeichnung und Kontaktangaben für filius.app.';
 ---
-<BaseLayout locale={locale} title={`${c.imprint.title} – Filius on iPad`} description={c.imprint.intro} noindex>
-  <TrustPage locale={locale} kind="imprint" />
+<BaseLayout locale={locale} title={`${title} – Filius on iPad`} description={description} noindex={!legalNoticeReady}>
+  <ImprintPage locale={locale} />
 </BaseLayout>

@@ -13,7 +13,7 @@ Cloudflare DNS/proxy
   → filius-web:8080
 ```
 
-The inner container serves static files only. It does not manage public certificates and does not expose a host port.
+The inner container serves static files only. It does not manage public certificates and does not expose a host port. Duplicate access logging is disabled in this inner container; Nginx Proxy Manager remains the visitor-facing access-log source.
 
 ## Registry image
 
@@ -49,6 +49,8 @@ Create a Proxy Host:
 - `www.filius.app` redirected to the canonical hostname.
 
 When Cloudflare proxying is enabled, use Full (strict) mode between Cloudflare and Nginx Proxy Manager. HSTS belongs at the public proxy layer, not in the inner static container.
+
+The current Nginx Proxy Manager defaults rotate access logs weekly with four archives and error logs weekly with ten archives. If the deployed image or custom configuration differs, update both the retention configuration and the public privacy notice. The website Compose file separately limits container output by size (`10m`, three files).
 
 ## Verify
 
