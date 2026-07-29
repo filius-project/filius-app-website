@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 
-FROM node:24-alpine AS build
+FROM node:26-alpine AS build
 WORKDIR /app
 ENV ASTRO_TELEMETRY_DISABLED=1
 COPY package.json package-lock.json ./
