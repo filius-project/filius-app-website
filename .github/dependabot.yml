@@ -12,6 +12,9 @@ updates:
         patterns: ["astro", "@astrojs/*"]
       development-tooling:
         dependency-type: development
+    ignore:
+      - dependency-name: typescript
+        versions: [">=7.0.0"]
 
   - package-ecosystem: docker
     directory: /
@@ -20,6 +23,9 @@ updates:
       day: monday
       time: "03:30"
       timezone: Europe/Berlin
+    ignore:
+      - dependency-name: node
+        versions: [">=26.0.0"]
 
   - package-ecosystem: github-actions
     directory: /

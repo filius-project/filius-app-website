@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SecurityPage from '../../components/SecurityPage.astro';
+const locale = 'fr' as const;
+---
+<BaseLayout locale={locale} title="Politique de sécurité – Filius on iPad" description="Divulgation responsable des problèmes de sécurité concernant filius.app." noindex>
+  <SecurityPage locale={locale} />
+</BaseLayout>

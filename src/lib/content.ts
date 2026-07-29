@@ -255,7 +255,7 @@ export const copy: Record<Locale, SiteCopy> = {
         {
           question: "Werden Daten gesammelt?",
           answer:
-            "Für die Website sind zunächst keine Analytics oder Werbetracker vorgesehen. Die endgültige App- und Website-Datenschutzerklärung muss vor Release freigegeben werden.",
+            "Optionale, selbst gehostete Reichweitenmessung wird erst nach ausdrücklicher Zustimmung geladen. Ablehnen ist gleichwertig möglich; Werbung und seitenübergreifende Profile sind nicht vorgesehen.",
         },
         {
           question: "Wie verteile ich ein Projekt an Lernende?",
@@ -295,11 +295,11 @@ export const copy: Record<Locale, SiteCopy> = {
     privacy: {
       title: "Datenschutz",
       intro:
-        "Diese Seite ist ein technischer Vorabentwurf und keine freigegebene Datenschutzerklärung.",
+        "Informationen zu Websitebetrieb, optionaler Reichweitenmessung, Einwilligung und Support.",
       sections: [
         {
           title: "Website",
-          body: "Die statische Website ist ohne Analytics, Werbung und clientseitige Tracker geplant. Der Server kann technisch notwendige Zugriffs- und Fehlerprotokolle erzeugen.",
+          body: "Technisch notwendige Serverprotokolle sichern den Betrieb. Optionale Reichweitenmessung wird nur nach Einwilligung geladen.",
         },
         {
           title: "Support",
@@ -543,7 +543,7 @@ export const copy: Record<Locale, SiteCopy> = {
         {
           question: "Does it collect data?",
           answer:
-            "The website is planned without analytics or advertising trackers. Final app and website privacy statements still require release review.",
+            "Optional self-hosted audience measurement loads only after explicit consent. Rejecting is equally available; advertising and cross-site profiles are not used.",
         },
         {
           question: "How can teachers share projects?",
@@ -583,11 +583,11 @@ export const copy: Record<Locale, SiteCopy> = {
     privacy: {
       title: "Privacy",
       intro:
-        "This page is a technical pre-release draft, not an approved privacy notice.",
+        "Information about website operation, optional audience measurement, consent, and support.",
       sections: [
         {
           title: "Website",
-          body: "The static website is planned without analytics, advertising, or client-side trackers. The server may generate necessary access and error logs.",
+          body: "Technically necessary server logs support operation. Optional audience measurement loads only after consent.",
         },
         {
           title: "Support",
@@ -832,7 +832,7 @@ export const copy: Record<Locale, SiteCopy> = {
         {
           question: "Des données sont-elles collectées ?",
           answer:
-            "Le site est prévu sans analytics ni publicité. Les déclarations finales de l’app et du site nécessitent encore une validation.",
+            "La mesure d’audience auto-hébergée facultative n’est chargée qu’après consentement explicite. Le refus est proposé de façon équivalente ; il n’y a ni publicité ni profil intersites.",
         },
         {
           question: "Comment partager un projet en classe ?",
@@ -871,11 +871,12 @@ export const copy: Record<Locale, SiteCopy> = {
     },
     privacy: {
       title: "Confidentialité",
-      intro: "Cette page est un brouillon technique avant publication.",
+      intro:
+        "Informations sur le fonctionnement du site, la mesure facultative, le consentement et l’assistance.",
       sections: [
         {
           title: "Site",
-          body: "Le site statique est prévu sans analytics, publicité ou traceurs côté client. Le serveur peut produire des journaux techniques nécessaires.",
+          body: "Les journaux serveur techniquement nécessaires assurent le fonctionnement. La mesure facultative n’est chargée qu’après consentement.",
         },
         {
           title: "Assistance",

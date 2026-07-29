@@ -1,5 +1,5 @@
 ---
-import { localizedPath } from '../config';
+import { localizedPath, site } from '../config';
 import type { Locale } from '../config';
 import { copy } from '../lib/content';
 interface Props { locale: Locale }
@@ -23,8 +23,18 @@ const c = copy[locale];
         <a href={localizedPath(locale, 'imprint')}>{c.imprint.title}</a>
         <a href={localizedPath(locale, 'accessibility')}>{c.accessibility.title}</a>
         <a href={localizedPath(locale, 'licenses')}>{c.licenses.title}</a>
+        <a href={localizedPath(locale, 'security')}>{locale === 'de' ? 'Sicherheit' : locale === 'fr' ? 'Sécurité' : 'Security'}</a>
+        {site.analytics.enabled && (
+          <button class="footer-privacy-button" type="button" data-open-privacy-settings>
+            {locale === 'de' ? 'Datenschutzeinstellungen' : locale === 'fr' ? 'Réglages de confidentialité' : 'Privacy settings'}
+          </button>
+        )}
       </div>
     </div>
     <div class="footer-bottom"><span>© {new Date().getFullYear()} Filius on iPad</span><span>{c.footer.rights}</span></div>
   </div>
 </footer>
+<style>
+  .footer-privacy-button { padding: 0; border: 0; color: inherit; background: none; font: inherit; text-align: left; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: .2em; cursor: pointer; }
+  .footer-privacy-button:hover, .footer-privacy-button:focus-visible { text-decoration-color: currentColor; }
+</style>

@@ -47,6 +47,14 @@ export default defineConfig({
       lastUpdated: true,
       credits: false,
       head: [
+        {
+          tag: "link",
+          attrs: { rel: "stylesheet", href: "/privacy-consent.css" },
+        },
+        {
+          tag: "script",
+          attrs: { src: "/privacy-consent.js", defer: true },
+        },
         { tag: "meta", attrs: { name: "theme-color", content: "#17203f" } },
         {
           tag: "meta",

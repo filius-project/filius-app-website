@@ -1,10 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import TrustPage from '../../components/TrustPage.astro';
-import { copy } from '../../lib/content';
+import PrivacyPage from '../../components/PrivacyPage.astro';
+import { privacyNoticeReady } from '../../config';
 const locale = 'fr' as const;
-const c = copy[locale];
+const title = 'Politique de confidentialité';
+const description = 'Informations sur la confidentialité, la mesure d’audience facultative et l’assistance.';
 ---
-<BaseLayout locale={locale} title={`${c.privacy.title} – Filius on iPad`} description={c.privacy.intro} noindex>
-  <TrustPage locale={locale} kind="privacy" />
+<BaseLayout locale={locale} title={`${title} – Filius on iPad`} description={description} noindex={!privacyNoticeReady}>
+  <PrivacyPage locale={locale} />
 </BaseLayout>

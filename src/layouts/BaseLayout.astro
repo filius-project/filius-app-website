@@ -26,6 +26,7 @@ const imageUrl = new URL(image, site.origin);
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
+    <link rel="stylesheet" href="/privacy-consent.css" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Filius on iPad" />
     <meta property="og:locale" content={locale === 'de' ? 'de_DE' : locale === 'fr' ? 'fr_FR' : 'en_US'} />
@@ -44,5 +45,6 @@ const imageUrl = new URL(image, site.origin);
     <SiteHeader locale={locale} pathname={Astro.url.pathname} active={active} />
     <main id="main"><slot /></main>
     <SiteFooter locale={locale} />
+    <script is:inline src="/privacy-consent.js" defer></script>
   </body>
 </html>

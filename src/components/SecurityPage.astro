@@ -1,0 +1,56 @@
+---
+import type { Locale } from "../config";
+import { site } from "../config";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const copy = {
+  de: {
+    eyebrow: "Verantwortungsvolle Meldung",
+    title: "Sicherheitsrichtlinie",
+    intro: "So können Sicherheitsprobleme bei filius.app oder Filius on iPad vertraulich gemeldet werden.",
+    report: "Sicherheitsproblem melden",
+    reportBody: "Sende eine Beschreibung mit betroffener URL oder App-Version, nachvollziehbaren Schritten, möglicher Auswirkung und – falls vorhanden – einem minimalen Nachweis. Übermittle keine echten Zugangsdaten, personenbezogenen Unterrichtsdaten oder unnötige Projektdateien.",
+    response: "Bearbeitung",
+    responseBody: "Der Eingang wird nach Möglichkeit zeitnah bestätigt. Die Meldung wird geprüft, nach Schwere priorisiert und bis zur Behebung vertraulich behandelt. Bitte veröffentliche Details erst nach abgestimmter Freigabe oder wenn eine angemessene Behebungsfrist verstrichen ist.",
+    scope: "Geltungsbereich",
+    scopeBody: "Erfasst sind diese Website, ihre Container- und Bereitstellungskonfiguration sowie veröffentlichte Builds von Filius on iPad. Schwachstellen in fremden Diensten sollten direkt an deren Betreiber gemeldet werden.",
+  },
+  en: {
+    eyebrow: "Responsible disclosure",
+    title: "Security policy",
+    intro: "How to report a security issue affecting filius.app or Filius on iPad confidentially.",
+    report: "Report a security issue",
+    reportBody: "Send the affected URL or app version, reproducible steps, likely impact, and a minimal proof where available. Do not send real credentials, personal classroom data, or unnecessary project files.",
+    response: "Handling",
+    responseBody: "Receipt will be acknowledged where possible. Reports are assessed, prioritised by severity, and kept confidential while a fix is prepared. Please do not publish details until disclosure is coordinated or a reasonable remediation period has passed.",
+    scope: "Scope",
+    scopeBody: "Scope includes this website, its container and deployment configuration, and published Filius on iPad builds. Vulnerabilities in third-party services should be reported to their operators.",
+  },
+  fr: {
+    eyebrow: "Divulgation responsable",
+    title: "Politique de sécurité",
+    intro: "Comment signaler confidentiellement un problème de sécurité concernant filius.app ou Filius on iPad.",
+    report: "Signaler un problème",
+    reportBody: "Indiquez l’URL ou la version concernée, les étapes reproductibles, l’impact probable et, si possible, une preuve minimale. N’envoyez pas de vrais identifiants, de données personnelles de classe ni de fichiers de projet inutiles.",
+    response: "Traitement",
+    responseBody: "La réception sera confirmée si possible. Le signalement est évalué, priorisé selon sa gravité et conservé confidentiel pendant la correction. Ne publiez pas les détails avant coordination ou avant l’expiration d’un délai raisonnable de correction.",
+    scope: "Périmètre",
+    scopeBody: "Le périmètre comprend ce site, sa configuration de conteneur et de déploiement et les builds publiés de Filius on iPad. Les failles de services tiers doivent être signalées à leurs exploitants.",
+  },
+}[locale];
+const subject = encodeURIComponent("Security report for filius.app");
+---
+<section class="page-hero security-hero"><div class="reading"><p class="eyebrow">{copy.eyebrow}</p><h1>{copy.title}</h1><p class="lede">{copy.intro}</p></div></section>
+<section class="section security-section"><div class="reading prose content-card">
+  <section><h2>{copy.report}</h2><p>{copy.reportBody}</p><a class="button button--primary" href={`mailto:${site.supportEmail}?subject=${subject}`} data-umami-event="security-report-open">{site.supportEmail}</a></section>
+  <section><h2>{copy.response}</h2><p>{copy.responseBody}</p></section>
+  <section><h2>{copy.scope}</h2><p>{copy.scopeBody}</p></section>
+</div></section>
+<style>
+  .security-hero { color: white; background: var(--navy-950); }
+  .security-hero .eyebrow { color: #ff8991; }
+  .security-hero .lede { color: rgb(255 255 255 / .68); }
+  .security-section { padding-top: 0; background: var(--paper); }
+  .security-section section:first-child h2 { margin-top: 0; }
+</style>

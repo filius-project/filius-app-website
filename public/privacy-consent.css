@@ -1,0 +1,107 @@
+.privacy-consent {
+  position: fixed;
+  z-index: 10000;
+  right: 1rem;
+  bottom: 1rem;
+  left: 1rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1.25rem;
+  align-items: center;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding: 1.15rem;
+  border: 1px solid rgb(255 255 255 / 0.2);
+  border-radius: 1rem;
+  color: #fffdf8;
+  background: #10172f;
+  box-shadow: 0 22px 70px rgb(0 0 0 / 0.35);
+  font-family: "Source Sans 3 Variable", "Avenir Next", sans-serif;
+}
+
+.privacy-consent h2 {
+  margin: 0 0 0.35rem;
+  color: inherit;
+  font-size: 1.15rem;
+}
+
+.privacy-consent p {
+  max-width: 62ch;
+  margin: 0;
+  color: rgb(255 255 255 / 0.75);
+  line-height: 1.5;
+}
+
+.privacy-consent a {
+  display: inline-block;
+  margin-top: 0.45rem;
+  color: #fff;
+  font-weight: 700;
+  text-underline-offset: 0.2em;
+}
+
+.privacy-consent__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: end;
+  gap: 0.65rem;
+}
+
+.privacy-consent__button,
+.privacy-settings-button {
+  min-height: 2.75rem;
+  border: 2px solid #fff;
+  border-radius: 0.7rem;
+  color: #fff;
+  background: transparent;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.privacy-consent__button {
+  padding: 0.65rem 0.9rem;
+}
+
+.privacy-consent__button:hover,
+.privacy-consent__button:focus-visible,
+.privacy-settings-button:hover,
+.privacy-settings-button:focus-visible {
+  color: #10172f;
+  background: #fff;
+  outline: 3px solid #ff5b65;
+  outline-offset: 2px;
+}
+
+.privacy-settings-button {
+  position: fixed;
+  z-index: 9998;
+  right: 1rem;
+  bottom: 1rem;
+  padding: 0.45rem 0.7rem;
+  border-color: #17203f;
+  color: #17203f;
+  background: #fffdf8;
+  box-shadow: 0 8px 24px rgb(16 23 47 / 0.18);
+  font-size: 0.78rem;
+}
+
+@media (max-width: 48rem) {
+  .privacy-consent {
+    grid-template-columns: 1fr;
+  }
+
+  .privacy-consent__actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: stretch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .privacy-consent *,
+  .privacy-settings-button {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}

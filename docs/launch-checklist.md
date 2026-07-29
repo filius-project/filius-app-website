@@ -49,3 +49,16 @@ The implementation is complete enough for preview deployment, but the following 
 - [ ] Replace the current development screenshot with approved release-candidate screenshots if needed.
 - [ ] Confirm every translated page with a fluent reviewer.
 - [ ] Check all external links immediately before launch.
+
+## EU privacy and analytics
+
+- [ ] Fill all `LEGAL_*`, hosting, OCI-region, Cloudflare, log-retention, and email-provider repository variables.
+- [ ] Confirm the Oracle contracting entity and `eu-frankfurt-1` region in the tenancy/order.
+- [ ] Retain the applicable Oracle and Cloudflare DPAs and document Oracle’s BCR-P/SCC safeguards and Cloudflare’s DPF/SCC safeguards.
+- [ ] Confirm whether the Gmail destination is personal Gmail (`consumer-gmail`) or Google Workspace (`google-workspace`).
+- [ ] For personal Gmail, record Google Ireland Limited as an independent recipient/controller; for Workspace, retain the Workspace DPA.
+- [ ] Deploy the self-hosted analytics instance and set `UMAMI_SCRIPT_URL` and `UMAMI_WEBSITE_ID`, or leave both empty to disable tracking.
+- [ ] Confirm that origin, proxy, analytics, database, and mail retention match the privacy notice.
+- [ ] Confirm processor agreements and any Chapter V GDPR transfer safeguards.
+- [ ] Test accept, reject, withdrawal, Global Privacy Control, and no-request-before-consent behavior.
+- [ ] Obtain a legal review before setting `LEGAL_REVIEWED=true`.

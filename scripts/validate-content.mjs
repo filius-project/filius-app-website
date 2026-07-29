@@ -10,6 +10,7 @@ const requiredRoutes = [
   "imprint.astro",
   "accessibility.astro",
   "licenses.astro",
+  "security.astro",
 ];
 const locales = ["en", "fr"];
 const docsRoot = "src/content/docs";

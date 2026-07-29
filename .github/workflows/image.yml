@@ -9,6 +9,8 @@ on:
     - cron: "17 4 * * 1"
   workflow_dispatch:
 
+permissions: {}
+
 concurrency:
   group: website-image-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: true
@@ -18,14 +20,37 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  validate:
-    if: github.event_name == 'pull_request'
+  quality:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       contents: read
     steps:
       - name: Check out source
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Validate static build
+        run: npm run validate
+      - name: Run browser tests
+        run: npm test
+
+  validate:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    permissions:
+      contents: read
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Set up Buildx
         uses: docker/setup-buildx-action@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4
       - name: Build without publishing
@@ -35,18 +60,46 @@ jobs:
           push: false
           pull: true
           platforms: linux/amd64,linux/arm64
+          build-args: |
+            PUBLIC_UMAMI_SCRIPT_URL=${{ vars.UMAMI_SCRIPT_URL }}
+            PUBLIC_UMAMI_WEBSITE_ID=${{ vars.UMAMI_WEBSITE_ID }}
+            PUBLIC_UMAMI_DOMAINS=${{ vars.UMAMI_DOMAINS }}
+            PUBLIC_LEGAL_REVIEWED=${{ vars.LEGAL_REVIEWED }}
+            PUBLIC_LEGAL_CONTROLLER_NAME=${{ vars.LEGAL_CONTROLLER_NAME }}
+            PUBLIC_LEGAL_CONTROLLER_ADDRESS=${{ vars.LEGAL_CONTROLLER_ADDRESS }}
+            PUBLIC_LEGAL_CONTROLLER_EMAIL=${{ vars.LEGAL_CONTROLLER_EMAIL }}
+            PUBLIC_LEGAL_CONTROLLER_PHONE=${{ vars.LEGAL_CONTROLLER_PHONE }}
+            PUBLIC_LEGAL_VAT_ID=${{ vars.LEGAL_VAT_ID }}
+            PUBLIC_LEGAL_REGISTER_ENTRY=${{ vars.LEGAL_REGISTER_ENTRY }}
+            PUBLIC_HOSTING_PROVIDER_NAME=${{ vars.HOSTING_PROVIDER_NAME }}
+            PUBLIC_HOSTING_PROVIDER_ADDRESS=${{ vars.HOSTING_PROVIDER_ADDRESS }}
+            PUBLIC_HOSTING_COUNTRY=${{ vars.HOSTING_COUNTRY }}
+            PUBLIC_HOSTING_REGION=${{ vars.HOSTING_REGION }}
+            PUBLIC_CLOUDFLARE_PROXY_ENABLED=${{ vars.CLOUDFLARE_PROXY_ENABLED }}
+            PUBLIC_ACCESS_LOG_RETENTION_DAYS=${{ vars.ACCESS_LOG_RETENTION_DAYS }}
+            PUBLIC_ERROR_LOG_RETENTION_DAYS=${{ vars.ERROR_LOG_RETENTION_DAYS }}
+            PUBLIC_EMAIL_PROVIDER_NAME=${{ vars.EMAIL_PROVIDER_NAME }}
+            PUBLIC_EMAIL_PROVIDER_ADDRESS=${{ vars.EMAIL_PROVIDER_ADDRESS }}
+            PUBLIC_EMAIL_PROVIDER_COUNTRY=${{ vars.EMAIL_PROVIDER_COUNTRY }}
+            PUBLIC_EMAIL_PROVIDER_MODE=${{ vars.EMAIL_PROVIDER_MODE }}
+            PUBLIC_ANALYTICS_RETENTION_DAYS=${{ vars.ANALYTICS_RETENTION_DAYS }}
+            PUBLIC_PRIVACY_NOTICE_DATE=${{ vars.PRIVACY_NOTICE_DATE }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
   publish:
     if: github.event_name != 'pull_request'
+    needs: quality
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     permissions:
       contents: read
       packages: write
+      attestations: write
+      id-token: write
     steps:
       - name: Check out source
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Set up Buildx
         uses: docker/setup-buildx-action@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4
       - name: Log in to GHCR
@@ -77,14 +130,56 @@ jobs:
           platforms: linux/amd64,linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            PUBLIC_UMAMI_SCRIPT_URL=${{ vars.UMAMI_SCRIPT_URL }}
+            PUBLIC_UMAMI_WEBSITE_ID=${{ vars.UMAMI_WEBSITE_ID }}
+            PUBLIC_UMAMI_DOMAINS=${{ vars.UMAMI_DOMAINS }}
+            PUBLIC_LEGAL_REVIEWED=${{ vars.LEGAL_REVIEWED }}
+            PUBLIC_LEGAL_CONTROLLER_NAME=${{ vars.LEGAL_CONTROLLER_NAME }}
+            PUBLIC_LEGAL_CONTROLLER_ADDRESS=${{ vars.LEGAL_CONTROLLER_ADDRESS }}
+            PUBLIC_LEGAL_CONTROLLER_EMAIL=${{ vars.LEGAL_CONTROLLER_EMAIL }}
+            PUBLIC_LEGAL_CONTROLLER_PHONE=${{ vars.LEGAL_CONTROLLER_PHONE }}
+            PUBLIC_LEGAL_VAT_ID=${{ vars.LEGAL_VAT_ID }}
+            PUBLIC_LEGAL_REGISTER_ENTRY=${{ vars.LEGAL_REGISTER_ENTRY }}
+            PUBLIC_HOSTING_PROVIDER_NAME=${{ vars.HOSTING_PROVIDER_NAME }}
+            PUBLIC_HOSTING_PROVIDER_ADDRESS=${{ vars.HOSTING_PROVIDER_ADDRESS }}
+            PUBLIC_HOSTING_COUNTRY=${{ vars.HOSTING_COUNTRY }}
+            PUBLIC_HOSTING_REGION=${{ vars.HOSTING_REGION }}
+            PUBLIC_CLOUDFLARE_PROXY_ENABLED=${{ vars.CLOUDFLARE_PROXY_ENABLED }}
+            PUBLIC_ACCESS_LOG_RETENTION_DAYS=${{ vars.ACCESS_LOG_RETENTION_DAYS }}
+            PUBLIC_ERROR_LOG_RETENTION_DAYS=${{ vars.ERROR_LOG_RETENTION_DAYS }}
+            PUBLIC_EMAIL_PROVIDER_NAME=${{ vars.EMAIL_PROVIDER_NAME }}
+            PUBLIC_EMAIL_PROVIDER_ADDRESS=${{ vars.EMAIL_PROVIDER_ADDRESS }}
+            PUBLIC_EMAIL_PROVIDER_COUNTRY=${{ vars.EMAIL_PROVIDER_COUNTRY }}
+            PUBLIC_EMAIL_PROVIDER_MODE=${{ vars.EMAIL_PROVIDER_MODE }}
+            PUBLIC_ANALYTICS_RETENTION_DAYS=${{ vars.ANALYTICS_RETENTION_DAYS }}
+            PUBLIC_PRIVACY_NOTICE_DATE=${{ vars.PRIVACY_NOTICE_DATE }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           provenance: mode=max
           sbom: true
+      - name: Attest published image when supported
+        if: github.event.repository.visibility == 'public' || vars.ENABLE_ARTIFACT_ATTESTATION == 'true'
+        uses: actions/attest@f7c74d28b9d84cb8768d0b8ca14a4bac6ef463e6 # v4
+        with:
+          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          subject-digest: ${{ steps.build.outputs.digest }}
+          push-to-registry: true
       - name: Publish summary
+        env:
+          IMAGE_TAGS: ${{ steps.meta.outputs.tags }}
+          IMAGE_DIGEST: ${{ steps.build.outputs.digest }}
+          ATTESTATION_ENABLED: ${{ github.event.repository.visibility == 'public' || vars.ENABLE_ARTIFACT_ATTESTATION == 'true' }}
         run: |
-          echo "### Published image" >> "$GITHUB_STEP_SUMMARY"
-          echo '```text' >> "$GITHUB_STEP_SUMMARY"
-          echo "${{ steps.meta.outputs.tags }}" >> "$GITHUB_STEP_SUMMARY"
-          echo '```' >> "$GITHUB_STEP_SUMMARY"
-          echo "Digest: \`${{ steps.build.outputs.digest }}\`" >> "$GITHUB_STEP_SUMMARY"
+          {
+            echo "### Published image"
+            echo '```text'
+            echo "$IMAGE_TAGS"
+            echo '```'
+            echo "Digest: \`$IMAGE_DIGEST\`"
+            if [ "$ATTESTATION_ENABLED" = "true" ]; then
+              echo "Artifact attestation: published"
+            else
+              echo "Artifact attestation: skipped (unsupported by this private repository)"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
