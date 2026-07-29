@@ -1,0 +1,55 @@
+---
+import { Image } from 'astro:assets';
+import appIcon from '../assets/brand/filiuspad-icon.png';
+import screenshot from '../assets/screenshots/runtime-device.png';
+import type { Locale } from '../config';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const alt = locale === 'de'
+  ? 'Filius on iPad auf einem iPad mit geöffnetem virtuellen Rechner und Kommandozeilen-Anwendung'
+  : locale === 'fr'
+    ? 'Filius on iPad sur un iPad avec un ordinateur virtuel et l’application de ligne de commande'
+    : 'Filius on iPad on an iPad with a virtual computer and command-line application open';
+---
+<div class="hero-visual" aria-label={alt} role="img">
+  <div class="signal-grid" aria-hidden="true"></div>
+  <div class="device-frame">
+    <div class="camera" aria-hidden="true"></div>
+    <Image src={screenshot} alt={alt} widths={[720, 1100, 1500]} sizes="(max-width: 800px) 94vw, 50vw" format="webp" quality={82} loading="eager" />
+  </div>
+  <div class="app-chip">
+    <Image src={appIcon} alt="" width={62} height={62} loading="eager" />
+    <span><strong>Filius on iPad</strong><small>iPad network lab</small></span>
+  </div>
+  <div class="node node-a" aria-hidden="true"><span>PC</span></div>
+  <div class="node node-b" aria-hidden="true"><span>DNS</span></div>
+  <div class="node node-c" aria-hidden="true"><span>WEB</span></div>
+  <svg class="cable" viewBox="0 0 760 620" aria-hidden="true"><path d="M72 160C180 42 342 80 400 214s185 194 290 78"/><path class="cable-highlight" d="M72 160C180 42 342 80 400 214s185 194 290 78"/></svg>
+  <span class="packet packet-1" aria-hidden="true"></span><span class="packet packet-2" aria-hidden="true"></span>
+</div>
+<style>
+  .hero-visual { position: relative; min-height: clamp(29rem, 62vw, 43rem); isolation: isolate; }
+  .signal-grid { position: absolute; inset: 4% 2% 2% 8%; border-radius: 3rem; background-image: linear-gradient(rgb(255 255 255 / .055) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / .055) 1px, transparent 1px); background-size: 2.7rem 2.7rem; mask-image: linear-gradient(to bottom, black, transparent 92%); }
+  .device-frame { position: absolute; inset: 9% 7% 6% 5%; overflow: hidden; padding: clamp(.38rem, 1vw, .7rem); border: 1px solid rgb(255 255 255 / .34); border-radius: clamp(1.6rem, 4vw, 3rem); background: #080a0e; box-shadow: 0 35px 90px rgb(0 0 0 / .36), inset 0 0 0 1px rgb(255 255 255 / .1); transform: rotate(-1.4deg); }
+  .device-frame img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center; border-radius: calc(clamp(1.6rem, 4vw, 3rem) - .55rem); }
+  .camera { position: absolute; z-index: 2; left: 50%; top: .9rem; width: .55rem; aspect-ratio: 1; border-radius: 50%; background: #24272d; box-shadow: 0 0 0 .15rem #111318; }
+  .app-chip { position: absolute; z-index: 4; left: 0; bottom: 3%; display: flex; align-items: center; gap: .75rem; padding: .65rem .85rem; border: 1px solid rgb(255 255 255 / .3); border-radius: 1.1rem; color: white; background: rgb(16 23 47 / .78); backdrop-filter: blur(16px); box-shadow: 0 18px 40px rgb(0 0 0 / .25); }
+  .app-chip img { width: 3.6rem; height: 3.6rem; border-radius: .85rem; }
+  .app-chip span { display: grid; line-height: 1.1; }
+  .app-chip strong { font-family: var(--font-display); font-size: 1.05rem; }
+  .app-chip small { margin-top: .25rem; color: rgb(255 255 255 / .65); }
+  .node { position: absolute; z-index: 3; width: 4.15rem; aspect-ratio: 1; display: grid; place-items: center; border: 1px solid rgb(255 255 255 / .32); border-radius: 1.15rem; color: white; background: rgb(32 42 80 / .86); box-shadow: 0 13px 30px rgb(0 0 0 / .25); backdrop-filter: blur(12px); font-size: .72rem; font-weight: 850; letter-spacing: .08em; }
+  .node::before { content: ''; position: absolute; width: 1.55rem; height: 1.05rem; top: .72rem; border: .15rem solid #cbd7e8; border-radius: .2rem; box-shadow: 0 .32rem 0 -.08rem #8d99ab; }
+  .node span { margin-top: 1.65rem; }
+  .node-a { left: 1%; top: 17%; }
+  .node-b { right: 0; top: 39%; }
+  .node-c { right: 9%; bottom: 1%; }
+  .cable { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .cable path { fill: none; stroke: var(--red-500); stroke-width: 18; stroke-linecap: round; filter: drop-shadow(0 8px 12px rgb(244 22 36 / .25)); }
+  .cable .cable-highlight { stroke: #ff6570; stroke-width: 3; transform: translateY(-3px); opacity: .7; }
+  .packet { position: absolute; z-index: 5; width: .72rem; aspect-ratio: 1; border-radius: 50%; background: #fff4a8; box-shadow: 0 0 0 .35rem rgb(255 244 168 / .12), 0 0 1rem #fff4a8; animation: pulse 2.8s ease-in-out infinite; }
+  .packet-1 { left: 22%; top: 8%; }
+  .packet-2 { right: 8%; top: 38%; animation-delay: 1.2s; }
+  @keyframes pulse { 0%,100% { opacity: .25; transform: scale(.75); } 50% { opacity: 1; transform: scale(1); } }
+  @media (max-width: 54rem) { .hero-visual { min-height: clamp(26rem, 86vw, 39rem); } .device-frame { inset: 8% 4% 8% 4%; } .node { width: 3.7rem; } .node-a { left: 0; } }
+</style>

@@ -1,0 +1,30 @@
+---
+import { site } from '../config';
+import type { Locale } from '../config';
+import { copy } from '../lib/content';
+
+interface Props { locale: Locale; compact?: boolean }
+const { locale, compact = false } = Astro.props;
+const text = copy[locale].common;
+---
+
+{
+  site.appStore.status === 'available' && site.appStore.url ? (
+    <a class:list={['app-store-badge', { compact }]} href={site.appStore.url} rel="external">
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M16.7 12.8c0-2.6 2.2-3.9 2.3-4-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.2 1-4 .9-.9 0-2.2-.9-3.6-.9-1.8 0-3.5 1.1-4.5 2.7-1.9 3.3-.5 8.2 1.4 10.9.9 1.3 2 2.8 3.4 2.7 1.4-.1 1.9-.9 3.6-.9 1.7 0 2.2.9 3.6.9 1.5 0 2.5-1.3 3.4-2.7 1.1-1.5 1.5-3 1.5-3.1-.1 0-3.3-1.3-3.3-4.5ZM14.1 5.1c.8-1 1.3-2.4 1.2-3.8-1.2.1-2.7.8-3.6 1.8-.8.9-1.4 2.3-1.2 3.6 1.3.1 2.7-.6 3.6-1.6Z"/></svg>
+      <span>{text.appStoreAvailable}</span>
+    </a>
+  ) : (
+    <span class:list={['app-store-badge', 'is-pending', { compact }]} aria-label={text.appStoreSoon}>
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M16.7 12.8c0-2.6 2.2-3.9 2.3-4-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.2 1-4 .9-.9 0-2.2-.9-3.6-.9-1.8 0-3.5 1.1-4.5 2.7-1.9 3.3-.5 8.2 1.4 10.9.9 1.3 2 2.8 3.4 2.7 1.4-.1 1.9-.9 3.6-.9 1.7 0 2.2.9 3.6.9 1.5 0 2.5-1.3 3.4-2.7 1.1-1.5 1.5-3 1.5-3.1-.1 0-3.3-1.3-3.3-4.5ZM14.1 5.1c.8-1 1.3-2.4 1.2-3.8-1.2.1-2.7.8-3.6 1.8-.8.9-1.4 2.3-1.2 3.6 1.3.1 2.7-.6 3.6-1.6Z"/></svg>
+      <span>{text.appStoreSoon}</span>
+    </span>
+  )
+}
+
+<style>
+  .app-store-badge { min-height: 3rem; display: inline-flex; align-items: center; gap: 0.65rem; padding: 0.6rem 1rem; border-radius: 0.8rem; color: white; background: #050505; font-size: 0.92rem; font-weight: 750; text-decoration: none; box-shadow: 0 9px 24px rgb(0 0 0 / 0.2); }
+  .app-store-badge svg { width: 1.35rem; fill: currentColor; }
+  .app-store-badge.is-pending { color: rgb(255 255 255 / 0.84); background: #272727; box-shadow: none; }
+  .app-store-badge.compact { min-height: 2.65rem; padding: 0.45rem 0.8rem; font-size: 0.8rem; }
+</style>

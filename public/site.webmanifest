@@ -1,0 +1,12 @@
+{
+  "name": "Filius on iPad",
+  "short_name": "Filius",
+  "description": "Network simulation for iPad",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#f7f4ec",
+  "theme_color": "#17203f",
+  "icons": [
+    { "src": "/apple-touch-icon.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

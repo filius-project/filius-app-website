@@ -1,0 +1,174 @@
+@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/source-sans-3";
+
+:root {
+  --sl-font: "Source Sans 3 Variable", "Avenir Next", sans-serif;
+  --sl-font-system-mono:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --sl-color-accent-low: #ffe2df;
+  --sl-color-accent: #d90f1b;
+  --sl-color-accent-high: #76050d;
+  --sl-color-white: #171a24;
+  --sl-color-gray-1: #2b3140;
+  --sl-color-gray-2: #4a5263;
+  --sl-color-gray-3: #6d7482;
+  --sl-color-gray-4: #b6b4ae;
+  --sl-color-gray-5: #dedbd3;
+  --sl-color-gray-6: #efede6;
+  --sl-color-black: #fffdf8;
+  --sl-color-bg: #fffdf8;
+  --sl-color-bg-nav: rgba(247, 244, 236, 0.94);
+  --sl-color-bg-sidebar: #f7f4ec;
+  --sl-color-hairline: #d9d4c9;
+  --sl-content-width: 52rem;
+  --sl-sidebar-width: 18.5rem;
+}
+
+:root[data-theme="dark"] {
+  --sl-color-accent-low: #4c1118;
+  --sl-color-accent: #ff4a53;
+  --sl-color-accent-high: #ffd7da;
+  --sl-color-white: #fffdf8;
+  --sl-color-gray-1: #eeeaf0;
+  --sl-color-gray-2: #cbc8d0;
+  --sl-color-gray-3: #a5a2ad;
+  --sl-color-gray-4: #66697a;
+  --sl-color-gray-5: #34394f;
+  --sl-color-gray-6: #242a43;
+  --sl-color-black: #10172f;
+  --sl-color-bg: #10172f;
+  --sl-color-bg-nav: rgba(16, 23, 47, 0.94);
+  --sl-color-bg-sidebar: #151d38;
+  --sl-color-hairline: #2f3858;
+}
+
+.site-title,
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Bricolage Grotesque Variable", "Avenir Next", sans-serif;
+  letter-spacing: -0.025em;
+}
+.site-title {
+  font-weight: 800;
+}
+.site-title img {
+  border-radius: 0.65rem;
+  box-shadow: 0 4px 12px rgb(16 23 47 / 0.2);
+}
+.header {
+  backdrop-filter: blur(18px);
+}
+.hero h1 {
+  max-width: 13ch;
+}
+.sl-markdown-content a:not([class]) {
+  font-weight: 650;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.2em;
+}
+.sl-markdown-content code:not(:where(.not-content *)) {
+  border-radius: 0.35rem;
+}
+.sl-markdown-content table {
+  display: table;
+  width: 100%;
+}
+.sidebar-content a {
+  border-radius: 0.55rem;
+}
+.pagination-links a {
+  border-radius: 1rem;
+}
+.card {
+  border-radius: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Documentation media uses the original in-app artwork at a readable,
+   intentionally bounded size. */
+.sl-markdown-content .doc-screenshot {
+  display: block;
+  width: min(100%, 52rem);
+  max-height: 42rem;
+  margin-block: 1.5rem 2rem;
+  border: 1px solid var(--sl-color-hairline);
+  border-radius: 1.15rem;
+  object-fit: contain;
+  background: var(--sl-color-gray-6);
+  box-shadow: 0 18px 50px rgb(16 23 47 / 0.14);
+}
+
+.sl-markdown-content .doc-screenshot--palette {
+  width: min(100%, 22rem);
+  max-height: 42rem;
+  object-position: top;
+}
+
+.sl-markdown-content .doc-icon,
+.sl-markdown-content .doc-app-icon,
+.sl-markdown-content .doc-device {
+  display: inline-block;
+  width: auto;
+  object-fit: contain;
+  vertical-align: middle;
+  filter: drop-shadow(0 6px 8px rgb(16 23 47 / 0.14));
+}
+
+.sl-markdown-content .doc-icon {
+  max-width: 3.25rem;
+  max-height: 3.25rem;
+  margin: 0.1rem;
+}
+
+.sl-markdown-content .doc-icon--large {
+  max-width: 5rem;
+  max-height: 5rem;
+  margin-block: 0.5rem 1rem;
+}
+
+.sl-markdown-content .doc-app-icon {
+  max-width: 6rem;
+  max-height: 6rem;
+  margin-block: 0.35rem 0.8rem;
+}
+
+.sl-markdown-content .doc-device {
+  max-width: 9rem;
+  max-height: 8rem;
+  margin-block: 0.4rem 1rem;
+}
+
+.sl-markdown-content h2 + :is(.doc-device, .doc-app-icon),
+.sl-markdown-content h3 + :is(.doc-device, .doc-app-icon) {
+  float: right;
+  margin: 0 0 1rem 1.5rem;
+}
+
+.sl-markdown-content h2 {
+  clear: both;
+}
+
+@media (max-width: 40rem) {
+  .sl-markdown-content h2 + :is(.doc-device, .doc-app-icon),
+  .sl-markdown-content h3 + :is(.doc-device, .doc-app-icon) {
+    float: none;
+    margin-left: 0;
+  }
+
+  .sl-markdown-content table {
+    display: block;
+    overflow-x: auto;
+  }
+}

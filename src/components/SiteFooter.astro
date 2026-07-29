@@ -1,0 +1,30 @@
+---
+import { localizedPath } from '../config';
+import type { Locale } from '../config';
+import { copy } from '../lib/content';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const c = copy[locale];
+---
+<footer class="site-footer">
+  <div class="shell">
+    <div class="footer-grid">
+      <div class="footer-brand"><h2>Filius on iPad</h2><p>{c.footer.tagline}</p><p>{c.footer.original}</p></div>
+      <div class="footer-links">
+        <h2>{c.nav.docs}</h2>
+        <a href={localizedPath(locale, 'quickstart')}>{c.nav.quickstart}</a>
+        <a href={localizedPath(locale, 'docs')}>{c.nav.docs}</a>
+        <a href={localizedPath(locale, 'faq')}>{c.nav.faq}</a>
+        <a href={localizedPath(locale, 'support')}>{c.nav.support}</a>
+      </div>
+      <div class="footer-links">
+        <h2>Trust</h2>
+        <a href={localizedPath(locale, 'privacy')}>{c.privacy.title}</a>
+        <a href={localizedPath(locale, 'imprint')}>{c.imprint.title}</a>
+        <a href={localizedPath(locale, 'accessibility')}>{c.accessibility.title}</a>
+        <a href={localizedPath(locale, 'licenses')}>{c.licenses.title}</a>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© {new Date().getFullYear()} Filius on iPad</span><span>{c.footer.rights}</span></div>
+  </div>
+</footer>

@@ -1,0 +1,48 @@
+---
+import '../styles/global.css';
+import { locales, switchLocalePath, site } from '../config';
+import type { Locale, NavKey } from '../config';
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+
+interface Props { locale: Locale; title: string; description: string; active?: NavKey; noindex?: boolean; image?: string }
+const { locale, title, description, active, noindex = false, image = '/assets/runtime-device.png' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, site.origin);
+const imageUrl = new URL(image, site.origin);
+---
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#17203f" />
+    <meta name="color-scheme" content="light" />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonical} />
+    {locales.map((target) => <link rel="alternate" hreflang={target} href={new URL(switchLocalePath(Astro.url.pathname, target), site.origin)} />)}
+    <link rel="alternate" hreflang="x-default" href={new URL(switchLocalePath(Astro.url.pathname, 'de'), site.origin)} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Filius on iPad" />
+    <meta property="og:locale" content={locale === 'de' ? 'de_DE' : locale === 'fr' ? 'fr_FR' : 'en_US'} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{locale === 'de' ? 'Zum Inhalt' : locale === 'fr' ? 'Aller au contenu' : 'Skip to content'}</a>
+    <SiteHeader locale={locale} pathname={Astro.url.pathname} active={active} />
+    <main id="main"><slot /></main>
+    <SiteFooter locale={locale} />
+  </body>
+</html>

@@ -1,26 +1,59 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
-import starlight from '@astrojs/starlight';
+import { defineConfig } from "astro/config";
+import sitemap from "@astrojs/sitemap";
+import starlight from "@astrojs/starlight";
 
-// https://astro.build/config
+const documentationPages = [
+  "docs",
+  "docs/getting-started",
+  "docs/interface",
+  "docs/devices",
+  "docs/design",
+  "docs/networking",
+  "docs/simulation",
+  "docs/applications",
+  "docs/compatibility",
+  "docs/troubleshooting",
+  "docs/about",
+];
+
 export default defineConfig({
-	integrations: [
-		starlight({
-			title: 'My Docs',
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
-			sidebar: [
-				{
-					label: 'Guides',
-					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', slug: 'guides/example' },
-					],
-				},
-				{
-					label: 'Reference',
-					items: [{ autogenerate: { directory: 'reference' } }],
-				},
-			],
-		}),
-	],
+  site: "https://filius.app",
+  output: "static",
+  trailingSlash: "always",
+  integrations: [
+    sitemap({
+      i18n: {
+        defaultLocale: "de",
+        locales: { de: "de-DE", en: "en-US", fr: "fr-FR" },
+      },
+    }),
+    starlight({
+      title: "Filius on iPad",
+      description:
+        "Netzwerksimulation auf dem iPad – Dokumentation, Schnellstart und Kompatibilität.",
+      logo: {
+        src: "./src/assets/brand/filiuspad-icon.png",
+        alt: "Filius on iPad",
+      },
+      favicon: "/favicon.png",
+      defaultLocale: "root",
+      locales: {
+        root: { label: "Deutsch", lang: "de", dir: "ltr" },
+        en: { label: "English", lang: "en", dir: "ltr" },
+        fr: { label: "Français", lang: "fr", dir: "ltr" },
+      },
+      customCss: ["./src/styles/starlight.css"],
+      lastUpdated: true,
+      credits: false,
+      head: [
+        { tag: "meta", attrs: { name: "theme-color", content: "#17203f" } },
+        {
+          tag: "meta",
+          attrs: { name: "apple-mobile-web-app-capable", content: "yes" },
+        },
+      ],
+      sidebar: documentationPages,
+    }),
+  ],
 });

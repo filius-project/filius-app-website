@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SupportPage from '../components/SupportPage.astro';
+import { copy } from '../lib/content';
+const locale = 'de' as const;
+const c = copy[locale];
+---
+<BaseLayout locale={locale} title={`${c.support.title} – Filius on iPad`} description={c.support.intro} active="support">
+  <SupportPage locale={locale} />
+</BaseLayout>

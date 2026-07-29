@@ -1,0 +1,33 @@
+---
+import type { Locale } from '../config';
+import { site } from '../config';
+import { copy } from '../lib/content';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const c = copy[locale];
+const subject = encodeURIComponent('Filius on iPad support request');
+const body = encodeURIComponent(`Filius on iPad version:\niPadOS version:\niPad model:\n\nSteps to reproduce:\n1. \n2. \n\nExpected result:\n\nActual result:\n`);
+---
+<section class="page-hero support-hero"><div class="shell"><p class="eyebrow">{c.nav.support}</p><h1>{c.support.title}</h1><p class="lede">{c.support.intro}</p></div></section>
+<section class="section support-section"><div class="shell support-grid">
+  <article class="email-card"><div class="mail-icon" aria-hidden="true">@</div><p class="eyebrow">{c.support.emailTitle}</p><h2>{site.supportEmail}</h2><p>{c.support.emailBody}</p><a class="button button--primary" href={`mailto:${site.supportEmail}?subject=${subject}&body=${body}`}>{c.common.supportEmail}</a></article>
+  <article class="checklist-card"><p class="eyebrow">{c.support.checklistTitle}</p><ol>{c.support.checklist.map((item) => <li>{item}</li>)}</ol></article>
+</div></section>
+<section class="section--compact form-note"><div class="reading content-card"><h2>{locale === 'de' ? 'Kontaktformular' : locale === 'fr' ? 'Formulaire de contact' : 'Contact form'}</h2><p>{c.support.formNote}</p></div></section>
+<style>
+  .support-hero { color: white; background: var(--navy-950); }
+  .support-hero .eyebrow { color: #ff8991; } .support-hero .lede { color: rgb(255 255 255 / .65); }
+  .support-section { background: var(--canvas); }
+  .support-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 1rem; }
+  .email-card, .checklist-card { padding: clamp(1.5rem, 4vw, 3rem); border-radius: var(--radius-xl); }
+  .email-card { color: white; background: var(--navy-900); box-shadow: var(--shadow-soft); }
+  .email-card .eyebrow { color: #ff8991; } .email-card h2 { overflow-wrap: anywhere; font-size: clamp(2rem, 4vw, 3.6rem); } .email-card p:not(.eyebrow) { color: rgb(255 255 255 / .66); }
+  .mail-icon { width: 4.6rem; aspect-ratio: 1; display: grid; place-items: center; margin-bottom: 2rem; border-radius: 1.25rem; color: white; background: var(--red-500); font-family: var(--font-display); font-size: 2rem; font-weight: 850; }
+  .checklist-card { border: 1px solid var(--line); background: var(--paper-strong); }
+  .checklist-card ol { display: grid; gap: 1rem; margin: 1.5rem 0 0; padding: 0; list-style: none; counter-reset: items; }
+  .checklist-card li { counter-increment: items; display: grid; grid-template-columns: 2.4rem 1fr; gap: .8rem; align-items: center; }
+  .checklist-card li::before { content: counter(items); width: 2.4rem; aspect-ratio: 1; display: grid; place-items: center; border-radius: .7rem; color: white; background: var(--navy-900); font-weight: 850; }
+  .form-note { background: var(--paper); }
+  .form-note h2 { font-size: 2rem; }
+  @media (max-width: 52rem) { .support-grid { grid-template-columns: 1fr; } }
+</style>

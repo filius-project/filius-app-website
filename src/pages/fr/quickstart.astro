@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import QuickStartPage from '../../components/QuickStartPage.astro';
+import { copy } from '../../lib/content';
+const locale = 'fr' as const;
+const c = copy[locale];
+---
+<BaseLayout locale={locale} title={`${c.quickstart.title} – Filius on iPad`} description={c.quickstart.intro} active="quickstart">
+  <QuickStartPage locale={locale} />
+</BaseLayout>

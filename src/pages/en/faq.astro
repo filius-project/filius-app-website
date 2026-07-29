@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FaqPage from '../../components/FaqPage.astro';
+import { copy } from '../../lib/content';
+const locale = 'en' as const;
+const c = copy[locale];
+---
+<BaseLayout locale={locale} title={`${c.faq.title} – Filius on iPad`} description={c.faq.intro} active="faq">
+  <FaqPage locale={locale} />
+</BaseLayout>

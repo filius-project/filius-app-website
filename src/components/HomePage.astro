@@ -1,0 +1,103 @@
+---
+import type { Locale } from '../config';
+import { localizedPath } from '../config';
+import { copy } from '../lib/content';
+import AppStoreBadge from './AppStoreBadge.astro';
+import HeroVisual from './HeroVisual.astro';
+import NetworkLab from './NetworkLab.astro';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const c = copy[locale];
+---
+<section class="hero">
+  <div class="shell hero-grid">
+    <div class="hero-copy">
+      <span class="status-badge">{c.common.preRelease}</span>
+      <p class="eyebrow">{c.hero.eyebrow}</p>
+      <h1>{c.hero.title}</h1>
+      <p class="hero-lede">{c.hero.body}</p>
+      <div class="button-row">
+        <AppStoreBadge locale={locale} />
+        <a class="button button--secondary" href={localizedPath(locale, 'quickstart')}>{c.common.readQuickstart}<span aria-hidden="true">→</span></a>
+      </div>
+      <p class="compatibility-line"><span aria-hidden="true">●</span>{c.hero.compatibility}</p>
+    </div>
+    <HeroVisual locale={locale} />
+  </div>
+</section>
+<section class="section workflow-section">
+  <div class="shell">
+    <p class="eyebrow">{c.workflow.eyebrow}</p><h2>{c.workflow.title}</h2><p class="lede">{c.workflow.body}</p>
+    <div class="workflow-list">
+      {c.workflow.items.map((item) => <article><span>{item.number}</span><div><h3>{item.title}</h3><p>{item.body}</p></div></article>)}
+    </div>
+  </div>
+</section>
+<section class="section classroom-section">
+  <div class="shell classroom-grid">
+    <div><p class="eyebrow">{c.classroom.eyebrow}</p><h2>{c.classroom.title}</h2><p class="lede">{c.classroom.body}</p></div>
+    <ul>{c.classroom.points.map((point, index) => <li><span>{index + 1}</span>{point}</li>)}</ul>
+  </div>
+</section>
+<section class="section lab-section">
+  <div class="shell"><p class="eyebrow">{c.features.eyebrow}</p><h2>{c.features.title}</h2><p class="lede">{c.features.body}</p><NetworkLab locale={locale} /></div>
+</section>
+<section class="section compatibility-section">
+  <div class="shell compatibility-grid">
+    <div><p class="eyebrow">{c.compatibility.eyebrow}</p><h2>{c.compatibility.title}</h2></div>
+    <div class="compatibility-copy"><p>{c.compatibility.body}</p><aside><strong>Important</strong><p>{c.compatibility.note}</p></aside><a class="button button--quiet" href={localizedPath(locale, 'docs/compatibility')}>{c.common.learnMore}<span aria-hidden="true">→</span></a></div>
+  </div>
+</section>
+<section class="section source-section">
+  <div class="shell source-grid">
+    <div class="source-mark" aria-hidden="true"><span>&lt;/&gt;</span><i></i><i></i><i></i></div>
+    <div><p class="eyebrow">{c.source.eyebrow}</p><h2>{c.source.title}</h2><p class="lede">{c.source.body}</p><p class="source-status">{c.source.pending}</p></div>
+  </div>
+</section>
+<section class="section final-cta">
+  <div class="shell final-card"><div><h2>{c.finalCta.title}</h2><p>{c.finalCta.body}</p></div><div class="button-row"><a class="button button--primary" href={localizedPath(locale, 'quickstart')}>{c.common.readQuickstart}</a><a class="button button--secondary" href={localizedPath(locale, 'docs')}>{c.common.readDocs}</a></div></div>
+</section>
+<style>
+  .hero { position: relative; overflow: hidden; color: white; background: var(--navy-950); }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 12% 20%, rgb(244 22 36 / .15), transparent 28%), radial-gradient(circle at 80% 30%, rgb(33 136 229 / .12), transparent 30%); }
+  .hero-grid { position: relative; min-height: calc(100svh - 4.8rem); display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: clamp(2rem, 5vw, 5rem); padding-block: clamp(4rem, 8vw, 7rem); }
+  .hero-copy { position: relative; z-index: 2; }
+  .hero-copy .eyebrow { margin-top: 2rem; color: #ff8991; }
+  .hero h1 { max-width: 9.5ch; }
+  .hero-lede { max-width: 39rem; margin: 1.5rem 0 2rem; color: rgb(255 255 255 / .72); font-size: clamp(1.15rem, 1.8vw, 1.35rem); }
+  .compatibility-line { display: flex; gap: .55rem; align-items: flex-start; margin-top: 1.45rem; color: rgb(255 255 255 / .58); font-size: .92rem; }
+  .compatibility-line span { color: #58d29c; }
+  .workflow-section { background: var(--paper); }
+  .workflow-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 3rem; counter-reset: workflow; }
+  .workflow-list article { position: relative; min-height: 18rem; display: flex; flex-direction: column; justify-content: space-between; padding: 1.5rem; border-top: .3rem solid var(--navy-900); background: var(--canvas); }
+  .workflow-list article:nth-child(2) { transform: translateY(1.7rem); border-color: var(--red-500); }
+  .workflow-list article > span { color: var(--red-500); font-family: var(--font-display); font-size: 3.5rem; font-weight: 800; line-height: 1; }
+  .workflow-list article p { margin-bottom: 0; color: var(--slate); }
+  .classroom-section { background: var(--canvas); }
+  .classroom-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(2.5rem, 8vw, 7rem); align-items: center; }
+  .classroom-grid ul { display: grid; gap: .8rem; margin: 0; padding: 0; list-style: none; }
+  .classroom-grid li { min-height: 5.3rem; display: flex; align-items: center; gap: 1rem; padding: 1rem 1.2rem; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--paper-strong); box-shadow: 0 8px 20px rgb(16 23 47 / .05); font-weight: 700; }
+  .classroom-grid li span { flex: 0 0 2.6rem; aspect-ratio: 1; display: grid; place-items: center; border-radius: .8rem; color: white; background: var(--navy-900); font-family: var(--font-display); }
+  .lab-section { color: white; background: var(--navy-950); }
+  .lab-section .eyebrow { color: #ff8991; }
+  .lab-section .lede { color: rgb(255 255 255 / .64); }
+  .compatibility-section { background: var(--paper); }
+  .compatibility-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 7vw, 6rem); }
+  .compatibility-copy > p { margin-top: .2rem; color: var(--slate); font-size: 1.2rem; }
+  .compatibility-copy aside { margin-block: 1.5rem; padding: 1.2rem 1.3rem; border-left: .35rem solid var(--red-500); background: #fff0ee; }
+  .compatibility-copy aside strong { color: var(--red-600); text-transform: uppercase; letter-spacing: .08em; font-size: .78rem; }
+  .compatibility-copy aside p { margin: .4rem 0 0; }
+  .source-section { background: var(--canvas); }
+  .source-grid { display: grid; grid-template-columns: .7fr 1.3fr; align-items: center; gap: clamp(2rem, 8vw, 8rem); }
+  .source-mark { position: relative; min-height: 24rem; display: grid; place-items: center; border-radius: var(--radius-xl); color: white; background: var(--navy-900); overflow: hidden; box-shadow: var(--shadow-soft); }
+  .source-mark > span { z-index: 2; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: clamp(2.5rem, 7vw, 5rem); font-weight: 800; }
+  .source-mark i { position: absolute; width: 27rem; height: 7rem; border: .7rem solid var(--red-500); border-radius: 50%; transform: rotate(24deg); }
+  .source-mark i:nth-of-type(2) { transform: rotate(-22deg) scale(.8); opacity: .5; }
+  .source-mark i:nth-of-type(3) { transform: rotate(88deg) scale(.65); opacity: .3; }
+  .source-status { display: inline-flex; padding: .5rem .75rem; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); font-weight: 700; }
+  .final-cta { background: var(--paper); }
+  .final-card { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: clamp(2rem, 5vw, 4rem); border-radius: var(--radius-xl); color: white; background: linear-gradient(125deg, var(--navy-900), #27345e); box-shadow: var(--shadow-soft); }
+  .final-card h2 { max-width: 13ch; font-size: clamp(2rem, 4vw, 3.5rem); }
+  .final-card p { max-width: 35rem; color: rgb(255 255 255 / .66); }
+  @media (max-width: 58rem) { .hero-grid, .classroom-grid, .compatibility-grid, .source-grid { grid-template-columns: 1fr; } .hero-grid { min-height: auto; } .hero-copy { padding-top: 1rem; } .workflow-list { grid-template-columns: 1fr; } .workflow-list article { min-height: 12rem; } .workflow-list article:nth-child(2) { transform: none; } .source-mark { min-height: 18rem; } .final-card { align-items: flex-start; flex-direction: column; } }
+</style>

@@ -1,0 +1,14 @@
+---
+import { locales, switchLocalePath } from '../config';
+import type { Locale } from '../config';
+import { copy } from '../lib/content';
+interface Props { locale: Locale; pathname: string }
+const { locale, pathname } = Astro.props;
+---
+<nav class="language-switcher" aria-label="Language / Sprache / Langue">
+  {locales.map((target) => (
+    <a href={switchLocalePath(pathname, target)} lang={target} hreflang={target} aria-current={target === locale ? 'true' : undefined} aria-label={copy[target].languageName}>
+      {target}
+    </a>
+  ))}
+</nav>

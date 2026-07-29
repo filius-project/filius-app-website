@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TrustPage from '../../components/TrustPage.astro';
+import { copy } from '../../lib/content';
+const locale = 'fr' as const;
+const c = copy[locale];
+---
+<BaseLayout locale={locale} title={`${c.licenses.title} – Filius on iPad`} description={c.licenses.intro} noindex>
+  <TrustPage locale={locale} kind="licenses" />
+</BaseLayout>

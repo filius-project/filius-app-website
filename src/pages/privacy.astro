@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TrustPage from '../components/TrustPage.astro';
+import { copy } from '../lib/content';
+const locale = 'de' as const;
+const c = copy[locale];
+---
+<BaseLayout locale={locale} title={`${c.privacy.title} – Filius on iPad`} description={c.privacy.intro} noindex>
+  <TrustPage locale={locale} kind="privacy" />
+</BaseLayout>
