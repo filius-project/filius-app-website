@@ -61,7 +61,7 @@ export const site = {
     controllerName: envText("PUBLIC_LEGAL_CONTROLLER_NAME", "Sören Schröder"),
     controllerAddress: envText(
       "PUBLIC_LEGAL_CONTROLLER_ADDRESS",
-      "Max-Brauer-Allee 167f, 22765 Hamburg, Germany",
+      "Max-Brauer-Allee 167f, 22765 Hamburg, Deutschland",
     ),
     controllerEmail: envText(
       "PUBLIC_LEGAL_CONTROLLER_EMAIL",

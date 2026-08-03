@@ -50,6 +50,15 @@ The implementation is complete enough for preview deployment, but the following 
 - [ ] Confirm every translated page with a fluent reviewer.
 - [ ] Check all external links immediately before launch.
 
+## Provider and legal notice
+
+- [x] Confirm the current provider is Sören Schröder acting as a private individual.
+- [x] Confirm the planned transition is a standard Gewerbeanmeldung as an unregistered sole trader, not an `e.K.` registration.
+- [x] Confirm that the site does not publish journalistic-editorial content under § 18(2) MStV.
+- [x] Confirm that the provider is neither willing nor obliged to participate in consumer dispute resolution.
+- [ ] Activate `support@filius.app` and verify inbound delivery before setting `LEGAL_REVIEWED=true`.
+- [ ] Add register, VAT ID, or business identification details only if they are actually assigned or applicable.
+
 ## EU privacy and analytics
 
 - [ ] Fill all `LEGAL_*`, hosting, OCI-region, Cloudflare, log-retention, and email-provider repository variables.
