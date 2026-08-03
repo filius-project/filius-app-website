@@ -126,8 +126,9 @@ export function localePrefix(locale: Locale): string {
 export function localizedPath(locale: Locale, path = ""): string {
   const normalized =
     path === "/" ? "" : path.replace(/^\//, "").replace(/\/$/, "");
-  const prefix = localePrefix(locale);
-  return `${prefix}/${normalized}`.replace(/\/+/g, "/") || "/";
+  const prefix = localePrefix(locale).replace(/^\//, "");
+  const segments = [prefix, normalized].filter(Boolean);
+  return segments.length ? `/${segments.join("/")}/` : "/";
 }
 
 export function localeFromPath(pathname: string): Locale {
