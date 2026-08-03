@@ -2,74 +2,144 @@
 import type { Locale } from "../config";
 import { legalNoticeReady, site } from "../config";
 
-interface Props { locale: Locale }
+interface Props {
+  locale: Locale;
+}
+
 const { locale } = Astro.props;
-const missing = locale === "de" ? "Noch einzutragen" : locale === "fr" ? "À compléter" : "To be completed";
+const missing =
+  locale === "de"
+    ? "Noch einzutragen"
+    : locale === "fr"
+      ? "À compléter"
+      : "To be completed";
 const copy = {
   de: {
     eyebrow: "Anbieterkennzeichnung",
     title: "Impressum",
-    intro: "Angaben zum Anbieter von filius.app.",
-    warning: "Vor Veröffentlichung müssen Name und ladungsfähige Anschrift des Anbieters sowie gegebenenfalls Register- und Umsatzsteuerangaben rechtlich geprüft und eingetragen werden.",
-    provider: "Anbieter und verantwortlich für den Inhalt",
+    intro: "Anbieterinformationen für filius.app.",
+    warning:
+      "Die Kontaktadresse support@filius.app wird in einem nächsten Schritt aktiviert. Bis zur abschließenden Prüfung und Aktivierung bleibt diese Anbieterkennzeichnung als Entwurf markiert.",
+    provider: "Diensteanbieter gemäß § 5 DDG",
+    offerName: "„Filius on iPad“ ist die Bezeichnung dieses Angebots.",
     contact: "Kontakt",
     phone: "Telefon",
     register: "Registereintrag",
-    vat: "Umsatzsteuer-ID",
-    editorial: "Inhaltlich verantwortlich",
-    liability: "Hinweis zu externen Verweisen",
-    liabilityBody: "Für Inhalte verlinkter externer Angebote sind deren jeweilige Betreiber verantwortlich. Verweise werden bei Aufnahme geprüft; eine permanente Kontrolle ohne konkreten Anlass ist nicht zumutbar. Hinweise auf rechtswidrige Inhalte werden geprüft und betroffene Verweise bei Bedarf entfernt.",
+    vat: "Umsatzsteuer-Identifikationsnummer",
     dispute: "Verbraucherstreitbeilegung",
-    disputeBody: "Falls der Anbieter Verbraucherleistungen anbietet, muss vor Veröffentlichung geprüft und angegeben werden, ob eine Pflicht oder Bereitschaft zur Teilnahme an einem Streitbeilegungsverfahren besteht.",
+    disputeBody:
+      "Wir sind weder bereit noch verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.",
   },
   en: {
     eyebrow: "Provider identification",
     title: "Legal notice",
     intro: "Provider information for filius.app.",
-    warning: "Before publication, the provider’s name and service address and any applicable register and VAT information must be legally reviewed and supplied.",
-    provider: "Provider and content responsibility",
+    warning:
+      "The support@filius.app contact address will be activated in the next setup step. This legal notice remains marked as a draft until final review and activation.",
+    provider: "Service provider pursuant to section 5 DDG",
+    offerName: "“Filius on iPad” is the designation of this offering.",
     contact: "Contact",
     phone: "Phone",
     register: "Register entry",
-    vat: "VAT ID",
-    editorial: "Editorial responsibility",
-    liability: "External-link notice",
-    liabilityBody: "External operators are responsible for their linked content. Links are checked when added; permanent monitoring without a specific indication is not reasonable. Reports of unlawful content will be reviewed and affected links removed when necessary.",
+    vat: "VAT identification number",
     dispute: "Consumer dispute resolution",
-    disputeBody: "If the provider supplies consumer services, any duty or willingness to participate in dispute-resolution proceedings must be checked and stated before publication.",
+    disputeBody:
+      "We are neither willing nor obliged to participate in dispute-resolution proceedings before a consumer arbitration board.",
   },
   fr: {
     eyebrow: "Identification de l’éditeur",
     title: "Mentions légales",
     intro: "Informations sur l’éditeur de filius.app.",
-    warning: "Avant publication, le nom et l’adresse de service de l’éditeur ainsi que les éventuelles mentions de registre et de TVA doivent être vérifiés et fournis.",
-    provider: "Éditeur et responsable du contenu",
+    warning:
+      "L’adresse de contact support@filius.app sera activée lors de la prochaine étape de configuration. Ces mentions restent indiquées comme projet jusqu’à leur vérification finale et à l’activation de l’adresse.",
+    provider: "Prestataire de services conformément à l’article 5 du DDG",
+    offerName: "« Filius on iPad » est la désignation de cette offre.",
     contact: "Contact",
     phone: "Téléphone",
     register: "Inscription au registre",
-    vat: "Numéro de TVA",
-    editorial: "Responsabilité éditoriale",
-    liability: "Liens externes",
-    liabilityBody: "Les exploitants externes sont responsables de leurs contenus. Les liens sont contrôlés lors de leur ajout ; un contrôle permanent sans indication concrète n’est pas raisonnable. Tout contenu illicite signalé sera examiné et le lien retiré si nécessaire.",
+    vat: "Numéro d’identification à la TVA",
     dispute: "Règlement des litiges de consommation",
-    disputeBody: "Si l’éditeur fournit des services aux consommateurs, toute obligation ou volonté de participer à un règlement extrajudiciaire doit être vérifiée et indiquée avant publication.",
+    disputeBody:
+      "Nous ne sommes ni disposés ni tenus de participer à une procédure de règlement des litiges devant un organisme de médiation de la consommation.",
   },
 }[locale];
 ---
 
-<section class="page-hero trust-hero"><div class="reading"><p class="eyebrow">{copy.eyebrow}</p><h1>{copy.title}</h1><p class="lede">{copy.intro}</p>{!legalNoticeReady && <p class="draft-notice" role="status">{copy.warning}</p>}</div></section>
-<section class="section trust-section"><div class="reading prose content-card legal-copy">
-  <section><h2>{copy.provider}</h2><address><strong>{site.legal.controllerName || missing}</strong><br /><span>{site.legal.controllerAddress || missing}</span></address></section>
-  <section><h2>{copy.contact}</h2><p><a href={`mailto:${site.legal.controllerEmail}`}>{site.legal.controllerEmail}</a>{site.legal.controllerPhone && <><br />{copy.phone}: {site.legal.controllerPhone}</>}</p></section>
-  <section><h2>{copy.editorial}</h2><p>{site.legal.controllerName || missing}<br />{site.legal.controllerAddress || missing}</p></section>
-  {site.legal.registerEntry && <section><h2>{copy.register}</h2><p>{site.legal.registerEntry}</p></section>}
-  {site.legal.vatId && <section><h2>{copy.vat}</h2><p>{site.legal.vatId}</p></section>}
-  <section><h2>{copy.liability}</h2><p>{copy.liabilityBody}</p></section>
-  <section><h2>{copy.dispute}</h2><p>{copy.disputeBody}</p></section>
-</div></section>
+<section class="page-hero trust-hero">
+  <div class="reading">
+    <p class="eyebrow">{copy.eyebrow}</p>
+    <h1>{copy.title}</h1>
+    <p class="lede">{copy.intro}</p>
+    {
+      !legalNoticeReady && (
+        <p class="draft-notice" role="status">{copy.warning}</p>
+      )
+    }
+  </div>
+</section>
+<section class="section trust-section">
+  <div class="reading prose content-card legal-copy">
+    <section>
+      <h2>{copy.provider}</h2>
+      <address>
+        <strong>{site.legal.controllerName || missing}</strong><br />
+        <span>{site.legal.controllerAddress || missing}</span>
+      </address>
+      <p>{copy.offerName}</p>
+    </section>
+    <section>
+      <h2>{copy.contact}</h2>
+      <p>
+        <a href={`mailto:${site.legal.controllerEmail}`}>
+          {site.legal.controllerEmail}
+        </a>
+        {
+          site.legal.controllerPhone && (
+            <>
+              <br />{copy.phone}: {site.legal.controllerPhone}
+            </>
+          )
+        }
+      </p>
+    </section>
+    {
+      site.legal.registerEntry && (
+        <section>
+          <h2>{copy.register}</h2>
+          <p>{site.legal.registerEntry}</p>
+        </section>
+      )
+    }
+    {
+      site.legal.vatId && (
+        <section>
+          <h2>{copy.vat}</h2>
+          <p>{site.legal.vatId}</p>
+        </section>
+      )
+    }
+    <section>
+      <h2>{copy.dispute}</h2>
+      <p>{copy.disputeBody}</p>
+    </section>
+  </div>
+</section>
 <style>
-  .trust-hero { background: var(--paper); }
-  .trust-section { padding-top: 0; background: var(--paper); }
-  .legal-copy section:first-child h2 { margin-top: 0; }
-  .legal-copy address { padding: 1rem; border-left: .25rem solid var(--red-500); background: var(--paper); font-style: normal; white-space: pre-line; }
+  .trust-hero {
+    background: var(--paper);
+  }
+  .trust-section {
+    padding-top: 0;
+    background: var(--paper);
+  }
+  .legal-copy section:first-child h2 {
+    margin-top: 0;
+  }
+  .legal-copy address {
+    padding: 1rem;
+    border-left: 0.25rem solid var(--red-500);
+    background: var(--paper);
+    font-style: normal;
+    white-space: pre-line;
+  }
 </style>

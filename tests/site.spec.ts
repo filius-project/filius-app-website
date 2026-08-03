@@ -293,8 +293,21 @@ test("legal notice publishes the individual operator details without inapplicabl
   await page.goto("/en/imprint/");
   await expect(page.locator("main")).toContainText("Sören Schröder");
   await expect(page.locator("main")).toContainText(
-    "Max-Brauer-Allee 167f, 22765 Hamburg, Germany",
+    "Max-Brauer-Allee 167f, 22765 Hamburg, Deutschland",
   );
+  await expect(page.locator("main")).toContainText(
+    "Service provider pursuant to section 5 DDG",
+  );
+  await expect(page.locator("main")).toContainText(
+    "Filius on iPad” is the designation of this offering",
+  );
+  await expect(page.locator("main")).toContainText(
+    "neither willing nor obliged to participate",
+  );
+  await expect(page.locator("main")).not.toContainText(
+    "Editorial responsibility",
+  );
+  await expect(page.locator("main")).not.toContainText("External-link notice");
   await expect(page.locator("main")).not.toContainText("To be completed");
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
     "content",
