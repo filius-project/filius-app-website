@@ -31,6 +31,33 @@ for (const path of marketingPages) {
   });
 }
 
+test("homepage navigation uses canonical trailing-slash URLs", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const hrefs = await page
+    .locator("a[href]")
+    .evaluateAll((links) =>
+      links
+        .map((link) => link.getAttribute("href"))
+        .filter((href): href is string => Boolean(href?.startsWith("/"))),
+    );
+
+  for (const href of [
+    "/quickstart/",
+    "/docs/",
+    "/faq/",
+    "/support/",
+    "/privacy/",
+    "/imprint/",
+  ]) {
+    expect(hrefs).toContain(href);
+  }
+  expect(
+    hrefs.filter((href) => href !== "/").every((href) => href.endsWith("/")),
+  ).toBe(true);
+});
+
 test("documentation search and navigation load", async ({ page }) => {
   await page.goto("/docs/");
   await expect(page.locator("h1")).toContainText("Dokumentation");
