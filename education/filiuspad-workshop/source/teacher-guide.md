@@ -14,17 +14,17 @@ Klasse 8 oder vergleichbarer Einstieg in Rechnernetze. Die Lernenden benötigen 
 
 ## Erwartungshorizont in Kurzform
 
-| Modul | Erwartete Beobachtung |
-|---:|---|
-| 0 | Entwurf konfiguriert; Aktion simuliert und startet Software. |
-| 1 | Ping im selben Netz gelingt; die Paketansicht zeigt Adressauflösung und Echo-Nachrichten. |
-| 2 | Switch verbindet mehrere Geräte; Broadcast und gelernte Zielrichtung werden unterschieden. |
-| 3 | Client sendet an einen Port; Echo-Server antwortet mit derselben Nachricht. |
-| 4 | Ping in fremdes Netz scheitert ohne Gateway und gelingt nach korrekter Gateway-Konfiguration. |
-| 5 | Browser fragt HTTP-Inhalt an; Webserver liefert HTML. |
-| 6 | DNS-Name wird auf die Webserver-IP aufgelöst; direkter IP-Aufruf dient als Kontrolltest. |
-| 7 | DHCP liefert eine zeitweise Konfiguration; Paketzeilen liefern Hinweise zur Fehlerdiagnose. |
-| 8 | Lernende können Name → IP → Gateway/Router → Zielnetz → Dienst → Antwort erklären. |
+| Modul | Erwartete Beobachtung                                                                         |
+| ----: | --------------------------------------------------------------------------------------------- |
+|     0 | Entwurf konfiguriert; Aktion simuliert und startet Software.                                  |
+|     1 | Ping im selben Netz gelingt; die Paketansicht zeigt Adressauflösung und Echo-Nachrichten.     |
+|     2 | Switch verbindet mehrere Geräte; Broadcast und gelernte Zielrichtung werden unterschieden.    |
+|     3 | Client sendet an einen Port; Echo-Server antwortet mit derselben Nachricht.                   |
+|     4 | Ping in fremdes Netz scheitert ohne Gateway und gelingt nach korrekter Gateway-Konfiguration. |
+|     5 | Browser fragt HTTP-Inhalt an; Webserver liefert HTML.                                         |
+|     6 | DNS-Name wird auf die Webserver-IP aufgelöst; direkter IP-Aufruf dient als Kontrolltest.      |
+|     7 | DHCP liefert eine zeitweise Konfiguration; Paketzeilen liefern Hinweise zur Fehlerdiagnose.   |
+|     8 | Lernende können Name → IP → Gateway/Router → Zielnetz → Dienst → Antwort erklären.            |
 
 ## Bewertungsraster (20 Punkte)
 

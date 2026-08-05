@@ -1,1 +1,245 @@
-:root{--ink:#17212b;--teal:#0d4052;--mint:#dff1ef;--gold:#e5b84b;--paper:#f7faf9}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}header{background:var(--teal);color:white;padding:24px 5vw;position:sticky;top:0;z-index:2}header h1{margin:0;font-size:clamp(24px,4vw,40px)}header p{margin:4px 0 0;opacity:.85}.shell{display:grid;grid-template-columns:260px 1fr;max-width:1260px;margin:auto}.nav{padding:24px 16px;border-right:1px solid #d6e2e3;min-height:calc(100vh - 100px);position:sticky;top:100px;align-self:start}.nav button{display:block;width:100%;text-align:left;border:0;background:transparent;padding:10px 12px;border-radius:8px;cursor:pointer;color:var(--ink)}.nav button.active{background:var(--mint);font-weight:700;color:var(--teal)}main{padding:34px 5vw 90px;max-width:900px}.eyebrow{color:#7a5a04;text-transform:uppercase;letter-spacing:.09em;font-size:12px;font-weight:800}.goal,.callout,.task,.quiz{border-radius:12px;padding:16px 18px;margin:18px 0}.goal{background:#eaf6f6;border-left:5px solid var(--gold)}.callout{background:white;border:1px solid #b8ced0}.task{background:#fffdf5;border:1px solid #e7d28b}.task li{margin:7px 0}code{background:#edf0f1;padding:2px 5px;border-radius:4px;font-family:ui-monospace,monospace}.quiz{background:white;border:1px solid #b8ced0}.quiz h3{margin-top:0}.question{padding:10px 0;border-top:1px solid #e1eaeb}.question:first-of-type{border-top:0}.question label{display:block;padding:5px 0}.feedback{font-weight:700;margin-top:10px}.correct{color:#126b3b}.wrong{color:#a33131}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}button.primary,button.secondary{border:0;border-radius:9px;padding:11px 16px;cursor:pointer;font-weight:700}button.primary{background:var(--gold);color:#2b260f}button.secondary{background:#dcebed;color:var(--teal)}.progress{height:9px;background:#dbe7e8;border-radius:99px;overflow:hidden;margin-top:14px}.progress i{display:block;height:100%;background:var(--gold);width:0%;transition:width .2s}.hidden{display:none}.badge{display:inline-block;padding:4px 9px;border-radius:99px;background:#dff1ef;color:var(--teal);font-size:13px;font-weight:700}.note{width:100%;min-height:100px;border:1px solid #b8ced0;border-radius:8px;padding:10px;font:inherit}.diagram{display:flex;justify-content:center;align-items:center;gap:14px;margin:22px 0}.device{border:2px solid var(--teal);border-radius:10px;padding:12px 18px;font-weight:800;background:white;text-align:center}.device.accent{background:var(--mint)}.arrow{font-size:26px;color:#b57900}.result{padding:12px;border-radius:8px;background:#f5f0dc;margin-top:12px}.muted{color:#63747d}@media(max-width:760px){.shell{display:block}.nav{position:static;min-height:0;border-right:0;border-bottom:1px solid #d6e2e3;display:flex;overflow:auto;gap:5px}.nav button{min-width:145px}.main{padding:24px}.nav button{font-size:13px}}
+:root {
+  --ink: #17212b;
+  --teal: #0d4052;
+  --mint: #dff1ef;
+  --gold: #e5b84b;
+  --paper: #f7faf9;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font:
+    16px/1.5 system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+header {
+  background: var(--teal);
+  color: white;
+  padding: 24px 5vw;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+header h1 {
+  margin: 0;
+  font-size: clamp(24px, 4vw, 40px);
+}
+header p {
+  margin: 4px 0 0;
+  opacity: 0.85;
+}
+.shell {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  max-width: 1260px;
+  margin: auto;
+}
+.nav {
+  padding: 24px 16px;
+  border-right: 1px solid #d6e2e3;
+  min-height: calc(100vh - 100px);
+  position: sticky;
+  top: 100px;
+  align-self: start;
+}
+.nav button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--ink);
+}
+.nav button.active {
+  background: var(--mint);
+  font-weight: 700;
+  color: var(--teal);
+}
+main {
+  padding: 34px 5vw 90px;
+  max-width: 900px;
+}
+.eyebrow {
+  color: #7a5a04;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-size: 12px;
+  font-weight: 800;
+}
+.goal,
+.callout,
+.task,
+.quiz {
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin: 18px 0;
+}
+.goal {
+  background: #eaf6f6;
+  border-left: 5px solid var(--gold);
+}
+.callout {
+  background: white;
+  border: 1px solid #b8ced0;
+}
+.task {
+  background: #fffdf5;
+  border: 1px solid #e7d28b;
+}
+.task li {
+  margin: 7px 0;
+}
+code {
+  background: #edf0f1;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-family: ui-monospace, monospace;
+}
+.quiz {
+  background: white;
+  border: 1px solid #b8ced0;
+}
+.quiz h3 {
+  margin-top: 0;
+}
+.question {
+  padding: 10px 0;
+  border-top: 1px solid #e1eaeb;
+}
+.question:first-of-type {
+  border-top: 0;
+}
+.question label {
+  display: block;
+  padding: 5px 0;
+}
+.feedback {
+  font-weight: 700;
+  margin-top: 10px;
+}
+.correct {
+  color: #126b3b;
+}
+.wrong {
+  color: #a33131;
+}
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+button.primary,
+button.secondary {
+  border: 0;
+  border-radius: 9px;
+  padding: 11px 16px;
+  cursor: pointer;
+  font-weight: 700;
+}
+button.primary {
+  background: var(--gold);
+  color: #2b260f;
+}
+button.secondary {
+  background: #dcebed;
+  color: var(--teal);
+}
+.progress {
+  height: 9px;
+  background: #dbe7e8;
+  border-radius: 99px;
+  overflow: hidden;
+  margin-top: 14px;
+}
+.progress i {
+  display: block;
+  height: 100%;
+  background: var(--gold);
+  width: 0%;
+  transition: width 0.2s;
+}
+.hidden {
+  display: none;
+}
+.badge {
+  display: inline-block;
+  padding: 4px 9px;
+  border-radius: 99px;
+  background: #dff1ef;
+  color: var(--teal);
+  font-size: 13px;
+  font-weight: 700;
+}
+.note {
+  width: 100%;
+  min-height: 100px;
+  border: 1px solid #b8ced0;
+  border-radius: 8px;
+  padding: 10px;
+  font: inherit;
+}
+.diagram {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin: 22px 0;
+}
+.device {
+  border: 2px solid var(--teal);
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-weight: 800;
+  background: white;
+  text-align: center;
+}
+.device.accent {
+  background: var(--mint);
+}
+.arrow {
+  font-size: 26px;
+  color: #b57900;
+}
+.result {
+  padding: 12px;
+  border-radius: 8px;
+  background: #f5f0dc;
+  margin-top: 12px;
+}
+.muted {
+  color: #63747d;
+}
+@media (max-width: 760px) {
+  .shell {
+    display: block;
+  }
+  .nav {
+    position: static;
+    min-height: 0;
+    border-right: 0;
+    border-bottom: 1px solid #d6e2e3;
+    display: flex;
+    overflow: auto;
+    gap: 5px;
+  }
+  .nav button {
+    min-width: 145px;
+  }
+  .main {
+    padding: 24px;
+  }
+  .nav button {
+    font-size: 13px;
+  }
+}
