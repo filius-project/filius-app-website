@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category"><category><text>$course$/FiliusPad Rechnernetze</text></category></question>
+  <question type="multichoice">
+    <name><text>Arbeitsmodus Simulation</text></name><questiontext format="html"><text><![CDATA[In welchem Modus läuft die Simulation und du startest virtuelle Anwendungen?]]></text></questiontext>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Aktionsmodus</text><feedback><text>Richtig.</text></feedback></answer>
+    <answer fraction="0"><text>Entwurfsmodus</text><feedback><text>Im Entwurfsmodus baust und konfigurierst du.</text></feedback></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>Gleiches IPv4-Netz</text></name><questiontext format="html"><text><![CDATA[Welche Bedingung ist für ein direktes IPv4-Netz besonders wichtig?]]></text></questiontext>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Die Geräte liegen im passenden Netzbereich und haben eindeutige Adressen.</text></answer>
+    <answer fraction="0"><text>Alle Geräte haben dieselbe IP-Adresse.</text></answer>
+    <answer fraction="0"><text>Jedes Gerät benötigt eine öffentliche Internet-IP.</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>Ping</text></name><questiontext format="html"><text><![CDATA[Was zeigt eine erfolgreiche Ping-Antwort?]]></text></questiontext>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Das Ziel hat die Anfrage erreicht und beantwortet.</text></answer>
+    <answer fraction="0"><text>Der Switch hat automatisch eine neue IP-Adresse vergeben.</text></answer>
+    <answer fraction="0"><text>DNS hat eine Webseite als HTML gespeichert.</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>Switch</text></name><questiontext format="html"><text><![CDATA[Welche Aufgabe hat ein Switch im LAN?]]></text></questiontext>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Er verbindet mehrere Geräte und leitet Frames im lokalen Netz weiter.</text></answer>
+    <answer fraction="0"><text>Er ersetzt jeden DNS-Server.</text></answer>
+    <answer fraction="0"><text>Er schreibt HTML-Seiten in den Browser.</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>Client Server Port</text></name><questiontext format="html"><text><![CDATA[Welche Information führt beim Echo-Beispiel zum richtigen Dienst?]]></text></questiontext>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Die Kombination aus Ziel-IP-Adresse und Port.</text></answer>
+    <answer fraction="0"><text>Nur der Gerätename ohne Netzwerkkonfiguration.</text></answer>
+    <answer fraction="0"><text>Die Farbe des Kabels.</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>Gateway</text></name><questiontext format="html"><text><![CDATA[Wann wird das Standardgateway benötigt?]]></text></questiontext>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Wenn das Ziel außerhalb des eigenen IP-Netzes liegt.</text></answer>
+    <answer fraction="0"><text>Wenn zwei Dateien im selben virtuellen Ordner liegen.</text></answer>
+    <answer fraction="0"><text>Nur beim Öffnen des Texteditors.</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>Webserver</text></name><questiontext format="html"><text><![CDATA[Wer liefert HTML-Inhalte an den Browser?]]></text></questiontext>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Der Webserver als Dienst.</text></answer>
+    <answer fraction="0"><text>Der Router allein.</text></answer>
+    <answer fraction="0"><text>Der DNS-Server als Dateispeicher.</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>DNS Auflösung</text></name><questiontext format="html"><text><![CDATA[Welche Aufgabe hat der DNS-Server im Lernpfad?]]></text></questiontext>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Er ordnet einen Hostnamen einer IP-Adresse zu.</text></answer>
+    <answer fraction="0"><text>Er ersetzt das Standardgateway.</text></answer>
+    <answer fraction="0"><text>Er speichert den Bearbeitungsstand in Moodle.</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>Fehlerdiagnose</text></name><questiontext format="html"><text><![CDATA[Welche Reihenfolge ist bei einer Web-Fehlersuche sinnvoll?]]></text></questiontext>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Simulation, Kabel, Adressen, Gateway/DNS, Dienststatus, Ziel und Port prüfen.</text></answer>
+    <answer fraction="0"><text>Alle Geräte löschen und ohne Beobachtung neu bauen.</text></answer>
+    <answer fraction="0"><text>Nur die Schriftfarbe der Webseite ändern.</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>Abschlussweg</text></name><questiontext format="html"><text><![CDATA[Welche Erklärung beschreibt einen Webaufruf mit DNS am besten?]]></text></questiontext>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Name auflösen, über Gateway/Router routen, Dienst am Port erreichen, Antwort zurückführen.</text></answer>
+    <answer fraction="0"><text>Den Namen direkt als Stromsignal an den Webserver schicken.</text></answer>
+    <answer fraction="0"><text>Nur den Switch fragen; IP und Dienst sind nicht relevant.</text></answer>
+  </question>
+</quiz>

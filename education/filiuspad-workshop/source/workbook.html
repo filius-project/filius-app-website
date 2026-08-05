@@ -1,0 +1,125 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><title>FiliusPad – Rechnernetze Lernheft</title><style>
+@page{size:A4;margin:14mm 15mm 15mm}*{box-sizing:border-box}body{font-family:Arial,Helvetica,sans-serif;color:#17212b;margin:0;font-size:10.5pt;line-height:1.38}h1{font-size:31pt;line-height:1.05;margin:0 0 18px;color:#0d4052}h2{font-size:22pt;line-height:1.1;margin:7px 0 12px;color:#0d4052}h3{font-size:13pt;margin:17px 0 6px;color:#176078}.cover{min-height:265mm;display:flex;flex-direction:column;justify-content:space-between}.cover-top{border-top:5px solid #e5b84b;padding-top:10px}.tag{display:inline-block;background:#e8f4f5;color:#0d4052;padding:5px 10px;border-radius:20px;font-weight:bold}.subtitle{font-size:16pt;max-width:140mm;color:#4c5c64}.coverbox,.callout{border:1px solid #aac4ca;border-left:5px solid #e5b84b;border-radius:9px;padding:12px 15px;background:#f3f8f8}.coverbox{margin-top:22mm}.meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.meta div{border-bottom:1px solid #bbc9ce;padding:7px 2px}.footer{font-size:8.5pt;color:#63747d;border-top:1px solid #d9e2e5;padding-top:7px}.workbook-page{page-break-before:always;min-height:255mm}.eyebrow{font-size:9pt;letter-spacing:.08em;text-transform:uppercase;color:#7a5a04;font-weight:700}.goal{font-size:12pt;background:#eef7f7;padding:9px 12px;border-radius:7px}.callout{margin:10px 0}.module ul,.module ol,.workbook-page ul,.workbook-page ol{padding-left:24px}.module li,.workbook-page li{margin:5px 0}code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#edf0f1;padding:1px 4px;border-radius:3px}.diagram{display:flex;align-items:center;justify-content:center;gap:12px;margin:18px 0}.device{border:2px solid #0d4052;border-radius:8px;padding:12px 19px;text-align:center;font-weight:bold;min-width:80px;background:#fff}.device.accent{background:#dff1ef}.arrow{font-size:24pt;color:#e5a927}.answer,.reflection{border:1px solid #bbc9ce;border-radius:8px;padding:10px 12px;margin-top:13px}.answer{background:#fffdf6}.lines{height:20px;border-bottom:1px solid #bfc9cc}.small{font-size:9pt;color:#5d6c73}.table{width:100%;border-collapse:collapse;margin:10px 0}.table th,.table td{border:1px solid #b6c5c9;padding:6px;text-align:left}.table th{background:#eaf3f3}.checklist{columns:2}.checklist li{break-inside:avoid}.glossary{columns:2}.glossary dt{font-weight:bold;color:#0d4052}.glossary dd{margin:0 0 6px 0}.no-break{break-inside:avoid}
+</style></head><body>
+<div class="cover"><div class="cover-top"><span class="tag">Filius on iPad · Lernheft</span><h1>Rechnernetze selbst erkunden</h1><p class="subtitle">Ein selbstständiger Workshop für Klasse 8: bauen, beobachten, erklären.</p><div class="coverbox"><strong>Dein Auftrag</strong><p>Baue mit FiliusPad Schritt für Schritt ein kleines Netzwerk. Führe Tests aus, beobachte Pakete und erkläre, warum die Verbindung funktioniert oder scheitert.</p><p>Dieses Lernheft überträgt die Lernidee des bestehenden FILIUS-Workshops auf die iPad-Oberfläche. Aufgaben und Formulierungen sind neu geschrieben; die Fachkonzepte bleiben anschlussfähig.</p></div><div class="meta"><div>Name: __________________________</div><div>Kurs: __________________________</div><div>Startdatum: ____________________</div><div>Abgabe: ________________________</div></div></div><div class="footer">FiliusPad Lernheft · Entwurf für Unterricht und selbstständiges Lernen · Stand 05.08.2026</div></div>
+<section class="workbook-page"><div class="eyebrow">So arbeitest du</div><h2>Vom ersten Kabel zum kleinen Internet</h2><p>Arbeite die Module in der Reihenfolge durch. Nach jedem Modul speicherst du deine <code>.fls</code>-Datei und beantwortest den Check-out.</p><div class="callout"><strong>Merksatz</strong><br>Im <strong>Entwurfsmodus</strong> baust und konfigurierst du. Im <strong>Aktionsmodus</strong> läuft die Simulation und du startest Programme.</div><h3>Arbeitsregeln</h3><ul class="checklist"><li>Speichere nach jedem Modul.</li><li>Verwende klare Gerätenamen.</li><li>Notiere IP, Maske, Gateway und DNS.</li><li>Beobachte Quelle, Ziel, Dienst und Ergebnis.</li><li>Teste eine Vermutung, statt nur zu raten.</li><li>Teile keine echten Passwörter oder privaten Daten.</li></ul><h3>Adressplan für den Workshop</h3><table class="table"><tr><th>Netz</th><th>Bereich</th><th>Beispiel-Gateway</th></tr><tr><td>LAN 10</td><td>192.168.10.0/24</td><td>192.168.10.1</td></tr><tr><td>LAN 20</td><td>192.168.20.0/24</td><td>192.168.20.1</td></tr></table><p class="small">Wenn deine Lehrkraft eine andere Adressierung vorgibt, verwende diese und notiere sie deutlich.</p></section>
+
+<section class="workbook-page" id="start">
+  <div class="eyebrow">Modul 0 · Arbeitsheft</div>
+  <h2>Startklar: Dein virtuelles Netz</h2>
+  <p class="goal"><strong>Lernziel:</strong> Du kennst die beiden Arbeitsmodi, kannst ein Projekt speichern und weißt, wie du Beobachtungen dokumentierst.</p>
+  <div class="callout"><strong>Denke daran</strong><br>FiliusPad trennt Entwurf und Aktion: Im Entwurfsmodus baust und konfigurierst du die Topologie. Im Aktionsmodus läuft die Simulation und du startest Anwendungen.</div>
+  <h3>Du brauchst</h3><ul><li>iPad mit FiliusPad</li><li>Dateien-App oder ein Lernordner</li><li>Stift oder Tastatur</li></ul>
+  <h3>Aufgabe</h3><ol><li>Lege ein neues Projekt an. Verwende für alle Dateien das Schema <strong>JJMMTT-Aufgabe-Name</strong>, zum Beispiel <code>260805-01-Ada</code>.</li><li>Finde den Umschalter <strong>Entwurfsmodus / Aktionsmodus</strong> und öffne bei einem Rechner den Laufzeit-Arbeitsbereich.</li><li>Speichere das leere Projekt als <code>260805-00-Ada.fls</code>.</li><li>Notiere in deinem Heft: Was ist im Entwurf möglich, was erst in der Aktion?</li></ol>
+  <div class="diagram"><div class="device">Quelle</div><div class="arrow">→</div><div class="device accent">Ziel / Dienst</div></div>
+  <h3>Beobachte und erkläre</h3><p>Ein gutes Laborprotokoll enthält Topologie, Adressen, ausgeführte Befehle, Beobachtungen und eine kurze Erklärung.</p>
+  <div class="answer"><strong>Dein Nachweis</strong><p>Eine gespeicherte leere Projektdatei und eine Liste mit zwei Unterschieden zwischen den Modi.</p><div class="lines"></div><div class="lines"></div></div>
+  <div class="reflection"><strong>Check-out</strong><p>Was hat funktioniert? Was würdest du zuerst prüfen, wenn der Test fehlschlägt?</p><div class="lines"></div></div>
+</section>
+
+<section class="workbook-page" id="peer">
+  <div class="eyebrow">Modul 1 · Arbeitsheft</div>
+  <h2>Zwei Rechner direkt verbinden</h2>
+  <p class="goal"><strong>Lernziel:</strong> Du baust ein Peer-to-Peer-Netz und prüfst die Verbindung mit ping.</p>
+  <div class="callout"><strong>Denke daran</strong><br>Zwei Geräte können direkt miteinander verbunden werden. Damit IPv4-Kommunikation funktioniert, müssen beide Adressen im selben Netz liegen und eindeutig sein.</div>
+  <h3>Du brauchst</h3><ul><li>Projekt aus Modul 0</li><li>Zwei Rechner oder Notebooks</li></ul>
+  <h3>Aufgabe</h3><ol><li>Platziere zwei Rechner. Benenne sie <code>Rechner 10</code> und <code>Rechner 11</code>.</li><li>Verbinde die Rechner mit einem Kabel.</li><li>Setze <code>192.168.10.10</code> und <code>192.168.10.11</code> mit der Subnetzmaske <code>255.255.255.0</code>.</li><li>Starte die Simulation. Installiere auf Rechner 10 <strong>CMD</strong> und führe <code>ping 192.168.10.11</code> aus.</li><li>Öffne zusätzlich die Paket-/Datenaustauschansicht. Welche Nachrichten siehst du?</li></ol>
+  <div class="diagram"><div class="device">Quelle</div><div class="arrow">→</div><div class="device accent">Ziel / Dienst</div></div>
+  <h3>Beobachte und erkläre</h3><p>Beim ersten Ping kann vor der Echo-Anfrage eine Auflösung der Zieladresse sichtbar werden. Danach folgen Echo request und Echo reply.</p>
+  <div class="answer"><strong>Dein Nachweis</strong><p>Die Projektdatei, ein kurzer Ping-Nachweis und eine beschriftete Pfeilskizze Quelle → Ziel.</p><div class="lines"></div><div class="lines"></div></div>
+  <div class="reflection"><strong>Check-out</strong><p>Was hat funktioniert? Was würdest du zuerst prüfen, wenn der Test fehlschlägt?</p><div class="lines"></div></div>
+</section>
+
+<section class="workbook-page" id="switch">
+  <div class="eyebrow">Modul 2 · Arbeitsheft</div>
+  <h2>Ein Switch verbindet ein LAN</h2>
+  <p class="goal"><strong>Lernziel:</strong> Du erweiterst das Netz, beobachtest Lernen von MAC-Adressen und erklärst LAN und Protokoll.</p>
+  <div class="callout"><strong>Denke daran</strong><br>Ein Switch verbindet mehrere Geräte im selben lokalen Netz. Er lernt, an welchem Port eine Quell-MAC-Adresse erreichbar ist, und leitet Frames gezielter weiter.</div>
+  <h3>Du brauchst</h3><ul><li>Projekt aus Modul 1</li><li>Einen Switch und einen dritten Rechner</li></ul>
+  <h3>Aufgabe</h3><ol><li>Platziere einen Switch und einen dritten Rechner namens <code>Server 12</code>.</li><li>Verbinde alle drei Rechner mit dem Switch. Lass die Adressen im Netz <code>192.168.10.0/24</code>.</li><li>Starte die Simulation und sende von Rechner 10 einen Ping an Rechner 12.</li><li>Sende danach von Rechner 11 einen Ping an Rechner 12. Vergleiche die Paketansichten.</li><li>Beschreibe, was im Alltag einem Switch entspricht, wenn man an ein Stromnetz denkt.</li></ol>
+  <div class="diagram"><div class="device">Quelle</div><div class="arrow">→</div><div class="device accent">Ziel / Dienst</div></div>
+  <h3>Beobachte und erkläre</h3><p>Broadcasts können mehrere Ports erreichen; bekannte Ziele werden vom Switch gezielter weitergeleitet. Zeichne die beobachtete Richtung ein.</p>
+  <div class="answer"><strong>Dein Nachweis</strong><p>Eine beschriftete LAN-Topologie und drei Sätze zu Switch, LAN und Protokoll.</p><div class="lines"></div><div class="lines"></div></div>
+  <div class="reflection"><strong>Check-out</strong><p>Was hat funktioniert? Was würdest du zuerst prüfen, wenn der Test fehlschlägt?</p><div class="lines"></div></div>
+</section>
+
+<section class="workbook-page" id="client-server">
+  <div class="eyebrow">Modul 3 · Arbeitsheft</div>
+  <h2>Client und Server</h2>
+  <p class="goal"><strong>Lernziel:</strong> Du untersuchst einen Dienst und trennst Client, Serverprogramm und Servergerät.</p>
+  <div class="callout"><strong>Denke daran</strong><br>Ein Client fordert einen Dienst an. Ein Serverprogramm bietet ihn an. Ein Computer wird oft ebenfalls Server genannt, wenn er solche Programme bereitstellt.</div>
+  <h3>Du brauchst</h3><ul><li>Projekt aus Modul 2</li><li>CMD, Echo-Server, Einfacher Client</li></ul>
+  <h3>Aufgabe</h3><ol><li>Installiere auf <code>Server 12</code> den <strong>Echo-Server</strong> und starte ihn auf Port <code>55555</code>.</li><li>Installiere auf <code>Rechner 10</code> den <strong>Einfachen Client</strong> und verbinde ihn mit <code>192.168.10.12:55555</code>.</li><li>Sende drei Nachrichten. Beobachte Antwort, Quelle, Ziel und Port in der Paketansicht.</li><li>Erkläre mit eigenen Worten, was der Echo-Server leistet.</li><li>Übertrage das Prinzip auf Webserver, Dateiserver und Mailserver.</li></ol>
+  <div class="diagram"><div class="device">Quelle</div><div class="arrow">→</div><div class="device accent">Ziel / Dienst</div></div>
+  <h3>Beobachte und erkläre</h3><p>Der Port unterscheidet den Dienst. Die IP-Adresse führt zum Gerät; der Port führt zum passenden Serverprogramm.</p>
+  <div class="answer"><strong>Dein Nachweis</strong><p>Ein Ablaufbild mit Anfrage und Antwort sowie eine Erklärung des Client-Server-Prinzips.</p><div class="lines"></div><div class="lines"></div></div>
+  <div class="reflection"><strong>Check-out</strong><p>Was hat funktioniert? Was würdest du zuerst prüfen, wenn der Test fehlschlägt?</p><div class="lines"></div></div>
+</section>
+
+<section class="workbook-page" id="router">
+  <div class="eyebrow">Modul 4 · Arbeitsheft</div>
+  <h2>Zwei Netze mit einem Router verbinden</h2>
+  <p class="goal"><strong>Lernziel:</strong> Du unterscheidest Netzadresse, Gateway und Router und findest einen Konfigurationsfehler.</p>
+  <div class="callout"><strong>Denke daran</strong><br>Ein Router verbindet unterschiedliche IP-Netze. Ein Gerät schickt Ziele außerhalb seines eigenen Netzes an das Standardgateway.</div>
+  <h3>Du brauchst</h3><ul><li>Projekt aus Modul 3</li><li>Router/Vermittlungsrechner, zweiter Switch, drei weitere Rechner</li></ul>
+  <h3>Aufgabe</h3><ol><li>Baue ein zweites LAN mit <code>192.168.20.0/24</code> und den Geräten <code>Client 20</code> (<code>192.168.20.10</code>) und <code>Client 21</code> (<code>192.168.20.11</code>).</li><li>Platziere einen Router mit zwei Schnittstellen. Verwende <code>192.168.10.1</code> und <code>192.168.20.1</code>.</li><li>Teste aus dem ersten LAN einen Ping zu <code>192.168.20.10</code> ohne Gateway. Notiere das Ergebnis.</li><li>Setze das Gateway der Geräte im ersten LAN auf <code>192.168.10.1</code> und im zweiten LAN auf <code>192.168.20.1</code>.</li><li>Teste erneut und erkläre, warum sich das Ergebnis ändert.</li></ol>
+  <div class="diagram"><div class="device">Quelle</div><div class="arrow">→</div><div class="device accent">Ziel / Dienst</div></div>
+  <h3>Beobachte und erkläre</h3><p>Ohne Gateway bleibt ein Ziel in einem fremden Netz unerreichbar. Mit Gateway kann der Router das Paket weiterleiten.</p>
+  <div class="answer"><strong>Dein Nachweis</strong><p>Zwei farbig markierte IP-Netze, Router-Adressen und ein Vorher-/Nachher-Vergleich.</p><div class="lines"></div><div class="lines"></div></div>
+  <div class="reflection"><strong>Check-out</strong><p>Was hat funktioniert? Was würdest du zuerst prüfen, wenn der Test fehlschlägt?</p><div class="lines"></div></div>
+</section>
+
+<section class="workbook-page" id="web">
+  <div class="eyebrow">Modul 5 · Arbeitsheft</div>
+  <h2>Das eigene Web: Server und Browser</h2>
+  <p class="goal"><strong>Lernziel:</strong> Du stellst eine lokale HTML-Seite bereit und rufst sie über den Webbrowser ab.</p>
+  <div class="callout"><strong>Denke daran</strong><br>Der Webserver ist ein Dienst. Der Webbrowser ist sein Client. Eine Webseite besteht aus HTML und kann weitere Dateien anfordern.</div>
+  <h3>Du brauchst</h3><ul><li>Projekt aus Modul 4</li><li>Datei-Explorer, Texteditor, Webserver, Webbrowser</li></ul>
+  <h3>Aufgabe</h3><ol><li>Installiere auf <code>Server 12</code> den <strong>Datei-Explorer</strong>, den <strong>Texteditor</strong> und den <strong>Webserver</strong>.</li><li>Öffne die vorhandene Datei <code>/www/index.html</code> im Texteditor und ersetze sie durch eine eigene Seite mit Überschrift, Absatz und Link.</li><li>Lege mit dem Datei-Explorer im Ordner <code>/www</code> zusätzlich <code>kontakt.html</code> an und bearbeite die Datei anschließend im Texteditor.</li><li>Starte den Webserver. Installiere auf <code>Client 20</code> den <strong>Webbrowser</strong>.</li><li>Öffne im Browser <code>http://192.168.10.12</code>. Beobachte die HTTP-Anfrage und -Antwort.</li></ol>
+  <div class="diagram"><div class="device">Quelle</div><div class="arrow">→</div><div class="device accent">Ziel / Dienst</div></div>
+  <h3>Beobachte und erkläre</h3><p>Der Browser stellt eine Anfrage; der Webserver liefert Inhalt. Bei einer zweiten Seite entsteht eine weitere Anfrage.</p>
+  <div class="answer"><strong>Dein Nachweis</strong><p>Eine eigene Mini-Webseite und ein Sequenzdiagramm Browser → Webserver → Browser.</p><div class="lines"></div><div class="lines"></div></div>
+  <div class="reflection"><strong>Check-out</strong><p>Was hat funktioniert? Was würdest du zuerst prüfen, wenn der Test fehlschlägt?</p><div class="lines"></div></div>
+</section>
+
+<section class="workbook-page" id="dns">
+  <div class="eyebrow">Modul 6 · Arbeitsheft</div>
+  <h2>DNS: Namen statt Zahlen</h2>
+  <p class="goal"><strong>Lernziel:</strong> Du richtest einen DNS-Eintrag ein und rufst die Webseite mit einem Namen auf.</p>
+  <div class="callout"><strong>Denke daran</strong><br>DNS ordnet einen Hostnamen einer IP-Adresse zu. Der Browser kann dadurch einen Namen nutzen, obwohl die Kommunikation weiterhin eine IP-Adresse benötigt.</div>
+  <h3>Du brauchst</h3><ul><li>Projekt aus Modul 5</li><li>DNS-Server auf einem neuen Server im ersten LAN</li></ul>
+  <h3>Aufgabe</h3><ol><li>Platziere <code>DNS 53</code> im ersten LAN mit <code>192.168.10.53</code> und Gateway <code>192.168.10.1</code>.</li><li>Trage bei den Rechnern den DNS-Server <code>192.168.10.53</code> ein.</li><li>Installiere und starte den <strong>DNS-Server</strong> auf DNS 53.</li><li>Lege den Eintrag <code>www.filius.test → 192.168.10.12</code> an.</li><li>Öffne im Browser <code>http://www.filius.test</code> und vergleiche die Anfrage mit dem direkten Aufruf über die IP-Adresse.</li><li>Markiere in <code>www.filius.test</code> Root, Top-Level-Domain, Second-Level-Domain und Hostname.</li></ol>
+  <div class="diagram"><div class="device">Quelle</div><div class="arrow">→</div><div class="device accent">Ziel / Dienst</div></div>
+  <h3>Beobachte und erkläre</h3><p>Ohne DNS kann der direkte IP-Aufruf funktionieren, während der Name fehlschlägt. Mit dem Eintrag wird der Name aufgelöst.</p>
+  <div class="answer"><strong>Dein Nachweis</strong><p>Ein DNS-Diagramm und eine Tabelle mit mindestens drei Namen-IP-Zuordnungen.</p><div class="lines"></div><div class="lines"></div></div>
+  <div class="reflection"><strong>Check-out</strong><p>Was hat funktioniert? Was würdest du zuerst prüfen, wenn der Test fehlschlägt?</p><div class="lines"></div></div>
+</section>
+
+<section class="workbook-page" id="dhcp-packets">
+  <div class="eyebrow">Modul 7 · Arbeitsheft</div>
+  <h2>Automatik und Pakete</h2>
+  <p class="goal"><strong>Lernziel:</strong> Du vergleichst feste Adressen mit DHCP und liest eine Paketfolge als technische Geschichte.</p>
+  <div class="callout"><strong>Denke daran</strong><br>DHCP kann Netzwerkkonfiguration automatisch vergeben. Paketorientierte Übertragung zerlegt eine Kommunikation in einzelne Nachrichten mit Quelle, Ziel, Protokoll und Dienst.</div>
+  <h3>Du brauchst</h3><ul><li>Projekt aus Modul 6</li><li>DHCP-Server oder Paketansicht</li></ul>
+  <h3>Aufgabe</h3><ol><li>Vergleiche eine fest eingetragene IP-Konfiguration mit einem DHCP-Client.</li><li>Richte einen DHCP-Server für <code>192.168.20.0/24</code> ein oder öffne die vorhandene DHCP-Funktion.</li><li>Aktiviere die automatische Konfiguration auf einem Client und notiere den erhaltenen Lease.</li><li>Lade die Webseite erneut und notiere mindestens fünf Paketzeilen: Quelle, Ziel, Protokoll oder Dienst, Beobachtung.</li><li>Erkläre, warum eine Datei nicht als ein einziger unteilbarer Block übertragen werden muss.</li></ol>
+  <div class="diagram"><div class="device">Quelle</div><div class="arrow">→</div><div class="device accent">Ziel / Dienst</div></div>
+  <h3>Beobachte und erkläre</h3><p>Die Paketansicht macht die Kommunikation beobachtbar. Ein Fehler kann an Adresse, Gateway, DNS, Dienststatus oder Erreichbarkeit liegen.</p>
+  <div class="answer"><strong>Dein Nachweis</strong><p>Ein ausgefülltes Paketprotokoll und eine Fehlerdiagnose mit mindestens zwei überprüften Hypothesen.</p><div class="lines"></div><div class="lines"></div></div>
+  <div class="reflection"><strong>Check-out</strong><p>Was hat funktioniert? Was würdest du zuerst prüfen, wenn der Test fehlschlägt?</p><div class="lines"></div></div>
+</section>
+
+<section class="workbook-page" id="capstone">
+  <div class="eyebrow">Modul 8 · Arbeitsheft</div>
+  <h2>Abschluss: Dein kleines Internet</h2>
+  <p class="goal"><strong>Lernziel:</strong> Du planst, baust und erklärst eine eigene vernetzte Anwendung.</p>
+  <div class="callout"><strong>Denke daran</strong><br>Ein Netz ist ein Zusammenspiel aus Geräten, Adressen, Weiterleitung, Namensauflösung und Anwendungen. Gute Netzplanung macht jeden Weg nachvollziehbar.</div>
+  <h3>Du brauchst</h3><ul><li>Die bisherigen Projektdateien</li><li>Skizzenpapier oder Notiz-App</li><li>FiliusPad</li></ul>
+  <h3>Aufgabe</h3><ol><li>Plane zwei LANs mit mindestens vier Endgeräten, einem Switch, einem Router, einem DNS-Server und einem Webserver.</li><li>Lege einen Adressplan mit Netzmaske, Gateway und DNS fest.</li><li>Baue die Topologie in FiliusPad und speichere sie unter <code>260805-09-Abschluss-Name.fls</code>.</li><li>Beweise drei Dinge: Ping über den Router, Webzugriff über IP, Webzugriff über DNS-Namen.</li><li>Exportiere oder zeichne eine Dokumentation mit Topologie, Adressplan, Paketbeobachtung und Fehlerfall.</li><li>Schreibe eine Reflexion: Welche Konfiguration war notwendig, damit der Name bis zur Webseite führte?</li></ol>
+  <div class="diagram"><div class="device">Quelle</div><div class="arrow">→</div><div class="device accent">Ziel / Dienst</div></div>
+  <h3>Beobachte und erkläre</h3><p>Eine vollständige Erklärung folgt dem Weg: Name → DNS-IP → Gateway/Router → Zielnetz → Port/Dienst → Antwort.</p>
+  <div class="answer"><strong>Dein Nachweis</strong><p>Funktionierende Abschlussdatei, Netzplan, Adresstabelle und eine einseitige Erklärung.</p><div class="lines"></div><div class="lines"></div></div>
+  <div class="reflection"><strong>Check-out</strong><p>Was hat funktioniert? Was würdest du zuerst prüfen, wenn der Test fehlschlägt?</p><div class="lines"></div></div>
+</section>
+<section class="workbook-page"><div class="eyebrow">Abschluss</div><h2>Dein kleines Internet</h2><p>Zeige, dass du nicht nur klicken, sondern den Weg einer Nachricht erklären kannst.</p><h3>Pflichtnachweise</h3><ul><li>Ping innerhalb eines LANs</li><li>Ping über den Router in das andere LAN</li><li>Webseite über IP-Adresse</li><li>Webseite über DNS-Namen</li><li>Mindestens fünf beobachtete Paketzeilen</li><li>Eine absichtlich eingebaute und anschließend erklärte Störung</li></ul><h3>Adress- und Diensttabelle</h3><table class="table"><tr><th>Gerät</th><th>IP / Maske</th><th>Gateway</th><th>Dienst</th></tr><tr><td style="height:27px"></td><td></td><td></td><td></td></tr><tr><td style="height:27px"></td><td></td><td></td><td></td></tr><tr><td style="height:27px"></td><td></td><td></td><td></td></tr><tr><td style="height:27px"></td><td></td><td></td><td></td></tr><tr><td style="height:27px"></td><td></td><td></td><td></td></tr><tr><td style="height:27px"></td><td></td><td></td><td></td></tr></table><h3>Reflexion</h3><p>Erkläre in fünf bis acht Sätzen, wie aus <code>http://www.filius.test</code> eine Webseite wird.</p><div class="lines"></div><div class="lines"></div><div class="lines"></div><div class="lines"></div><div class="lines"></div></section>
+<section class="workbook-page"><div class="eyebrow">Nachschlagen</div><h2>Glossar</h2><dl class="glossary"><dt>Adresse</dt><dd>Eine Kennzeichnung, mit der ein Ziel im Netz gefunden wird.</dd><dt>DNS</dt><dd>Ordnet Namen wie <code>www.filius.test</code> IP-Adressen zu.</dd><dt>Gateway</dt><dd>Der nächste Router für Ziele außerhalb des eigenen Netzes.</dd><dt>IP-Adresse</dt><dd>Logische Adresse eines Geräts in einem IP-Netz.</dd><dt>LAN</dt><dd>Local Area Network, ein lokales Rechnernetz.</dd><dt>MAC-Adresse</dt><dd>Hardware-nahe Adresse einer Netzwerkschnittstelle.</dd><dt>Port</dt><dd>Nummer, die einen Dienst auf einem Gerät unterscheidet.</dd><dt>Protokoll</dt><dd>Vereinbarte Regeln und Nachrichtenformate.</dd><dt>Router</dt><dd>Vermittelt Daten zwischen verschiedenen Netzen.</dd><dt>Server</dt><dd>Ein Programm, das einen Dienst anbietet; oft auch das Gerät, auf dem es läuft.</dd><dt>Switch</dt><dd>Verbindet mehrere Geräte in einem LAN und leitet Frames weiter.</dd></dl><div class="callout"><strong>Fehler-Checkliste</strong><br>Simulation läuft? Kabel verbunden? IP und Maske korrekt? Gateway gesetzt? DNS eingetragen? Dienst gestartet? Ziel und Port richtig?</div></section>
+</body></html>

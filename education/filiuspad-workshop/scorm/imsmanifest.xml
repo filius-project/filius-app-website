@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest identifier="filiuspad-learning-path" version="1.0" xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2" xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2" xmlns:imsmd="http://www.imsglobal.org/xsd/imsmd_v1p2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2 http://www.imsglobal.org/xsd/imscp_rootv1p1p2.xsd http://www.adlnet.org/xsd/adlcp_rootv1p2 http://www.adlnet.org/xsd/adlcp_rootv1p2.xsd">
+  <metadata><schema>ADL SCORM</schema><schemaversion>1.2</schemaversion></metadata>
+  <organizations default="filiuspad-path"><organization identifier="filiuspad-path" structure="hierarchical"><title>FiliusPad: Rechnernetze selbst erkunden</title><item identifier="filiuspad-sco" identifierref="filiuspad-resource"><title>Selbstständiger Lernpfad</title><adlcp:masteryscore>70</adlcp:masteryscore></item></organization></organizations>
+  <resources><resource identifier="filiuspad-resource" type="webcontent" adlcp:scormtype="sco" href="index.html"><file href="index.html"/><file href="styles.css"/><file href="scorm.js"/><file href="README.txt"/></resource></resources>
+</manifest>
