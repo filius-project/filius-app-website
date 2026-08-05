@@ -20,17 +20,17 @@ Nach Abschluss können Lernende:
 
 ## Ablauf
 
-| Modul | Thema | Richtwert | Nachweis |
-|---:|---|---:|---|
-| 0 | Startklar und Arbeitsweise | 20 min | gespeicherte Datei, Modusvergleich |
-| 1 | Zwei Rechner direkt verbinden | 45 min | Ping und Paketbeobachtung |
-| 2 | Switch und LAN | 45 min | Topologie und Begriffe |
-| 3 | Client-Server und Echo | 45 min | Anfrage/Antwort mit Port |
-| 4 | Router und Gateway | 60 min | Ping vor/nach Gateway |
-| 5 | Webserver und Browser | 60 min | lokale HTML-Seite |
-| 6 | DNS | 60 min | Name-zu-IP-Auflösung |
-| 7 | DHCP und Pakete | 45 min | Paketprotokoll und Diagnose |
-| 8 | Abschlussprojekt | 90 min | funktionsfähiges Mini-Internet |
+| Modul | Thema                         | Richtwert | Nachweis                           |
+| ----: | ----------------------------- | --------: | ---------------------------------- |
+|     0 | Startklar und Arbeitsweise    |    20 min | gespeicherte Datei, Modusvergleich |
+|     1 | Zwei Rechner direkt verbinden |    45 min | Ping und Paketbeobachtung          |
+|     2 | Switch und LAN                |    45 min | Topologie und Begriffe             |
+|     3 | Client-Server und Echo        |    45 min | Anfrage/Antwort mit Port           |
+|     4 | Router und Gateway            |    60 min | Ping vor/nach Gateway              |
+|     5 | Webserver und Browser         |    60 min | lokale HTML-Seite                  |
+|     6 | DNS                           |    60 min | Name-zu-IP-Auflösung               |
+|     7 | DHCP und Pakete               |    45 min | Paketprotokoll und Diagnose        |
+|     8 | Abschlussprojekt              |    90 min | funktionsfähiges Mini-Internet     |
 
 ## Übertragungsprinzipien
 
