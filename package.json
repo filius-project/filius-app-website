@@ -16,7 +16,8 @@
     "format:check": "prettier --check .",
     "test": "playwright test",
     "validate:content": "node scripts/validate-content.mjs",
-    "validate": "npm run format:check && npm run validate:content && npm run check && npm run build"
+    "validate": "npm run format:check && npm run validate:content && npm run check && npm run build",
+    "build:learning": "node scripts/build-filiuspad-learning-materials.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.0",
