@@ -8,6 +8,8 @@ const marketingPages = [
   "/quickstart/",
   "/faq/",
   "/support/",
+  "/en/support/",
+  "/fr/support/",
 ];
 
 for (const path of marketingPages) {
@@ -112,6 +114,66 @@ test("mobile navigation exposes all primary destinations", async ({ page }) => {
   await expect(
     page.locator(".mobile-panel").getByRole("link", { name: "Dokumentation" }),
   ).toBeVisible();
+});
+
+test("the contact form is data-minimizing and available in every language", async ({
+  page,
+}) => {
+  for (const [path, heading] of [
+    ["/support/", "Direkt aus dem Browser schreiben"],
+    ["/en/support/", "Write directly from your browser"],
+    ["/fr/support/", "Écrire directement depuis le navigateur"],
+  ] as const) {
+    await page.goto(path);
+    const form = page.locator("form[data-contact-form]");
+    await expect(form).toHaveCount(1);
+    await expect(page.getByRole("heading", { name: heading })).toBeVisible();
+    await expect(form.locator('input[type="file"]')).toHaveCount(0);
+    await expect(form.locator('[name="email"]')).toHaveAttribute(
+      "required",
+      "",
+    );
+    await expect(form.locator('[name="message"]')).toHaveAttribute(
+      "maxlength",
+      "4000",
+    );
+    await expect(form.locator('a[href*="privacy"]')).toHaveCount(1);
+  }
+});
+
+test("the contact form submits to the same-origin service and reports success", async ({
+  page,
+}) => {
+  let submission: URLSearchParams | undefined;
+  await page.route("**/api/contact", async (route) => {
+    submission = new URLSearchParams(route.request().postData() ?? "");
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        ok: true,
+        message: "Thank you. Your message was sent to support.",
+      }),
+    });
+  });
+
+  await page.goto("/en/support/");
+  const form = page.locator("form[data-contact-form]");
+  await form.locator('[name="name"]').fill("Ada Learner");
+  await form.locator('[name="email"]').fill("ada@example.org");
+  await form.locator('[name="category"]').selectOption("support");
+  await form
+    .locator('[name="message"]')
+    .fill("The simulated DNS request never receives a response.");
+  await form.getByRole("button", { name: "Send message" }).click();
+
+  await expect(form.locator("[data-form-status]")).toHaveText(
+    "Thank you. Your message was sent to support.",
+  );
+  expect(submission?.get("locale")).toBe("en");
+  expect(submission?.get("email")).toBe("ada@example.org");
+  expect(submission?.get("message")).toContain("simulated DNS request");
+  await expect(form.locator('[name="email"]')).toHaveValue("");
 });
 
 const analyticsConfig = {
@@ -244,6 +306,20 @@ test("crawler and security disclosure files are published", async ({
   expect(securityBody).toContain("Policy: https://filius.app/security/");
 });
 
+test("draft iPad learning materials are not published by the website", async ({
+  request,
+}) => {
+  for (const path of [
+    "/learning/",
+    "/learning/FiliusPad-Lernheft.pdf",
+    "/learning/FiliusPad-Lernpfad-SCORM-1.2.zip",
+    "/learning/FiliusPad-Fragenbank-Moodle.xml",
+  ]) {
+    const response = await request.get(path);
+    expect(response.status(), path).toBe(404);
+  }
+});
+
 for (const path of [
   "/privacy/",
   "/imprint/",
@@ -263,7 +339,7 @@ for (const path of [
   });
 }
 
-test("privacy notice names infrastructure processors and remains draft until deployment details are complete", async ({
+test("privacy notice documents the contact service and remains draft until legal review", async ({
   page,
 }) => {
   await page.goto("/en/privacy/");
@@ -272,10 +348,22 @@ test("privacy notice names infrastructure processors and remains draft until dep
   );
   await expect(page.locator("main")).toContainText("Cloudflare, Inc.");
   await expect(page.locator("main")).toContainText("eu-frankfurt-1");
-  await expect(page.locator("main")).toContainText("Cloudflare Email Routing");
-  await expect(page.locator("main")).toContainText("Google Ireland Limited");
-  await expect(page.locator("main")).toContainText("personal Gmail mailbox");
-  await expect(page.locator("main")).toContainText("independent controller");
+  await expect(page.locator("main")).toContainText("Netcup mail service");
+  await expect(page.locator("main")).toContainText("netcup GmbH");
+  await expect(page.locator("main")).not.toContainText(
+    "Cloudflare Email Routing receives",
+  );
+  await expect(page.locator("main")).toContainText(
+    "separate contact service validates the submission",
+  );
+  await expect(page.locator("main")).toContainText(
+    "does not accept attachments or store requests in its own database",
+  );
+  await expect(page.locator("main")).toContainText("no more than 15 minutes");
+  await expect(page.locator("main")).toContainText("no later than 180 days");
+  await expect(page.locator("main")).not.toContainText(
+    "personal Gmail mailbox",
+  );
   await expect(page.locator("main")).toContainText(
     "EU Standard Contractual Clauses",
   );

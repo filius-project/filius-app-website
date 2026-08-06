@@ -8,84 +8,116 @@ interface Props {
 
 const { locale } = Astro.props;
 const usesConsumerGmail = site.legal.emailProviderMode === "consumer-gmail";
-const missing = locale === "de" ? "Noch einzutragen" : locale === "fr" ? "À compléter" : "To be completed";
+const usesNetcupMailbox = site.legal.emailProviderMode === "netcup-mailbox";
+const missing =
+  locale === "de"
+    ? "Noch einzutragen"
+    : locale === "fr"
+      ? "À compléter"
+      : "To be completed";
 
 const copy = {
   de: {
     eyebrow: "Datenschutz & Einwilligung",
     title: "Datenschutzerklärung",
-    intro: "Informationen zur Verarbeitung personenbezogener Daten beim Besuch von filius.app, bei optionaler Reichweitenmessung und bei Supportanfragen.",
-    incomplete: "Vor der öffentlichen Freigabe müssen Verantwortlicher, ladungsfähige Anschrift, Hosting-Anbieter, tatsächliche Aufbewahrungsfristen und die eingesetzten Auftragsverarbeiter geprüft und über die Build-Variablen eingetragen werden.",
+    intro:
+      "Informationen zur Verarbeitung personenbezogener Daten beim Besuch von filius.app, bei optionaler Reichweitenmessung und bei Supportanfragen.",
+    incomplete:
+      "Die technischen Angaben sind eingetragen. Bis zur öffentlichen Freigabe bleibt die abschließende rechtliche Prüfung offen; Build-Konfiguration und tatsächlicher Betrieb müssen weiterhin übereinstimmen.",
     controller: "1. Verantwortlicher",
-    controllerBody: "Verantwortlich für die Datenverarbeitung auf dieser Website ist:",
+    controllerBody:
+      "Verantwortlich für die Datenverarbeitung auf dieser Website ist:",
     email: "E-Mail",
     hosting: "2. Bereitstellung, Hosting und Serverprotokolle",
     hostingBody: `Beim Aufruf der Website werden technisch erforderliche Verbindungsdaten verarbeitet: IP-Adresse, Datum und Uhrzeit, angeforderte Adresse, übertragene Datenmenge, HTTP-Status, Referrer sowie Browser- und Betriebssystemangaben. Zweck sind sichere Auslieferung, Fehleranalyse und Abwehr von Missbrauch. Die Besucherzugriffe werden am Nginx Proxy Manager protokolliert. Dessen Standardrotation bewahrt Zugriffsprotokolle höchstens etwa ${site.legal.accessLogRetentionDays} Tage und technische Fehlerprotokolle höchstens etwa ${site.legal.errorLogRetentionDays} Tage auf. Der nachgelagerte statische Webcontainer führt kein zusätzliches Zugriffsprotokoll; seine technischen Docker-Fehlerausgaben sind auf drei Dateien zu je 10 MB begrenzt. Bei einem Sicherheitsvorfall können relevante Auszüge länger und zweckgebunden aufbewahrt werden. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse liegt im sicheren und zuverlässigen Betrieb der Website.`,
     hostingProvider: "Hosting-Anbieter",
     hostingRegion: "OCI-Region",
-    oracleProcessing: "Oracle Cloud Infrastructure verarbeitet Hosting- und Verbindungsdaten als Auftragsverarbeiter. Das Oracle Services Data Processing Agreement ist in den Cloud-Service-Vertrag einbezogen. Für erforderliche Übermittlungen an Oracle-Empfänger außerhalb des EWR sieht der einbezogene Datenübertragungsanhang die Oracle Binding Corporate Rules for Processors und die EU-Standardvertragsklauseln vor.",
+    oracleProcessing:
+      "Oracle Cloud Infrastructure verarbeitet Hosting- und Verbindungsdaten als Auftragsverarbeiter. Das Oracle Services Data Processing Agreement ist in den Cloud-Service-Vertrag einbezogen. Für erforderliche Übermittlungen an Oracle-Empfänger außerhalb des EWR sieht der einbezogene Datenübertragungsanhang die Oracle Binding Corporate Rules for Processors und die EU-Standardvertragsklauseln vor.",
     cloudflare: "Cloudflare",
-    cloudflareOn: "Cloudflare, Inc., 101 Townsend Street, San Francisco, California 94107, USA, wird als vorgelagerter Reverse-Proxy, DNS- und Sicherheitsdienst eingesetzt und verarbeitet dabei Verbindungsdaten als Auftragsverarbeiter. Das Cloudflare Data Processing Addendum bezieht die EU-Standardvertragsklauseln ein und verwendet für anwendbare Übermittlungen außerdem das EU-U.S. Data Privacy Framework. Wegen der globalen Cloudflare-Infrastruktur können Daten außerhalb des EWR verarbeitet werden.",
-    cloudflareOff: "Cloudflare wird nach der aktuellen Build-Konfiguration nicht als Reverse Proxy für Besucherzugriffe angegeben. Wird der Proxy später aktiviert, muss diese Erklärung vorab angepasst werden.",
+    cloudflareOn:
+      "Cloudflare, Inc., 101 Townsend Street, San Francisco, California 94107, USA, wird als vorgelagerter Reverse-Proxy, DNS- und Sicherheitsdienst eingesetzt und verarbeitet dabei Verbindungsdaten als Auftragsverarbeiter. Das Cloudflare Data Processing Addendum bezieht die EU-Standardvertragsklauseln ein und verwendet für anwendbare Übermittlungen außerdem das EU-U.S. Data Privacy Framework. Wegen der globalen Cloudflare-Infrastruktur können Daten außerhalb des EWR verarbeitet werden.",
+    cloudflareOff:
+      "Cloudflare wird nach der aktuellen Build-Konfiguration nicht als Reverse Proxy für Besucherzugriffe angegeben. Wird der Proxy später aktiviert, muss diese Erklärung vorab angepasst werden.",
     analytics: "3. Optionale Reichweitenmessung",
     analyticsOn: `Nach ausdrücklicher Zustimmung wird die selbst gehostete Software ${site.analytics.provider} geladen. Sie misst Seitenaufrufe und ausgewählte Interaktionen, um Inhalte und Navigation zu verbessern. Verarbeitet werden können aufgerufener Pfad ohne Suchparameter oder Fragment, Zeitpunkt, verweisende Website, Sprache, Bildschirm- und Geräteklasse sowie freiwillig ausgelöste Ereignisse. Es werden keine Werbeprofile erstellt und keine Daten mit fremden Websites zusammengeführt. Die IP-Adresse wird beim Verbindungsaufbau technisch an den Analyseserver übertragen; die Analyse- und Proxykonfiguration muss so betrieben werden, dass sie nicht dauerhaft in Analysedatensätzen oder Zugriffsprotokollen gespeichert wird. Analysedaten werden nach ${site.legal.analyticsRetentionDays} Tagen gelöscht. Rechtsgrundlage ist die Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO in Verbindung mit § 25 Abs. 1 TDDDG.`,
-    analyticsOff: "In dieser Build-Konfiguration ist keine Reichweitenmessung aktiviert. Das Analyseskript wird erst eingebunden, wenn eine zulässige selbst gehostete Instanz und eine Website-ID konfiguriert wurden.",
+    analyticsOff:
+      "In dieser Build-Konfiguration ist keine Reichweitenmessung aktiviert. Das Analyseskript wird erst eingebunden, wenn eine zulässige selbst gehostete Instanz und eine Website-ID konfiguriert wurden.",
     consent: "4. Einwilligung und notwendige Speicherung der Auswahl",
     consentBody: `Vor einer optionalen Analyse wird eine gleichwertige Auswahl zum Erlauben oder Ablehnen angeboten. Ohne Zustimmung wird kein Analyseskript geladen. Die Auswahl wird im lokalen Speicher des Browsers unter „filius.analyticsConsent.v1“ für höchstens ${site.analytics.consentStorageDays} Tage gespeichert. Diese Speicherung ist erforderlich, um die Datenschutzentscheidung umzusetzen und die Abfrage nicht bei jedem Seitenaufruf zu wiederholen (§ 25 Abs. 2 Nr. 2 TDDDG). Die Einwilligung kann jederzeit über „Datenschutzeinstellungen“ mit Wirkung für die Zukunft widerrufen werden. Der Widerruf ist so einfach wie die Erteilung.`,
     openSettings: "Datenschutzeinstellungen öffnen",
-    support: "5. Support per E-Mail",
-    supportBody: "Bei einer E-Mail-Anfrage werden Absenderadresse, Nachricht, technische Angaben und freiwillig übermittelte Anhänge zur Bearbeitung verarbeitet. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, wenn die Anfrage auf einen Vertrag oder vorvertragliche Maßnahmen gerichtet ist, andernfalls Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse liegt in der Beantwortung von Produkt- und Supportanfragen. Daten werden gelöscht, wenn die Anfrage abschließend bearbeitet ist und keine gesetzlichen Aufbewahrungs- oder Nachweispflichten entgegenstehen.",
-    emailRouting: "Cloudflare Email Routing nimmt Nachrichten für support@filius.app an, prüft sie auf Zustellbarkeit und Missbrauch und leitet Nachricht, Absender- und Empfängeradresse sowie technische Routingdaten an das Zielpostfach weiter. Cloudflare handelt dabei auf Grundlage seines Data Processing Addendum als Auftragsverarbeiter.",
+    support: "5. Support und Kontaktformular",
+    supportBody: `Bei Nutzung des Kontaktformulars werden E-Mail-Adresse, Thema und Nachricht sowie freiwillig Name, App-Version und Geräteangaben verarbeitet. Das Formular nimmt keine Anhänge an und legt keine Anfrage in einer eigenen Datenbank oder Datei ab. Der getrennte Kontakt-Dienst prüft die Eingabe und übermittelt sie verschlüsselt per SMTP an das Support-Postfach. Zur Missbrauchsbegrenzung wird eine aus der Verbindungsadresse abgeleitete, pro Prozess gesalzene Kennung ausschließlich im Arbeitsspeicher für höchstens ${site.legal.contactRateLimitWindowMinutes} Minuten gehalten; die Verbindungsadresse wird nicht in die Supportnachricht übernommen. Bei einer direkten E-Mail werden zusätzlich die üblichen technischen E-Mail-Kopfdaten und freiwillig übermittelte Anhänge verarbeitet. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, wenn die Anfrage auf einen Vertrag oder vorvertragliche Maßnahmen gerichtet ist, andernfalls Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse liegt in der Beantwortung und dem Schutz des Kontaktwegs vor Missbrauch. Supportnachrichten werden spätestens ${site.legal.supportRetentionDays} Tage nach abschließender Bearbeitung gelöscht, soweit keine gesetzlichen Aufbewahrungs- oder Nachweispflichten eine längere Speicherung erfordern.`,
+    emailRouting:
+      "Die aktuelle DNS-Konfiguration leitet Nachrichten für support@filius.app an den Netcup-Maildienst. Netcup verarbeitet die Zustellung und – sofern im Konto aktiviert – die Speicherung im Postfach. Für diesen Mailbetrieb wird weder Cloudflare Email Routing noch ein Webmail-Hostname benötigt.",
     emailProvider: "Zielpostfach-Anbieter",
-    consumerGmail: "Das Ziel ist ein persönliches Gmail-Postfach. Für Gmail-Dienste im EWR ist Google Ireland Limited grundsätzlich selbst Verantwortlicher und nicht Auftragsverarbeiter des Websitebetreibers. Daher besteht für das persönliche Gmail-Postfach kein Auftragsverarbeitungsvertrag nach Art. 28 DSGVO. Google beschreibt internationale Übermittlungen über das EU-U.S. Data Privacy Framework und Standardvertragsklauseln.",
-    workspaceGmail: "Das Ziel ist ein Google-Workspace-Postfach. Google verarbeitet die Supportnachrichten insoweit nach dem Google Workspace Cloud Data Processing Addendum als Auftragsverarbeiter; die tatsächlich akzeptierte Vertragsversion und die gewählten Datenregionen müssen dokumentiert werden.",
+    consumerGmail:
+      "Das Ziel ist ein persönliches Gmail-Postfach. Für Gmail-Dienste im EWR ist Google Ireland Limited grundsätzlich selbst Verantwortlicher und nicht Auftragsverarbeiter des Websitebetreibers. Daher besteht für das persönliche Gmail-Postfach kein Auftragsverarbeitungsvertrag nach Art. 28 DSGVO. Google beschreibt internationale Übermittlungen über das EU-U.S. Data Privacy Framework und Standardvertragsklauseln.",
+    netcupMailbox: `Der Maildienst und das Support-Postfach werden von netcup GmbH bereitgestellt. Die für das aktive Konto geltenden Vertrags- und Datenschutzunterlagen werden in den Verarbeitungsunterlagen des Verantwortlichen geführt. Die operative Löschfrist für abgeschlossene Supportanfragen beträgt ${site.legal.supportRetentionDays} Tage, vorbehaltlich gesetzlicher Aufbewahrungs- und Nachweispflichten.`,
+    workspaceGmail:
+      "Das Ziel ist ein Google-Workspace-Postfach. Google verarbeitet die Supportnachrichten insoweit nach dem Google Workspace Cloud Data Processing Addendum als Auftragsverarbeiter; die tatsächlich akzeptierte Vertragsversion und die gewählten Datenregionen müssen dokumentiert werden.",
     recipients: "6. Empfänger und Drittlandübermittlungen",
-    recipientsBody: "Auftragsverarbeiter für Besucherzugriffe sind Oracle Cloud Infrastructure für das Hosting und Cloudflare für Reverse-Proxy-, Sicherheits- und E-Mail-Routing-Leistungen. Die selbst gehostete Reichweitenmessung läuft auf der Oracle-Infrastruktur und fügt keinen weiteren externen Analysedienst hinzu. Google Ireland Limited erhält die weitergeleiteten Supportnachrichten als Anbieter des Zielpostfachs. Die jeweiligen Vereinbarungen und Übermittlungsmechanismen müssen im Verzeichnis der Verarbeitungstätigkeiten mit ihrer tatsächlich genutzten Vertragsversion dokumentiert werden.",
+    recipientsBody: `Auftragsverarbeiter für Besucherzugriffe und den eigenen Kontakt-Dienst sind Oracle Cloud Infrastructure für das Hosting und Cloudflare für Reverse-Proxy-, DNS- und Sicherheitsleistungen. Die selbst gehostete Reichweitenmessung läuft auf der Oracle-Infrastruktur und fügt keinen weiteren externen Analysedienst hinzu. ${site.legal.emailProviderName || missing} verarbeitet Supportnachrichten als Mailbox-Anbieter. Die jeweils geltenden Vereinbarungen, Aufbewahrungsfristen und Übermittlungsmechanismen werden mit der tatsächlich genutzten Vertragsversion im Verzeichnis der Verarbeitungstätigkeiten geführt.`,
     rights: "7. Rechte betroffener Personen",
-    rightsBody: "Betroffene Personen haben – abhängig von den gesetzlichen Voraussetzungen – Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch. Eine Einwilligung kann jederzeit für die Zukunft widerrufen werden. Außerdem besteht ein Beschwerderecht bei einer Datenschutzaufsichtsbehörde, insbesondere am gewöhnlichen Aufenthaltsort, Arbeitsplatz oder Ort des mutmaßlichen Verstoßes.",
+    rightsBody:
+      "Betroffene Personen haben – abhängig von den gesetzlichen Voraussetzungen – Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch. Eine Einwilligung kann jederzeit für die Zukunft widerrufen werden. Außerdem besteht ein Beschwerderecht bei einer Datenschutzaufsichtsbehörde, insbesondere am gewöhnlichen Aufenthaltsort, Arbeitsplatz oder Ort des mutmaßlichen Verstoßes.",
     security: "8. Sicherheit und Aktualisierung",
     securityBody: `Die Website wird verschlüsselt über HTTPS bereitgestellt. Technische und organisatorische Maßnahmen werden dem Risiko entsprechend gepflegt. Stand dieser Erklärung: ${site.legal.privacyNoticeDate}. Änderungen an Hosting, Analytics, Kontaktwegen oder App-Store-Verfügbarkeit werden vor dem jeweiligen Einsatz in dieser Erklärung berücksichtigt.`,
   },
   en: {
     eyebrow: "Privacy and consent",
     title: "Privacy notice",
-    intro: "Information about personal-data processing when visiting filius.app, enabling optional audience measurement, or contacting support.",
-    incomplete: "Before public release, the controller, service address, hosting provider, actual retention periods, and processors must be verified and supplied through the build variables.",
+    intro:
+      "Information about personal-data processing when visiting filius.app, enabling optional audience measurement, or contacting support.",
+    incomplete:
+      "The technical details have been supplied. Final legal review remains outstanding before public release; the build configuration and actual operation must continue to match.",
     controller: "1. Controller",
-    controllerBody: "The controller responsible for processing on this website is:",
+    controllerBody:
+      "The controller responsible for processing on this website is:",
     email: "Email",
     hosting: "2. Delivery, hosting, and server logs",
     hostingBody: `When the website is requested, technically necessary connection data is processed: IP address, date and time, requested address, transferred volume, HTTP status, referrer, browser, and operating-system information. The purposes are secure delivery, fault analysis, and abuse prevention. Visitor requests are logged by Nginx Proxy Manager. Its default rotation retains access logs for at most approximately ${site.legal.accessLogRetentionDays} days and technical error logs for at most approximately ${site.legal.errorLogRetentionDays} days. The downstream static web container keeps no additional access log; its technical Docker error output is limited to three files of 10 MB each. Relevant extracts may be retained longer for the limited purpose of investigating a security incident. The legal basis is Article 6(1)(f) GDPR. The legitimate interest is secure and reliable website operation.`,
     hostingProvider: "Hosting provider",
     hostingRegion: "OCI region",
-    oracleProcessing: "Oracle Cloud Infrastructure processes hosting and connection data as a processor. The Oracle Services Data Processing Agreement is incorporated into the cloud-services contract. For necessary transfers to Oracle recipients outside the EEA, the incorporated data-transfer annex provides for Oracle’s Binding Corporate Rules for Processors and the EU Standard Contractual Clauses.",
+    oracleProcessing:
+      "Oracle Cloud Infrastructure processes hosting and connection data as a processor. The Oracle Services Data Processing Agreement is incorporated into the cloud-services contract. For necessary transfers to Oracle recipients outside the EEA, the incorporated data-transfer annex provides for Oracle’s Binding Corporate Rules for Processors and the EU Standard Contractual Clauses.",
     cloudflare: "Cloudflare",
-    cloudflareOn: "Cloudflare, Inc., 101 Townsend Street, San Francisco, California 94107, USA, is used as the visitor-facing reverse-proxy, DNS, and security service and processes connection data as a processor. The Cloudflare Data Processing Addendum incorporates the EU Standard Contractual Clauses and also uses the EU-U.S. Data Privacy Framework for applicable transfers. Data may be processed outside the EEA because of Cloudflare’s global infrastructure.",
-    cloudflareOff: "The current build does not declare Cloudflare as a visitor-facing reverse proxy. If proxying is enabled later, this notice must be updated first.",
+    cloudflareOn:
+      "Cloudflare, Inc., 101 Townsend Street, San Francisco, California 94107, USA, is used as the visitor-facing reverse-proxy, DNS, and security service and processes connection data as a processor. The Cloudflare Data Processing Addendum incorporates the EU Standard Contractual Clauses and also uses the EU-U.S. Data Privacy Framework for applicable transfers. Data may be processed outside the EEA because of Cloudflare’s global infrastructure.",
+    cloudflareOff:
+      "The current build does not declare Cloudflare as a visitor-facing reverse proxy. If proxying is enabled later, this notice must be updated first.",
     analytics: "3. Optional audience measurement",
     analyticsOn: `After explicit consent, the self-hosted ${site.analytics.provider} software is loaded. It measures page views and selected interactions to improve content and navigation. Data can include the visited path without search parameters or fragments, time, referring site, language, screen and device class, and deliberately triggered events. No advertising profile is created and data is not combined across unrelated websites. The IP address is technically transmitted when connecting to the analytics server; the analytics and proxy configuration must ensure it is not retained in analytics records or access logs. Analytics records are deleted after ${site.legal.analyticsRetentionDays} days. The legal basis is consent under Article 6(1)(a) GDPR together with Section 25(1) TDDDG.`,
-    analyticsOff: "Audience measurement is not active in this build. The analytics script is loaded only after a permitted self-hosted instance and website ID have been configured.",
+    analyticsOff:
+      "Audience measurement is not active in this build. The analytics script is loaded only after a permitted self-hosted instance and website ID have been configured.",
     consent: "4. Consent and necessary preference storage",
     consentBody: `Before optional analytics, equally prominent choices to allow or reject are shown. No analytics script loads without consent. The decision is stored in browser local storage as “filius.analyticsConsent.v1” for no more than ${site.analytics.consentStorageDays} days. This storage is necessary to apply the privacy decision and avoid asking on every page (§ 25(2)(2) TDDDG). Consent can be withdrawn at any time through “Privacy settings” with future effect. Withdrawal is as easy as giving consent.`,
     openSettings: "Open privacy settings",
-    support: "5. Email support",
-    supportBody: "When an email is sent, the sender address, message, technical details, and voluntarily supplied attachments are processed to answer it. The basis is Article 6(1)(b) GDPR for contractual or pre-contractual requests and otherwise Article 6(1)(f) GDPR. The legitimate interest is answering product and support enquiries. Data is deleted when the request is completed unless statutory retention or evidential duties require otherwise.",
-    emailRouting: "Cloudflare Email Routing receives messages for support@filius.app, checks delivery and abuse signals, and forwards the message, sender and recipient addresses, and technical routing data to the destination mailbox. Cloudflare acts as a processor under its Data Processing Addendum for this routing.",
+    support: "5. Support and contact form",
+    supportBody: `When the contact form is used, the email address, topic, and message are processed together with any optional name, app version, and device details. The form does not accept attachments or store requests in its own database or file. The separate contact service validates the submission and relays it over encrypted SMTP to the support mailbox. To limit abuse, a per-process salted identifier derived from the connection address is held only in memory for no more than ${site.legal.contactRateLimitWindowMinutes} minutes; the connection address is not added to the support message. Direct email also processes the usual technical email headers and any voluntarily supplied attachments. The basis is Article 6(1)(b) GDPR for contractual or pre-contractual requests and otherwise Article 6(1)(f) GDPR. The legitimate interest is answering enquiries and protecting the contact channel from abuse. Support messages are deleted no later than ${site.legal.supportRetentionDays} days after the request is completed unless statutory retention or evidential duties require longer storage.`,
+    emailRouting:
+      "The current DNS configuration delivers messages for support@filius.app to the Netcup mail service. Netcup handles delivery and, when enabled in the account, mailbox storage. This mail setup does not require Cloudflare Email Routing or a webmail hostname.",
     emailProvider: "Destination mailbox provider",
-    consumerGmail: "The destination is a personal Gmail mailbox. For Gmail services in the EEA, Google Ireland Limited generally acts as an independent controller rather than as the website operator’s processor. Consequently, there is no Article 28 processor agreement for the personal Gmail mailbox. Google describes international transfers under the EU-U.S. Data Privacy Framework and Standard Contractual Clauses.",
-    workspaceGmail: "The destination is a Google Workspace mailbox. Google processes support messages as a processor under the Google Workspace Cloud Data Processing Addendum; the accepted contract version and selected data regions must be recorded.",
+    consumerGmail:
+      "The destination is a personal Gmail mailbox. For Gmail services in the EEA, Google Ireland Limited generally acts as an independent controller rather than as the website operator’s processor. Consequently, there is no Article 28 processor agreement for the personal Gmail mailbox. Google describes international transfers under the EU-U.S. Data Privacy Framework and Standard Contractual Clauses.",
+    netcupMailbox: `The mail service and support mailbox are provided by netcup GmbH. The contractual and privacy documents applicable to the active account are retained in the controller’s processing records. The operational deletion period for completed support requests is ${site.legal.supportRetentionDays} days, subject to statutory retention and evidential duties.`,
+    workspaceGmail:
+      "The destination is a Google Workspace mailbox. Google processes support messages as a processor under the Google Workspace Cloud Data Processing Addendum; the accepted contract version and selected data regions must be recorded.",
     recipients: "6. Recipients and international transfers",
-    recipientsBody: "The processors for visitor requests are Oracle Cloud Infrastructure for hosting and Cloudflare for reverse-proxy, security, and email-routing services. The self-hosted audience measurement runs on Oracle infrastructure and does not add another external analytics provider. Google Ireland Limited receives forwarded support messages as the destination-mailbox provider. The applicable agreements and transfer mechanisms must be recorded with their actually used contract versions in the controller’s processing records.",
+    recipientsBody: `The processors for visitor requests and the first-party contact service are Oracle Cloud Infrastructure for hosting and Cloudflare for reverse-proxy, DNS, and security services. The self-hosted audience measurement runs on Oracle infrastructure and does not add another external analytics provider. ${site.legal.emailProviderName || missing} processes support messages as the mailbox provider. The applicable agreements, retention periods, and transfer mechanisms are retained with the contract versions actually in use in the controller’s processing records.`,
     rights: "7. Data-subject rights",
-    rightsBody: "Subject to the statutory conditions, individuals have rights of access, rectification, erasure, restriction, portability, and objection. Consent can be withdrawn at any time for the future. A complaint can also be made to a data-protection supervisory authority, particularly at the person’s habitual residence, workplace, or the place of the alleged infringement.",
+    rightsBody:
+      "Subject to the statutory conditions, individuals have rights of access, rectification, erasure, restriction, portability, and objection. Consent can be withdrawn at any time for the future. A complaint can also be made to a data-protection supervisory authority, particularly at the person’s habitual residence, workplace, or the place of the alleged infringement.",
     security: "8. Security and updates",
     securityBody: `The website is delivered over encrypted HTTPS. Technical and organisational safeguards are maintained according to risk. Notice date: ${site.legal.privacyNoticeDate}. Changes to hosting, analytics, contact channels, or App Store availability will be reflected here before they are used.`,
   },
   fr: {
     eyebrow: "Confidentialité et consentement",
     title: "Politique de confidentialité",
-    intro: "Informations sur le traitement des données lors de la visite de filius.app, de la mesure d’audience facultative ou d’une demande d’assistance.",
-    incomplete: "Avant la publication, le responsable, l’adresse de service, l’hébergeur, les durées réelles et les sous-traitants doivent être vérifiés et fournis par les variables de compilation.",
+    intro:
+      "Informations sur le traitement des données lors de la visite de filius.app, de la mesure d’audience facultative ou d’une demande d’assistance.",
+    incomplete:
+      "Les informations techniques sont renseignées. La vérification juridique finale reste à effectuer avant la publication ; la configuration de compilation et le fonctionnement réel doivent continuer à correspondre.",
     controller: "1. Responsable du traitement",
     controllerBody: "Le responsable du traitement sur ce site est :",
     email: "E-mail",
@@ -93,26 +125,35 @@ const copy = {
     hostingBody: `Lors d’un accès, les données de connexion techniquement nécessaires sont traitées : adresse IP, date et heure, adresse demandée, volume transféré, statut HTTP, référent, navigateur et système. Les finalités sont la diffusion sécurisée, l’analyse des erreurs et la prévention des abus. Les accès sont journalisés par Nginx Proxy Manager. Sa rotation par défaut conserve les journaux d’accès au maximum environ ${site.legal.accessLogRetentionDays} jours et les journaux d’erreurs techniques au maximum environ ${site.legal.errorLogRetentionDays} jours. Le conteneur web statique en aval ne tient pas de journal d’accès supplémentaire ; ses sorties d’erreur Docker sont limitées à trois fichiers de 10 Mo. Des extraits pertinents peuvent être conservés plus longtemps uniquement pour examiner un incident de sécurité. La base est l’article 6(1)(f) du RGPD, avec pour intérêt légitime un fonctionnement sûr et fiable.`,
     hostingProvider: "Hébergeur",
     hostingRegion: "Région OCI",
-    oracleProcessing: "Oracle Cloud Infrastructure traite les données d’hébergement et de connexion en qualité de sous-traitant. Le Data Processing Agreement d’Oracle Services est intégré au contrat de services cloud. Pour les transferts nécessaires vers des destinataires Oracle hors EEE, l’annexe de transfert intégrée prévoit les règles d’entreprise contraignantes d’Oracle pour les sous-traitants et les clauses contractuelles types de l’UE.",
+    oracleProcessing:
+      "Oracle Cloud Infrastructure traite les données d’hébergement et de connexion en qualité de sous-traitant. Le Data Processing Agreement d’Oracle Services est intégré au contrat de services cloud. Pour les transferts nécessaires vers des destinataires Oracle hors EEE, l’annexe de transfert intégrée prévoit les règles d’entreprise contraignantes d’Oracle pour les sous-traitants et les clauses contractuelles types de l’UE.",
     cloudflare: "Cloudflare",
-    cloudflareOn: "Cloudflare, Inc., 101 Townsend Street, San Francisco, Californie 94107, États-Unis, est utilisé comme proxy inverse, DNS et service de sécurité visible des visiteurs et traite les données de connexion en qualité de sous-traitant. Le Data Processing Addendum de Cloudflare intègre les clauses contractuelles types de l’UE et utilise aussi le cadre de protection des données UE–États-Unis pour les transferts applicables. Des données peuvent être traitées hors EEE en raison de l’infrastructure mondiale de Cloudflare.",
-    cloudflareOff: "La compilation actuelle ne déclare pas Cloudflare comme proxy visible des visiteurs. Si le proxy est activé, cette politique doit d’abord être mise à jour.",
+    cloudflareOn:
+      "Cloudflare, Inc., 101 Townsend Street, San Francisco, Californie 94107, États-Unis, est utilisé comme proxy inverse, DNS et service de sécurité visible des visiteurs et traite les données de connexion en qualité de sous-traitant. Le Data Processing Addendum de Cloudflare intègre les clauses contractuelles types de l’UE et utilise aussi le cadre de protection des données UE–États-Unis pour les transferts applicables. Des données peuvent être traitées hors EEE en raison de l’infrastructure mondiale de Cloudflare.",
+    cloudflareOff:
+      "La compilation actuelle ne déclare pas Cloudflare comme proxy visible des visiteurs. Si le proxy est activé, cette politique doit d’abord être mise à jour.",
     analytics: "3. Mesure d’audience facultative",
     analyticsOn: `Après consentement explicite, le logiciel auto-hébergé ${site.analytics.provider} est chargé. Il mesure les pages et certaines interactions afin d’améliorer le contenu et la navigation. Les données peuvent comprendre le chemin sans paramètres ni fragment, l’heure, le site référent, la langue, la catégorie d’écran et d’appareil et des événements volontairement déclenchés. Aucun profil publicitaire n’est créé et les données ne sont pas combinées entre sites sans rapport. L’adresse IP est techniquement transmise au serveur d’analyse ; la configuration doit empêcher sa conservation dans les données analytiques ou les journaux. Les données sont supprimées après ${site.legal.analyticsRetentionDays} jours. La base est le consentement au titre de l’article 6(1)(a) du RGPD et du § 25(1) TDDDG.`,
-    analyticsOff: "La mesure d’audience n’est pas activée dans cette compilation. Le script ne sera chargé qu’après configuration d’une instance auto-hébergée autorisée et d’un identifiant de site.",
+    analyticsOff:
+      "La mesure d’audience n’est pas activée dans cette compilation. Le script ne sera chargé qu’après configuration d’une instance auto-hébergée autorisée et d’un identifiant de site.",
     consent: "4. Consentement et stockage nécessaire du choix",
     consentBody: `Avant l’analyse, des choix équivalents pour accepter ou refuser sont proposés. Aucun script n’est chargé sans accord. Le choix est conservé dans le stockage local sous « filius.analyticsConsent.v1 » pendant au plus ${site.analytics.consentStorageDays} jours. Ce stockage est nécessaire pour appliquer la décision et éviter une demande à chaque page (§ 25(2)(2) TDDDG). Le consentement peut être retiré à tout moment via « Réglages de confidentialité », avec effet futur, aussi simplement qu’il a été donné.`,
     openSettings: "Ouvrir les réglages de confidentialité",
-    support: "5. Assistance par e-mail",
-    supportBody: "Lors d’un e-mail, l’adresse d’envoi, le message, les informations techniques et les pièces jointes volontaires sont traités pour répondre. La base est l’article 6(1)(b) du RGPD pour les demandes contractuelles ou précontractuelles, sinon l’article 6(1)(f). L’intérêt légitime est de répondre aux demandes. Les données sont supprimées après traitement, sauf obligation légale de conservation ou de preuve.",
-    emailRouting: "Cloudflare Email Routing reçoit les messages destinés à support@filius.app, contrôle leur acheminement et les signaux d’abus, puis transmet le message, les adresses d’envoi et de destination ainsi que les données techniques de routage à la boîte finale. Cloudflare agit comme sous-traitant sur la base de son Data Processing Addendum.",
+    support: "5. Assistance et formulaire de contact",
+    supportBody: `Lors de l’utilisation du formulaire, l’adresse e-mail, le sujet et le message sont traités, ainsi que le nom, la version de l’app et les informations sur l’appareil lorsqu’ils sont fournis. Le formulaire n’accepte aucune pièce jointe et ne conserve aucune demande dans une base de données ou un fichier propre. Le service de contact séparé valide la saisie et la transmet par SMTP chiffré à la boîte d’assistance. Pour limiter les abus, un identifiant salé propre au processus et dérivé de l’adresse de connexion est conservé uniquement en mémoire pendant au plus ${site.legal.contactRateLimitWindowMinutes} minutes ; l’adresse de connexion n’est pas ajoutée au message d’assistance. Un e-mail direct traite également les en-têtes techniques habituels et les pièces jointes fournies volontairement. La base est l’article 6(1)(b) du RGPD pour les demandes contractuelles ou précontractuelles, sinon l’article 6(1)(f). L’intérêt légitime est de répondre aux demandes et de protéger le canal de contact contre les abus. Les messages d’assistance sont supprimés au plus tard ${site.legal.supportRetentionDays} jours après la clôture de la demande, sauf obligation légale de conservation ou de preuve plus longue.`,
+    emailRouting:
+      "La configuration DNS actuelle remet les messages destinés à support@filius.app au service de messagerie Netcup. Netcup assure l’acheminement et, si le compte le prévoit, le stockage dans la boîte. Cette configuration ne nécessite ni Cloudflare Email Routing ni nom d’hôte webmail.",
     emailProvider: "Fournisseur de la boîte de destination",
-    consumerGmail: "La destination est une boîte Gmail personnelle. Pour les services Gmail dans l’EEE, Google Ireland Limited agit en principe comme responsable de traitement indépendant et non comme sous-traitant de l’exploitant du site. Il n’existe donc pas de contrat de sous-traitance au titre de l’article 28 pour cette boîte Gmail personnelle. Google décrit les transferts internationaux au moyen du cadre de protection des données UE–États-Unis et de clauses contractuelles types.",
-    workspaceGmail: "La destination est une boîte Google Workspace. Google traite alors les messages de support comme sous-traitant sur la base du Google Workspace Cloud Data Processing Addendum ; la version acceptée et les régions choisies doivent être consignées.",
+    consumerGmail:
+      "La destination est une boîte Gmail personnelle. Pour les services Gmail dans l’EEE, Google Ireland Limited agit en principe comme responsable de traitement indépendant et non comme sous-traitant de l’exploitant du site. Il n’existe donc pas de contrat de sous-traitance au titre de l’article 28 pour cette boîte Gmail personnelle. Google décrit les transferts internationaux au moyen du cadre de protection des données UE–États-Unis et de clauses contractuelles types.",
+    netcupMailbox: `Le service de messagerie et la boîte d’assistance sont fournis par netcup GmbH. Les documents contractuels et de confidentialité applicables au compte actif sont conservés dans le registre des traitements du responsable. Le délai opérationnel de suppression des demandes closes est de ${site.legal.supportRetentionDays} jours, sous réserve des obligations légales de conservation et de preuve.`,
+    workspaceGmail:
+      "La destination est une boîte Google Workspace. Google traite alors les messages de support comme sous-traitant sur la base du Google Workspace Cloud Data Processing Addendum ; la version acceptée et les régions choisies doivent être consignées.",
     recipients: "6. Destinataires et transferts internationaux",
-    recipientsBody: "Les sous-traitants des accès visiteurs sont Oracle Cloud Infrastructure pour l’hébergement et Cloudflare pour le proxy inverse, la sécurité et le routage des e-mails. La mesure d’audience auto-hébergée fonctionne sur l’infrastructure Oracle et n’ajoute pas d’autre prestataire d’analyse externe. Google Ireland Limited reçoit les messages de support transmis en tant que fournisseur de la boîte de destination. Les accords et mécanismes de transfert applicables doivent être consignés, avec les versions contractuelles effectivement utilisées, dans le registre des traitements du responsable.",
+    recipientsBody: `Les sous-traitants des accès visiteurs et du service de contact interne sont Oracle Cloud Infrastructure pour l’hébergement et Cloudflare pour le proxy inverse, le DNS et la sécurité. La mesure d’audience auto-hébergée fonctionne sur l’infrastructure Oracle et n’ajoute pas d’autre prestataire d’analyse externe. ${site.legal.emailProviderName || missing} traite les messages d’assistance comme fournisseur de la boîte. Les accords, durées de conservation et mécanismes de transfert applicables sont conservés avec les versions contractuelles effectivement utilisées dans le registre des traitements du responsable.`,
     rights: "7. Droits des personnes",
-    rightsBody: "Sous réserve des conditions légales, les personnes disposent des droits d’accès, rectification, effacement, limitation, portabilité et opposition. Le consentement peut être retiré à tout moment pour l’avenir. Une réclamation peut être adressée à une autorité de contrôle, notamment au lieu de résidence habituelle, de travail ou de l’infraction présumée.",
+    rightsBody:
+      "Sous réserve des conditions légales, les personnes disposent des droits d’accès, rectification, effacement, limitation, portabilité et opposition. Le consentement peut être retiré à tout moment pour l’avenir. Une réclamation peut être adressée à une autorité de contrôle, notamment au lieu de résidence habituelle, de travail ou de l’infraction présumée.",
     security: "8. Sécurité et mises à jour",
     securityBody: `Le site est fourni via HTTPS chiffré. Les mesures techniques et organisationnelles sont entretenues selon le risque. Date de la politique : ${site.legal.privacyNoticeDate}. Toute modification de l’hébergement, de l’analyse, du contact ou de l’App Store sera intégrée avant utilisation.`,
   },
@@ -124,7 +165,13 @@ const copy = {
     <p class="eyebrow">{copy.eyebrow}</p>
     <h1>{copy.title}</h1>
     <p class="lede">{copy.intro}</p>
-    {!privacyNoticeReady && <p class="draft-notice" role="status">{copy.incomplete}</p>}
+    {
+      !privacyNoticeReady && (
+        <p class="draft-notice" role="status">
+          {copy.incomplete}
+        </p>
+      )
+    }
   </div>
 </section>
 <section class="section trust-section">
@@ -135,18 +182,41 @@ const copy = {
       <address>
         <strong>{site.legal.controllerName || missing}</strong><br />
         <span>{site.legal.controllerAddress || missing}</span><br />
-        {copy.email}: <a href={`mailto:${site.legal.controllerEmail}`}>{site.legal.controllerEmail}</a>
-        {site.legal.controllerPhone && <><br />{site.legal.controllerPhone}</>}
+        {copy.email}: <a href={`mailto:${site.legal.controllerEmail}`}
+          >{site.legal.controllerEmail}</a
+        >
+        {
+          site.legal.controllerPhone && (
+            <>
+              <br />
+              {site.legal.controllerPhone}
+            </>
+          )
+        }
       </address>
     </section>
     <section>
       <h2>{copy.hosting}</h2>
       <p>{copy.hostingBody}</p>
-      <p><strong>{copy.hostingProvider}:</strong> {site.legal.hostingProviderName || missing}, {site.legal.hostingProviderAddress || missing}, {site.legal.hostingCountry}</p>
-      <p><strong>{copy.hostingRegion}:</strong> {site.legal.hostingRegion || missing}</p>
+      <p>
+        <strong>{copy.hostingProvider}:</strong>
+        {site.legal.hostingProviderName || missing}, {
+          site.legal.hostingProviderAddress || missing
+        }, {site.legal.hostingCountry}
+      </p>
+      <p>
+        <strong>{copy.hostingRegion}:</strong>
+        {site.legal.hostingRegion || missing}
+      </p>
       <p>{copy.oracleProcessing}</p>
       <h3>{copy.cloudflare}</h3>
-      <p>{site.legal.cloudflareProxyEnabled ? copy.cloudflareOn : copy.cloudflareOff}</p>
+      <p>
+        {
+          site.legal.cloudflareProxyEnabled
+            ? copy.cloudflareOn
+            : copy.cloudflareOff
+        }
+      </p>
     </section>
     <section>
       <h2>{copy.analytics}</h2>
@@ -155,9 +225,36 @@ const copy = {
     <section>
       <h2>{copy.consent}</h2>
       <p>{copy.consentBody}</p>
-      {site.analytics.enabled && <button class="button button--secondary" type="button" data-open-privacy-settings>{copy.openSettings}</button>}
+      {
+        site.analytics.enabled && (
+          <button
+            class="button button--secondary"
+            type="button"
+            data-open-privacy-settings
+          >
+            {copy.openSettings}
+          </button>
+        )
+      }
     </section>
-    <section><h2>{copy.support}</h2><p>{copy.supportBody}</p><p>{copy.emailRouting}</p><p><strong>{copy.emailProvider}:</strong> {site.legal.emailProviderName || missing}, {site.legal.emailProviderAddress || missing}, {site.legal.emailProviderCountry || missing}</p><p>{usesConsumerGmail ? copy.consumerGmail : copy.workspaceGmail}</p></section>
+    <section>
+      <h2>{copy.support}</h2><p>{copy.supportBody}</p><p>
+        {copy.emailRouting}
+      </p><p>
+        <strong>{copy.emailProvider}:</strong>
+        {site.legal.emailProviderName || missing}, {
+          site.legal.emailProviderAddress || missing
+        }, {site.legal.emailProviderCountry || missing}
+      </p><p>
+        {
+          usesConsumerGmail
+            ? copy.consumerGmail
+            : usesNetcupMailbox
+              ? copy.netcupMailbox
+              : copy.workspaceGmail
+        }
+      </p>
+    </section>
     <section><h2>{copy.recipients}</h2><p>{copy.recipientsBody}</p></section>
     <section><h2>{copy.rights}</h2><p>{copy.rightsBody}</p></section>
     <section><h2>{copy.security}</h2><p>{copy.securityBody}</p></section>
@@ -165,9 +262,24 @@ const copy = {
 </section>
 
 <style>
-  .trust-hero { background: var(--paper); }
-  .trust-section { padding-top: 0; background: var(--paper); }
-  .legal-copy section:first-child h2 { margin-top: 0; }
-  .legal-copy address { padding: 1rem; border-left: .25rem solid var(--red-500); background: var(--paper); font-style: normal; white-space: pre-line; }
-  .legal-copy h3 { margin-top: 1.6rem; }
+  .trust-hero {
+    background: var(--paper);
+  }
+  .trust-section {
+    padding-top: 0;
+    background: var(--paper);
+  }
+  .legal-copy section:first-child h2 {
+    margin-top: 0;
+  }
+  .legal-copy address {
+    padding: 1rem;
+    border-left: 0.25rem solid var(--red-500);
+    background: var(--paper);
+    font-style: normal;
+    white-space: pre-line;
+  }
+  .legal-copy h3 {
+    margin-top: 1.6rem;
+  }
 </style>

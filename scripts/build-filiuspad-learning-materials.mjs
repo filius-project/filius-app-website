@@ -9,7 +9,7 @@ const execFileAsync = promisify(execFile);
 const root = new URL("../education/filiuspad-workshop/", import.meta.url)
   .pathname;
 const scormRoot = join(root, "scorm");
-const publicRoot = new URL("../public/learning/", import.meta.url).pathname;
+const outputRoot = join(root, "output");
 
 const modules = [
   {
@@ -373,7 +373,7 @@ const teacherGuide = `# Lehrkraft-Handreichung\n\n## Zielgruppe und Voraussetzun
 
 await mkdir(scormRoot, { recursive: true });
 await mkdir(join(root, "source"), { recursive: true });
-await mkdir(publicRoot, { recursive: true });
+await mkdir(outputRoot, { recursive: true });
 await writeFile(join(root, "source", "curriculum.md"), curriculum);
 await writeFile(join(root, "source", "teacher-guide.md"), teacherGuide);
 await writeFile(join(root, "source", "workbook.html"), workbookHtml);
@@ -384,7 +384,7 @@ await writeFile(join(root, "scorm", "imsmanifest.xml"), scormManifest);
 await writeFile(join(root, "scorm", "README.txt"), readme);
 await writeFile(
   join(root, "README.md"),
-  `# FiliusPad Lernmaterial\n\nDieses Paket enthält ein druckbares Lernheft und einen selbstständigen Moodle-Lernpfad für Filius on iPad.\n\n- [Curriculum und Ablauf](source/curriculum.md)\n- [Handreichung für Lehrkräfte](source/teacher-guide.md)\n- [Moodle-Integration und Fragenbank](moodle/README.md)\n- [SCORM-1.2-Importhinweise](scorm/README.txt)\n- source/workbook.html ist die druckbare Quelle für das PDF.\n\nDie erzeugten Dateien liegen nach dem Build unter public/learning/.\n`,
+  `# FiliusPad Lernmaterial\n\nDieses Paket enthält einen noch nicht freigegebenen Entwurf für ein druckbares Lernheft und einen Moodle-Lernpfad für Filius on iPad.\n\n- [Curriculum und Ablauf](source/curriculum.md)\n- [Handreichung für Lehrkräfte](source/teacher-guide.md)\n- [Moodle-Integration und Fragenbank](moodle/README.md)\n- [SCORM-1.2-Importhinweise](scorm/README.txt)\n- source/workbook.html ist die druckbare Quelle für das PDF.\n\nDie erzeugten Prüffassungen liegen nach dem Build unter education/filiuspad-workshop/output/. Sie werden nicht über die Website veröffentlicht oder verlinkt.\n`,
 );
 
 const workbookSource = await readFile(
@@ -398,7 +398,7 @@ try {
   });
   await page.setContent(workbookSource, { waitUntil: "load" });
   await page.pdf({
-    path: join(publicRoot, "FiliusPad-Lernheft.pdf"),
+    path: join(outputRoot, "FiliusPad-Lernheft.pdf"),
     format: "A4",
     printBackground: true,
     preferCSSPageSize: true,
@@ -408,7 +408,7 @@ try {
   await browser.close();
 }
 
-const scormArchive = join(publicRoot, "FiliusPad-Lernpfad-SCORM-1.2.zip");
+const scormArchive = join(outputRoot, "FiliusPad-Lernpfad-SCORM-1.2.zip");
 await rm(scormArchive, { force: true });
 await execFileAsync("/usr/bin/zip", [
   "-qrj",
@@ -424,14 +424,14 @@ const questionBank = join(root, "moodle", "filiuspad-question-bank.xml");
 try {
   await copyFile(
     questionBank,
-    join(publicRoot, "FiliusPad-Fragenbank-Moodle.xml"),
+    join(outputRoot, "FiliusPad-Fragenbank-Moodle.xml"),
   );
 } catch (error) {
   if (error?.code !== "ENOENT") throw error;
 }
 
 const landingHtml = `<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FiliusPad Lernmaterial</title><style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5;margin:0;background:#f7faf9;color:#17212b}.wrap{max-width:920px;margin:0 auto;padding:56px 24px}h1{font-size:42px;line-height:1.05;color:#0d4052}.card{background:white;border:1px solid #c9dadd;border-radius:16px;padding:20px;margin:16px 0}.downloads{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}a.button{display:inline-block;border-radius:10px;background:#e5b84b;color:#211b04;text-decoration:none;font-weight:800;padding:12px 16px}.muted{color:#61717a}</style></head><body><main class="wrap"><p class="muted">Filius on iPad · Unterrichtsmaterial</p><h1>Rechnernetze selbst erkunden</h1><p>Ein selbstständiger Workshop für Klasse 8: bauen, beobachten und erklären.</p><section class="downloads"><article class="card"><h2>Lernheft als PDF</h2><p>Druckbares Arbeitsheft mit Modulen, Nachweisfeldern und Glossar.</p><a class="button" href="./FiliusPad-Lernheft.pdf">PDF öffnen</a></article><article class="card"><h2>Moodle-Lernpfad</h2><p>SCORM-1.2-Paket für den selbstständigen Lernpfad mit Mini-Checks.</p><a class="button" href="./FiliusPad-Lernpfad-SCORM-1.2.zip">SCORM-ZIP herunterladen</a></article><article class="card"><h2>Fragenbank</h2><p>Optionale Moodle-XML-Fragen für Wiederholung oder Abschlussquiz.</p><a class="button" href="./FiliusPad-Fragenbank-Moodle.xml">Moodle-XML herunterladen</a></article></section><p class="muted">Die fachliche Arbeit findet in FiliusPad auf dem iPad statt. Das Material enthält keine externen Videos oder Tracking-Dienste.</p></main></body></html>`;
-await writeFile(join(publicRoot, "index.html"), landingHtml);
+await writeFile(join(outputRoot, "index.html"), landingHtml);
 
 await execFileAsync(process.execPath, [
   join(process.cwd(), "node_modules", "prettier", "bin", "prettier.cjs"),
@@ -444,9 +444,9 @@ await execFileAsync(process.execPath, [
   join(root, "source", "curriculum.md"),
   join(root, "source", "teacher-guide.md"),
   join(root, "source", "workbook.html"),
-  join(publicRoot, "index.html"),
+  join(outputRoot, "index.html"),
 ]);
 
 console.log(
-  `Generated ${modules.length} modules, PDF, SCORM archive, and Moodle assets at ${publicRoot}`,
+  `Generated ${modules.length} draft modules, PDF, SCORM archive, and Moodle assets at ${outputRoot}`,
 );

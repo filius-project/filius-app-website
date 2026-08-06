@@ -16,6 +16,14 @@ updates:
       - dependency-name: typescript
         versions: [">=7.0.0"]
 
+  - package-ecosystem: npm
+    directory: /contact
+    schedule:
+      interval: weekly
+      day: monday
+      time: "03:20"
+      timezone: Europe/Berlin
+
   - package-ecosystem: docker
     directory: /
     schedule:

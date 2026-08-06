@@ -34,12 +34,14 @@ jobs:
           node-version: 24
           cache: npm
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm ci
+          npm --prefix contact ci
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium webkit
       - name: Validate static build
         run: npm run validate
-      - name: Run browser tests
+      - name: Run test suite
         run: npm test
 
   validate:
@@ -82,10 +84,21 @@ jobs:
             PUBLIC_EMAIL_PROVIDER_ADDRESS=${{ vars.EMAIL_PROVIDER_ADDRESS }}
             PUBLIC_EMAIL_PROVIDER_COUNTRY=${{ vars.EMAIL_PROVIDER_COUNTRY }}
             PUBLIC_EMAIL_PROVIDER_MODE=${{ vars.EMAIL_PROVIDER_MODE }}
+            PUBLIC_SUPPORT_RETENTION_DAYS=${{ vars.SUPPORT_RETENTION_DAYS }}
+            PUBLIC_CONTACT_RATE_LIMIT_WINDOW_MINUTES=${{ vars.CONTACT_RATE_LIMIT_WINDOW_MINUTES }}
             PUBLIC_ANALYTICS_RETENTION_DAYS=${{ vars.ANALYTICS_RETENTION_DAYS }}
             PUBLIC_PRIVACY_NOTICE_DATE=${{ vars.PRIVACY_NOTICE_DATE }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      - name: Build contact service without publishing
+        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7
+        with:
+          context: contact
+          push: false
+          pull: true
+          platforms: linux/amd64,linux/arm64
+          cache-from: type=gha,scope=contact
+          cache-to: type=gha,mode=max,scope=contact
 
   publish:
     if: github.event_name != 'pull_request'
@@ -113,6 +126,18 @@ jobs:
         uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          flavor: latest=auto
+          tags: |
+            type=sha
+            type=ref,event=branch
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=raw,value=scheduled,enable=${{ github.event_name == 'schedule' }}
+      - name: Generate contact image metadata
+        id: contact-meta
+        uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-contact
           flavor: latest=auto
           tags: |
             type=sha
@@ -152,10 +177,26 @@ jobs:
             PUBLIC_EMAIL_PROVIDER_ADDRESS=${{ vars.EMAIL_PROVIDER_ADDRESS }}
             PUBLIC_EMAIL_PROVIDER_COUNTRY=${{ vars.EMAIL_PROVIDER_COUNTRY }}
             PUBLIC_EMAIL_PROVIDER_MODE=${{ vars.EMAIL_PROVIDER_MODE }}
+            PUBLIC_SUPPORT_RETENTION_DAYS=${{ vars.SUPPORT_RETENTION_DAYS }}
+            PUBLIC_CONTACT_RATE_LIMIT_WINDOW_MINUTES=${{ vars.CONTACT_RATE_LIMIT_WINDOW_MINUTES }}
             PUBLIC_ANALYTICS_RETENTION_DAYS=${{ vars.ANALYTICS_RETENTION_DAYS }}
             PUBLIC_PRIVACY_NOTICE_DATE=${{ vars.PRIVACY_NOTICE_DATE }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          provenance: mode=max
+          sbom: true
+      - name: Build and push contact service
+        id: contact-build
+        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7
+        with:
+          context: contact
+          push: true
+          pull: true
+          platforms: linux/amd64,linux/arm64
+          tags: ${{ steps.contact-meta.outputs.tags }}
+          labels: ${{ steps.contact-meta.outputs.labels }}
+          cache-from: type=gha,scope=contact
+          cache-to: type=gha,mode=max,scope=contact
           provenance: mode=max
           sbom: true
       - name: Attest published image when supported
@@ -165,10 +206,19 @@ jobs:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           subject-digest: ${{ steps.build.outputs.digest }}
           push-to-registry: true
+      - name: Attest published contact image when supported
+        if: github.event.repository.visibility == 'public' || vars.ENABLE_ARTIFACT_ATTESTATION == 'true'
+        uses: actions/attest@f7c74d28b9d84cb8768d0b8ca14a4bac6ef463e6 # v4
+        with:
+          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-contact
+          subject-digest: ${{ steps.contact-build.outputs.digest }}
+          push-to-registry: true
       - name: Publish summary
         env:
           IMAGE_TAGS: ${{ steps.meta.outputs.tags }}
           IMAGE_DIGEST: ${{ steps.build.outputs.digest }}
+          CONTACT_IMAGE_TAGS: ${{ steps.contact-meta.outputs.tags }}
+          CONTACT_IMAGE_DIGEST: ${{ steps.contact-build.outputs.digest }}
           ATTESTATION_ENABLED: ${{ github.event.repository.visibility == 'public' || vars.ENABLE_ARTIFACT_ATTESTATION == 'true' }}
         run: |
           {
@@ -177,6 +227,11 @@ jobs:
             echo "$IMAGE_TAGS"
             echo '```'
             echo "Digest: \`$IMAGE_DIGEST\`"
+            echo "### Published contact image"
+            echo '```text'
+            echo "$CONTACT_IMAGE_TAGS"
+            echo '```'
+            echo "Digest: \`$CONTACT_IMAGE_DIGEST\`"
             if [ "$ATTESTATION_ENABLED" = "true" ]; then
               echo "Artifact attestation: published"
             else
