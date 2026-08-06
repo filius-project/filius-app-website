@@ -21,12 +21,13 @@ The implementation is complete enough for preview deployment, but the following 
 
 ## Privacy and support
 
-- [ ] Confirm mailbox provider and ownership of `support@filius.app`.
+- [x] Confirm the the configured mailbox provider mailbox provider and ownership of `support@filius.app`.
 - [ ] Approve hosting-log retention and access.
 - [ ] Approve the app privacy inventory against the signed archive.
 - [ ] Replace draft privacy copy with the approved policy.
-- [ ] Decide whether a contact form is required.
-- [ ] If required, approve processor, retention, anti-abuse, and deletion behavior before building it.
+- [x] Decide that a contact form is required.
+- [x] Approve the first-party contact service, 180-day support retention, in-memory rate limiting, honeypot, and deletion behavior.
+- [ ] Verify the deployed contact service with the production SMTP secret and an end-to-end delivery test.
 
 ## Infrastructure
 
@@ -36,6 +37,7 @@ The implementation is complete enough for preview deployment, but the following 
 - [ ] Set the external Nginx Proxy Manager network name.
 - [ ] Configure production image version or digest.
 - [ ] Configure Cloudflare DNS, proxying, DNSSEC, and Full (strict) TLS.
+- [x] Apply and verify the MX, SPF, DKIM, DMARC, and no-webmail records in [DNS and mail](dns-and-mail.md).
 - [ ] Configure Nginx Proxy Manager certificate and canonical-host redirect.
 - [ ] Add external uptime monitoring and backup the proxy/Compose configuration.
 
@@ -56,7 +58,7 @@ The implementation is complete enough for preview deployment, but the following 
 - [x] Confirm the planned transition is a standard Gewerbeanmeldung as an unregistered sole trader, not an `e.K.` registration.
 - [x] Confirm that the site does not publish journalistic-editorial content under § 18(2) MStV.
 - [x] Confirm that the provider is neither willing nor obliged to participate in consumer dispute resolution.
-- [ ] Activate `support@filius.app` and verify inbound delivery before setting `LEGAL_REVIEWED=true`.
+- [x] Activate `support@filius.app` and verify inbound delivery before setting `LEGAL_REVIEWED=true`.
 - [ ] Add register, VAT ID, or business identification details only if they are actually assigned or applicable.
 
 ## EU privacy and analytics
@@ -64,8 +66,8 @@ The implementation is complete enough for preview deployment, but the following 
 - [ ] Fill all `LEGAL_*`, hosting, OCI-region, Cloudflare, log-retention, and email-provider repository variables.
 - [ ] Confirm the Oracle contracting entity and `eu-frankfurt-1` region in the tenancy/order.
 - [ ] Retain the applicable Oracle and Cloudflare DPAs and document Oracle’s BCR-P/SCC safeguards and Cloudflare’s DPF/SCC safeguards.
-- [ ] Confirm whether the Gmail destination is personal Gmail (`consumer-gmail`) or Google Workspace (`google-workspace`).
-- [ ] For personal Gmail, record Google Ireland Limited as an independent recipient/controller; for Workspace, retain the Workspace DPA.
+- [x] Confirm the active the configured mailbox provider mailbox, 180-day operational retention period, and accepted privacy/contract terms.
+- [ ] If support mail is forwarded to Gmail later, switch the provider mode and update the privacy notice before deployment.
 - [ ] Deploy the self-hosted analytics instance and set `UMAMI_SCRIPT_URL` and `UMAMI_WEBSITE_ID`, or leave both empty to disable tracking.
 - [ ] Confirm that origin, proxy, analytics, database, and mail retention match the privacy notice.
 - [ ] Confirm processor agreements and any Chapter V GDPR transfer safeguards.

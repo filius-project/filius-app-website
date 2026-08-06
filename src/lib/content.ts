@@ -50,7 +50,6 @@ type SiteCopy = {
     emailBody: string;
     checklistTitle: string;
     checklist: string[];
-    formNote: string;
   };
   privacy: {
     title: string;
@@ -280,7 +279,7 @@ export const copy: Record<Locale, SiteCopy> = {
         "Beschreibe das Problem so, dass es ohne Zugriff auf dein iPad nachvollzogen werden kann.",
       emailTitle: "Direkter Kontakt",
       emailBody:
-        "Schreibe an support@filius.app. Die E-Mail funktioniert auch dann, wenn das spätere Kontaktformular nicht verfügbar ist.",
+        "Schreibe an support@filius.app, wenn du lieber dein eigenes E-Mail-Programm verwendest oder Dateien nach Rückfrage übermitteln möchtest.",
       checklistTitle: "Bitte mitschicken",
       checklist: [
         "Filius on iPad-Version",
@@ -289,8 +288,6 @@ export const copy: Record<Locale, SiteCopy> = {
         "Erwartetes und tatsächliches Ergebnis",
         "Nur nach Rückfrage: eine bereinigte .fls-Datei oder ein Screenshot",
       ],
-      formNote:
-        "Ein datensparsames Kontaktformular folgt erst nach Freigabe des Mail-Anbieters, der Aufbewahrung und der Datenschutzerklärung.",
     },
     privacy: {
       title: "Datenschutz",
@@ -303,7 +300,7 @@ export const copy: Record<Locale, SiteCopy> = {
         },
         {
           title: "Support",
-          body: "E-Mails werden verarbeitet, um Anfragen zu beantworten. Anbieter, Aufbewahrungsdauer, Löschung und Rechtsgrundlage müssen vor Veröffentlichung ergänzt und freigegeben werden.",
+          body: "Das Kontaktformular übermittelt erforderliche Angaben ohne eigene Datenbank an das the configured mailbox provider-Supportpostfach. Direkte E-Mail bleibt als Alternative verfügbar; Löschung, Rechtsgrundlage und Missbrauchsschutz sind in der Datenschutzerklärung beschrieben.",
         },
         {
           title: "App",
@@ -313,8 +310,8 @@ export const copy: Record<Locale, SiteCopy> = {
     },
     imprint: {
       title: "Impressum",
-      intro: "Verantwortliche Angaben sind noch nicht freigegeben.",
-      body: "Vor dem öffentlichen Betrieb müssen Name, ladungsfähige Anschrift, Kontakt, Verantwortlichkeit und gegebenenfalls weitere gesetzlich erforderliche Angaben eingetragen werden.",
+      intro: "Anbieterinformationen und Kontaktangaben für filius.app.",
+      body: "Name, ladungsfähige Anschrift und aktive Kontaktadresse sind eingetragen. Die Anbieterkennzeichnung bleibt bis zur abschließenden rechtlichen Prüfung als Entwurf markiert.",
     },
     accessibility: {
       title: "Barrierefreiheit",
@@ -568,7 +565,7 @@ export const copy: Record<Locale, SiteCopy> = {
         "Describe the issue so it can be reproduced without access to your iPad.",
       emailTitle: "Direct contact",
       emailBody:
-        "Email support@filius.app. Email remains available even when the planned contact form is not.",
+        "Email support@filius.app if you prefer your own email application or need to send files after being asked.",
       checklistTitle: "Please include",
       checklist: [
         "Filius on iPad version",
@@ -577,8 +574,6 @@ export const copy: Record<Locale, SiteCopy> = {
         "Expected and actual result",
         "Only after request: a redacted .fls file or screenshot",
       ],
-      formNote:
-        "A data-minimizing contact form will be added only after the mail processor, retention policy, and privacy notice are approved.",
     },
     privacy: {
       title: "Privacy",
@@ -591,7 +586,7 @@ export const copy: Record<Locale, SiteCopy> = {
         },
         {
           title: "Support",
-          body: "Emails are processed to answer requests. Provider, retention, deletion, and legal basis must be completed before publication.",
+          body: "The contact form relays necessary details without its own database to the the configured mailbox provider support mailbox. Direct email remains available; deletion, legal basis, and abuse protection are described in the privacy notice.",
         },
         {
           title: "App",
@@ -601,8 +596,8 @@ export const copy: Record<Locale, SiteCopy> = {
     },
     imprint: {
       title: "Legal notice",
-      intro: "Publisher information has not yet been approved.",
-      body: "Before public operation, the responsible name, service address, contact details, and all legally required jurisdiction-specific information must be supplied.",
+      intro: "Provider and contact information for filius.app.",
+      body: "The name, service address, and active contact address are supplied. The legal notice remains marked as a draft until final legal review.",
     },
     accessibility: {
       title: "Accessibility",
@@ -857,7 +852,7 @@ export const copy: Record<Locale, SiteCopy> = {
         "Décrivez le problème afin qu’il puisse être reproduit sans accès à votre iPad.",
       emailTitle: "Contact direct",
       emailBody:
-        "Écrivez à support@filius.app. L’e-mail reste disponible même sans formulaire.",
+        "Écrivez à support@filius.app si vous préférez votre application de messagerie ou devez envoyer des fichiers après demande.",
       checklistTitle: "Informations utiles",
       checklist: [
         "Version de Filius on iPad",
@@ -866,8 +861,6 @@ export const copy: Record<Locale, SiteCopy> = {
         "Résultat attendu et observé",
         "Uniquement sur demande : fichier .fls nettoyé ou capture",
       ],
-      formNote:
-        "Un formulaire minimisant les données sera ajouté après validation du prestataire mail, de la conservation et de la politique de confidentialité.",
     },
     privacy: {
       title: "Confidentialité",
@@ -880,7 +873,7 @@ export const copy: Record<Locale, SiteCopy> = {
         },
         {
           title: "Assistance",
-          body: "Les e-mails sont traités pour répondre aux demandes. Le prestataire, la durée, la suppression et la base juridique doivent être complétés.",
+          body: "Le formulaire transmet les informations nécessaires, sans base de données propre, à la boîte d’assistance the configured mailbox provider. L’e-mail direct reste disponible ; la suppression, la base juridique et la protection contre les abus sont décrites dans la politique de confidentialité.",
         },
         {
           title: "App",
@@ -890,8 +883,8 @@ export const copy: Record<Locale, SiteCopy> = {
     },
     imprint: {
       title: "Mentions légales",
-      intro: "Les informations de l’éditeur ne sont pas encore validées.",
-      body: "Avant l’ouverture publique, le nom responsable, l’adresse, les coordonnées et les informations requises par la juridiction doivent être ajoutés.",
+      intro: "Informations sur l’éditeur et le contact de filius.app.",
+      body: "Le nom, l’adresse de service et l’adresse de contact active sont renseignés. Les mentions restent indiquées comme projet jusqu’à la vérification juridique finale.",
     },
     accessibility: {
       title: "Accessibilité",

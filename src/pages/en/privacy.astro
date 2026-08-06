@@ -1,11 +1,18 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import PrivacyPage from '../../components/PrivacyPage.astro';
-import { privacyNoticeReady } from '../../config';
-const locale = 'en' as const;
-const title = 'Privacy notice';
-const description = 'Privacy information for filius.app, optional audience measurement, and support.';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PrivacyPage from "../../components/PrivacyPage.astro";
+import { privacyNoticeReady } from "../../config";
+const locale = "en" as const;
+const title = "Privacy notice";
+const description =
+  "Privacy information for filius.app, optional audience measurement, the contact form, and support.";
 ---
-<BaseLayout locale={locale} title={`${title} – Filius on iPad`} description={description} noindex={!privacyNoticeReady}>
+
+<BaseLayout
+  locale={locale}
+  title={`${title} – Filius on iPad`}
+  description={description}
+  noindex={!privacyNoticeReady}
+>
   <PrivacyPage locale={locale} />
 </BaseLayout>

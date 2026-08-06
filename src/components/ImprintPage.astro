@@ -19,7 +19,7 @@ const copy = {
     title: "Impressum",
     intro: "Anbieterinformationen für filius.app.",
     warning:
-      "Die Kontaktadresse support@filius.app wird in einem nächsten Schritt aktiviert. Bis zur abschließenden Prüfung und Aktivierung bleibt diese Anbieterkennzeichnung als Entwurf markiert.",
+      "Die Kontaktadresse ist aktiv. Bis zur abschließenden rechtlichen Prüfung bleibt diese Anbieterkennzeichnung als Entwurf markiert; die veröffentlichten Angaben müssen mit dem tatsächlichen Betrieb übereinstimmen.",
     provider: "Diensteanbieter gemäß § 5 DDG",
     offerName: "„Filius on iPad“ ist die Bezeichnung dieses Angebots.",
     contact: "Kontakt",
@@ -35,7 +35,7 @@ const copy = {
     title: "Legal notice",
     intro: "Provider information for filius.app.",
     warning:
-      "The support@filius.app contact address will be activated in the next setup step. This legal notice remains marked as a draft until final review and activation.",
+      "The contact address is active. This legal notice remains marked as a draft until final legal review; the published details must continue to match the actual operation.",
     provider: "Service provider pursuant to section 5 DDG",
     offerName: "“Filius on iPad” is the designation of this offering.",
     contact: "Contact",
@@ -51,7 +51,7 @@ const copy = {
     title: "Mentions légales",
     intro: "Informations sur l’éditeur de filius.app.",
     warning:
-      "L’adresse de contact support@filius.app sera activée lors de la prochaine étape de configuration. Ces mentions restent indiquées comme projet jusqu’à leur vérification finale et à l’activation de l’adresse.",
+      "L’adresse de contact est active. Ces mentions restent indiquées comme projet jusqu’à la vérification juridique finale ; les informations publiées doivent continuer à correspondre au fonctionnement réel.",
     provider: "Prestataire de services conformément à l’article 5 du DDG",
     offerName: "« Filius on iPad » est la désignation de cette offre.",
     contact: "Contact",
@@ -72,7 +72,9 @@ const copy = {
     <p class="lede">{copy.intro}</p>
     {
       !legalNoticeReady && (
-        <p class="draft-notice" role="status">{copy.warning}</p>
+        <p class="draft-notice" role="status">
+          {copy.warning}
+        </p>
       )
     }
   </div>
@@ -96,7 +98,8 @@ const copy = {
         {
           site.legal.controllerPhone && (
             <>
-              <br />{copy.phone}: {site.legal.controllerPhone}
+              <br />
+              {copy.phone}: {site.legal.controllerPhone}
             </>
           )
         }

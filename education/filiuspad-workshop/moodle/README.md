@@ -2,7 +2,7 @@
 
 ## Empfohlener Weg: SCORM-Lernpaket
 
-1. Lade `public/learning/FiliusPad-Lernpfad-SCORM-1.2.zip` herunter.
+1. Verwende lokal die Prüffassung `education/filiuspad-workshop/output/FiliusPad-Lernpfad-SCORM-1.2.zip`.
 2. In Moodle: **Kurs einschalten → Aktivität oder Material anlegen → SCORM-Lernpaket**.
 3. Lade die ZIP-Datei hoch; nicht vorher entpacken.
 4. Wähle **ein Versuch** und als Bewertung die höchste Bewertung.

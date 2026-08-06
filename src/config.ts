@@ -20,12 +20,15 @@ const envDays = (name: string, fallback: number) => {
 
 const emailProviderModeValue = envText(
   "PUBLIC_EMAIL_PROVIDER_MODE",
-  "consumer-gmail",
+  "mailbox-provider-mailbox",
 );
-const emailProviderMode = ["consumer-gmail", "google-workspace"].includes(
-  emailProviderModeValue,
-)
-  ? (emailProviderModeValue as "consumer-gmail" | "google-workspace")
+const emailProviderMode = [
+  "consumer-gmail",
+  "google-workspace",
+  "mailbox-provider-mailbox",
+].includes(emailProviderModeValue)
+  ? (emailProviderModeValue as
+      "consumer-gmail" | "google-workspace" | "mailbox-provider-mailbox")
   : null;
 
 const analyticsScriptUrl = envText("PUBLIC_UMAMI_SCRIPT_URL");
@@ -83,18 +86,20 @@ export const site = {
     cloudflareProxyEnabled: envFlag("PUBLIC_CLOUDFLARE_PROXY_ENABLED", true),
     accessLogRetentionDays: envDays("PUBLIC_ACCESS_LOG_RETENTION_DAYS", 35),
     errorLogRetentionDays: envDays("PUBLIC_ERROR_LOG_RETENTION_DAYS", 77),
-    emailProviderName: envText(
-      "PUBLIC_EMAIL_PROVIDER_NAME",
-      "Google Ireland Limited",
-    ),
+    emailProviderName: envText("PUBLIC_EMAIL_PROVIDER_NAME", "mailbox-provider GmbH"),
     emailProviderAddress: envText(
       "PUBLIC_EMAIL_PROVIDER_ADDRESS",
-      "Gordon House, Barrow Street, Dublin 4",
+      "Emmy-Noether-Straße 10, 76131 Karlsruhe, Germany",
     ),
-    emailProviderCountry: envText("PUBLIC_EMAIL_PROVIDER_COUNTRY", "Ireland"),
+    emailProviderCountry: envText("PUBLIC_EMAIL_PROVIDER_COUNTRY", "Germany"),
     emailProviderMode,
+    supportRetentionDays: envDays("PUBLIC_SUPPORT_RETENTION_DAYS", 180),
+    contactRateLimitWindowMinutes: envDays(
+      "PUBLIC_CONTACT_RATE_LIMIT_WINDOW_MINUTES",
+      15,
+    ),
     analyticsRetentionDays: envDays("PUBLIC_ANALYTICS_RETENTION_DAYS", 180),
-    privacyNoticeDate: envText("PUBLIC_PRIVACY_NOTICE_DATE", "29 July 2026"),
+    privacyNoticeDate: envText("PUBLIC_PRIVACY_NOTICE_DATE", "6 August 2026"),
   },
   analytics: {
     enabled: analyticsAllowedUrl && Boolean(analyticsWebsiteId),
