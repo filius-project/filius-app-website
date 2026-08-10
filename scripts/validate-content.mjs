@@ -6,6 +6,8 @@ const requiredRoutes = [
   "quickstart.astro",
   "faq.astro",
   "support.astro",
+  "news/index.astro",
+  "news/[slug].astro",
   "privacy.astro",
   "imprint.astro",
   "accessibility.astro",
@@ -14,6 +16,7 @@ const requiredRoutes = [
 ];
 const locales = ["en", "fr"];
 const docsRoot = "src/content/docs";
+const newsRoot = "src/content/news";
 const requiredDocs = [
   "index.md",
   "getting-started.md",
@@ -43,6 +46,14 @@ for (const doc of requiredDocs) {
     if (!existsSync(join(docsRoot, locale, "docs", doc)))
       failures.push(`Missing ${locale} doc: ${doc}`);
 }
+for (const locale of ["de", ...locales]) {
+  const directory = join(newsRoot, locale);
+  const entries = existsSync(directory)
+    ? readdirSync(directory).filter((entry) => /\.mdx?$/.test(entry))
+    : [];
+  if (entries.length === 0)
+    failures.push(`Missing ${locale} development-journal entries`);
+}
 
 const sourceFiles = [];
 function walk(directory) {
@@ -67,5 +78,5 @@ if (failures.length) {
   process.exit(1);
 }
 console.log(
-  `Validated ${requiredRoutes.length * 3} marketing/trust routes and ${requiredDocs.length * 3} documentation pages.`,
+  `Validated ${requiredRoutes.length * 3} marketing/trust/news routes, ${requiredDocs.length * 3} documentation pages, and localized development-journal content.`,
 );

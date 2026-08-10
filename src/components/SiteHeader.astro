@@ -1,27 +1,50 @@
 ---
-import { Image } from 'astro:assets';
-import appIcon from '../assets/brand/filiuspad-icon.png';
-import { localizedPath } from '../config';
-import type { Locale, NavKey } from '../config';
-import { copy } from '../lib/content';
-import AppStoreBadge from './AppStoreBadge.astro';
-import LanguageSwitcher from './LanguageSwitcher.astro';
+import { Image } from "astro:assets";
+import appIcon from "../assets/brand/filiuspad-icon.png";
+import { localizedPath } from "../config";
+import type { Locale, NavKey } from "../config";
+import { copy } from "../lib/content";
+import AppStoreBadge from "./AppStoreBadge.astro";
+import LanguageSwitcher from "./LanguageSwitcher.astro";
 
-interface Props { locale: Locale; pathname: string; active?: NavKey }
-const { locale, pathname, active = 'overview' } = Astro.props;
+interface Props {
+  locale: Locale;
+  pathname: string;
+  active?: NavKey;
+}
+const { locale, pathname, active = "overview" } = Astro.props;
 const c = copy[locale];
 const links: Array<{ key: NavKey; path: string }> = [
-  { key: 'overview', path: '' }, { key: 'quickstart', path: 'quickstart' }, { key: 'docs', path: 'docs' }, { key: 'faq', path: 'faq' }, { key: 'support', path: 'support' },
+  { key: "overview", path: "" },
+  { key: "quickstart", path: "quickstart" },
+  { key: "docs", path: "docs" },
+  { key: "news", path: "news" },
+  { key: "faq", path: "faq" },
+  { key: "support", path: "support" },
 ];
 ---
+
 <header class="site-header">
   <div class="shell header-inner">
-    <a class="brand" href={localizedPath(locale)} aria-label={`Filius on iPad – ${c.nav.overview}`}>
+    <a
+      class="brand"
+      href={localizedPath(locale)}
+      aria-label={`Filius on iPad – ${c.nav.overview}`}
+    >
       <Image src={appIcon} alt="" width={48} height={48} loading="eager" />
       <span>Filius on iPad</span>
     </a>
     <nav class="desktop-nav" aria-label="Primary">
-      {links.map((link) => <a href={localizedPath(locale, link.path)} aria-current={active === link.key ? 'page' : undefined}>{c.nav[link.key]}</a>)}
+      {
+        links.map((link) => (
+          <a
+            href={localizedPath(locale, link.path)}
+            aria-current={active === link.key ? "page" : undefined}
+          >
+            {c.nav[link.key]}
+          </a>
+        ))
+      }
     </nav>
     <div class="header-actions">
       <LanguageSwitcher locale={locale} pathname={pathname} />
@@ -30,7 +53,16 @@ const links: Array<{ key: NavKey; path: string }> = [
         <summary aria-label="Menu"><span></span></summary>
         <div class="mobile-panel">
           <nav aria-label="Primary mobile">
-            {links.map((link) => <a href={localizedPath(locale, link.path)} aria-current={active === link.key ? 'page' : undefined}>{c.nav[link.key]}</a>)}
+            {
+              links.map((link) => (
+                <a
+                  href={localizedPath(locale, link.path)}
+                  aria-current={active === link.key ? "page" : undefined}
+                >
+                  {c.nav[link.key]}
+                </a>
+              ))
+            }
           </nav>
           <LanguageSwitcher locale={locale} pathname={pathname} />
         </div>

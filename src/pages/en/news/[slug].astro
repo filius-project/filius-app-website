@@ -1,0 +1,41 @@
+---
+import { render } from "astro:content";
+
+import NewsArticle from "../../../components/NewsArticle.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getNewsPosts, type NewsPost } from "../../../lib/news";
+
+const locale = "en" as const;
+
+export async function getStaticPaths() {
+  const posts = await getNewsPosts("en");
+  return posts.map((post) => ({
+    params: { slug: post.data.slug },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: NewsPost;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const related = (await getNewsPosts(locale)).filter(
+  (entry) => entry.id !== post.id,
+);
+---
+
+<BaseLayout
+  locale={locale}
+  title={`${post.data.title} – Filius on iPad`}
+  description={post.data.summary}
+  active="news"
+  ogType="article"
+  publishedAt={post.data.publishedAt}
+  updatedAt={post.data.updatedAt}
+>
+  <NewsArticle locale={locale} post={post} related={related}>
+    <Content />
+  </NewsArticle>
+</BaseLayout>

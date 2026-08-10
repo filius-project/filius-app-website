@@ -1,40 +1,86 @@
 ---
-import { localizedPath, site } from '../config';
-import type { Locale } from '../config';
-import { copy } from '../lib/content';
-interface Props { locale: Locale }
+import { localizedPath, site } from "../config";
+import type { Locale } from "../config";
+import { copy } from "../lib/content";
+interface Props {
+  locale: Locale;
+}
 const { locale } = Astro.props;
 const c = copy[locale];
 ---
+
 <footer class="site-footer">
   <div class="shell">
     <div class="footer-grid">
-      <div class="footer-brand"><h2>Filius on iPad</h2><p>{c.footer.tagline}</p><p>{c.footer.original}</p></div>
+      <div class="footer-brand">
+        <h2>Filius on iPad</h2><p>{c.footer.tagline}</p><p>
+          {c.footer.original}
+        </p>
+      </div>
       <div class="footer-links">
         <h2>{c.nav.docs}</h2>
-        <a href={localizedPath(locale, 'quickstart')}>{c.nav.quickstart}</a>
-        <a href={localizedPath(locale, 'docs')}>{c.nav.docs}</a>
-        <a href={localizedPath(locale, 'faq')}>{c.nav.faq}</a>
-        <a href={localizedPath(locale, 'support')}>{c.nav.support}</a>
+        <a href={localizedPath(locale, "quickstart")}>{c.nav.quickstart}</a>
+        <a href={localizedPath(locale, "docs")}>{c.nav.docs}</a>
+        <a href={localizedPath(locale, "news")}>{c.nav.news}</a>
+        <a href={localizedPath(locale, "faq")}>{c.nav.faq}</a>
+        <a href={localizedPath(locale, "support")}>{c.nav.support}</a>
       </div>
       <div class="footer-links">
         <h2>Trust</h2>
-        <a href={localizedPath(locale, 'privacy')}>{c.privacy.title}</a>
-        <a href={localizedPath(locale, 'imprint')}>{c.imprint.title}</a>
-        <a href={localizedPath(locale, 'accessibility')}>{c.accessibility.title}</a>
-        <a href={localizedPath(locale, 'licenses')}>{c.licenses.title}</a>
-        <a href={localizedPath(locale, 'security')}>{locale === 'de' ? 'Sicherheit' : locale === 'fr' ? 'Sécurité' : 'Security'}</a>
-        {site.analytics.enabled && (
-          <button class="footer-privacy-button" type="button" data-open-privacy-settings>
-            {locale === 'de' ? 'Datenschutzeinstellungen' : locale === 'fr' ? 'Réglages de confidentialité' : 'Privacy settings'}
-          </button>
-        )}
+        <a href={localizedPath(locale, "privacy")}>{c.privacy.title}</a>
+        <a href={localizedPath(locale, "imprint")}>{c.imprint.title}</a>
+        <a href={localizedPath(locale, "accessibility")}
+          >{c.accessibility.title}</a
+        >
+        <a href={localizedPath(locale, "licenses")}>{c.licenses.title}</a>
+        <a href={localizedPath(locale, "security")}
+          >{
+            locale === "de"
+              ? "Sicherheit"
+              : locale === "fr"
+                ? "Sécurité"
+                : "Security"
+          }</a
+        >
+        {
+          site.analytics.enabled && (
+            <button
+              class="footer-privacy-button"
+              type="button"
+              data-open-privacy-settings
+            >
+              {locale === "de"
+                ? "Datenschutzeinstellungen"
+                : locale === "fr"
+                  ? "Réglages de confidentialité"
+                  : "Privacy settings"}
+            </button>
+          )
+        }
       </div>
     </div>
-    <div class="footer-bottom"><span>© {new Date().getFullYear()} Filius on iPad</span><span>{c.footer.rights}</span></div>
+    <div class="footer-bottom">
+      <span>© {new Date().getFullYear()} Filius on iPad</span><span
+        >{c.footer.rights}</span
+      >
+    </div>
   </div>
 </footer>
 <style>
-  .footer-privacy-button { padding: 0; border: 0; color: inherit; background: none; font: inherit; text-align: left; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: .2em; cursor: pointer; }
-  .footer-privacy-button:hover, .footer-privacy-button:focus-visible { text-decoration-color: currentColor; }
+  .footer-privacy-button {
+    padding: 0;
+    border: 0;
+    color: inherit;
+    background: none;
+    font: inherit;
+    text-align: left;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 0.2em;
+    cursor: pointer;
+  }
+  .footer-privacy-button:hover,
+  .footer-privacy-button:focus-visible {
+    text-decoration-color: currentColor;
+  }
 </style>
