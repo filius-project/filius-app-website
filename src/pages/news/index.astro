@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import NewsIndex from "../../components/NewsIndex.astro";
+import { getNewsPosts, newsCopy } from "../../lib/news";
+
+const locale = "de" as const;
+const c = newsCopy[locale];
+const posts = await getNewsPosts(locale);
+---
+
+<BaseLayout
+  locale={locale}
+  title={`${c.title} – Filius on iPad`}
+  description={c.metaDescription}
+  active="news"
+>
+  <NewsIndex locale={locale} posts={posts} />
+</BaseLayout>

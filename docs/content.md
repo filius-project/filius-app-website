@@ -38,6 +38,37 @@ Starlight content is Markdown. The default and translated directory trees must c
 
 Use Starlight callouts for notes, cautions, and release-critical warnings. Keep headings action-oriented and paragraphs short enough to read beside the iPad app.
 
+## Development journal
+
+The public development journal lives in `src/content/news/` and is rendered at `/news/`. Each entry is Markdown with a small frontmatter header. Keep the same `translationKey` and `slug` across German, English, and French files so the language switcher can move between translations. The `slug` must be unique within each locale and should remain stable after publication.
+
+Use one of these statuses:
+
+- `development` for concrete decisions and work in progress;
+- `preview` for material that still needs review and may change; and
+- `release` only for changes that are confirmed and available.
+
+Preview entries should say clearly that details can change. To publish a new entry, add one Markdown file under each locale directory, set `draft: true` while it is not ready, and set `featured: true` on at most one current entry per locale. Keep dates in ISO format (`YYYY-MM-DD`) and update all three translations before merging.
+
+Example frontmatter:
+
+```yaml
+---
+locale: en
+translationKey: example-entry
+slug: example-entry
+title: "A clear, specific headline"
+summary: "One sentence that works in the archive and social metadata."
+publishedAt: 2026-08-10
+kind: development
+topics:
+  - Product
+  - Classroom
+readingMinutes: 3
+draft: true
+---
+```
+
 ## Images
 
 Use real release-candidate screenshots with synthetic content. Record the producing app revision and test scenario before replacing an image. Provide instructional alt text that explains what a learner should notice.

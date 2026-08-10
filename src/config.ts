@@ -1,5 +1,6 @@
 export type Locale = "de" | "en" | "fr";
-export type NavKey = "overview" | "quickstart" | "docs" | "faq" | "support";
+export type NavKey =
+  "overview" | "quickstart" | "docs" | "news" | "faq" | "support";
 
 export const locales: Locale[] = ["de", "en", "fr"];
 export const defaultLocale: Locale = "de";

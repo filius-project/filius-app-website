@@ -8,6 +8,10 @@ const marketingPages = [
   "/quickstart/",
   "/faq/",
   "/support/",
+  "/news/",
+  "/en/news/",
+  "/fr/news/",
+  "/news/workshop-open/",
   "/en/support/",
   "/fr/support/",
 ];
@@ -48,6 +52,7 @@ test("homepage navigation uses canonical trailing-slash URLs", async ({
   for (const href of [
     "/quickstart/",
     "/docs/",
+    "/news/",
     "/faq/",
     "/support/",
     "/privacy/",
@@ -114,6 +119,37 @@ test("mobile navigation exposes all primary destinations", async ({ page }) => {
   await expect(
     page.locator(".mobile-panel").getByRole("link", { name: "Dokumentation" }),
   ).toBeVisible();
+  await expect(
+    page.locator(".mobile-panel").getByRole("link", { name: "Neuigkeiten" }),
+  ).toBeVisible();
+});
+
+test("the development journal is localized and labels preview content", async ({
+  page,
+}) => {
+  for (const [path, heading] of [
+    ["/news/", "Neues aus der Werkstatt."],
+    ["/en/news/", "Notes from the workshop."],
+    ["/fr/news/", "Nouvelles de l’atelier."],
+  ] as const) {
+    await page.goto(path);
+    await expect(page.getByRole("heading", { name: heading })).toBeVisible();
+    await expect(page.locator("[data-news-card]")).toHaveCount(3);
+  }
+
+  await page.goto("/en/news/learning-materials-preview/");
+  await expect(
+    page.getByText(
+      "Preview: details may still change during development, review, and release preparation.",
+    ),
+  ).toBeVisible();
+  await expect(page.locator('meta[property="og:type"]')).toHaveAttribute(
+    "content",
+    "article",
+  );
+  await expect(
+    page.locator('link[rel="alternate"][hreflang="de"]'),
+  ).toHaveAttribute("href", /\/news\/learning-materials-preview\/$/);
 });
 
 test("the contact form is data-minimizing and available in every language", async ({

@@ -1,15 +1,36 @@
 ---
-import '../styles/global.css';
-import { locales, switchLocalePath, site } from '../config';
-import type { Locale, NavKey } from '../config';
-import SiteFooter from '../components/SiteFooter.astro';
-import SiteHeader from '../components/SiteHeader.astro';
+import "../styles/global.css";
+import { locales, switchLocalePath, site } from "../config";
+import type { Locale, NavKey } from "../config";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
 
-interface Props { locale: Locale; title: string; description: string; active?: NavKey; noindex?: boolean; image?: string }
-const { locale, title, description, active, noindex = false, image = '/assets/runtime-device.png' } = Astro.props;
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  active?: NavKey;
+  noindex?: boolean;
+  image?: string;
+  ogType?: "website" | "article";
+  publishedAt?: Date;
+  updatedAt?: Date;
+}
+const {
+  locale,
+  title,
+  description,
+  active,
+  noindex = false,
+  image = "/assets/runtime-device.png",
+  ogType = "website",
+  publishedAt,
+  updatedAt,
+} = Astro.props;
 const canonical = new URL(Astro.url.pathname, site.origin);
 const imageUrl = new URL(image, site.origin);
 ---
+
 <!doctype html>
 <html lang={locale}>
   <head>
@@ -21,15 +42,48 @@ const imageUrl = new URL(image, site.origin);
     <meta name="color-scheme" content="light" />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
-    {locales.map((target) => <link rel="alternate" hreflang={target} href={new URL(switchLocalePath(Astro.url.pathname, target), site.origin)} />)}
-    <link rel="alternate" hreflang="x-default" href={new URL(switchLocalePath(Astro.url.pathname, 'de'), site.origin)} />
+    {
+      locales.map((target) => (
+        <link
+          rel="alternate"
+          hreflang={target}
+          href={
+            new URL(switchLocalePath(Astro.url.pathname, target), site.origin)
+          }
+        />
+      ))
+    }
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={new URL(switchLocalePath(Astro.url.pathname, "de"), site.origin)}
+    />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="stylesheet" href="/privacy-consent.css" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
+    {
+      ogType === "article" && publishedAt && (
+        <meta
+          property="article:published_time"
+          content={publishedAt.toISOString()}
+        />
+      )
+    }
+    {
+      ogType === "article" && updatedAt && (
+        <meta
+          property="article:modified_time"
+          content={updatedAt.toISOString()}
+        />
+      )
+    }
     <meta property="og:site_name" content="Filius on iPad" />
-    <meta property="og:locale" content={locale === 'de' ? 'de_DE' : locale === 'fr' ? 'fr_FR' : 'en_US'} />
+    <meta
+      property="og:locale"
+      content={locale === "de" ? "de_DE" : locale === "fr" ? "fr_FR" : "en_US"}
+    />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -41,7 +95,15 @@ const imageUrl = new URL(image, site.origin);
     <title>{title}</title>
   </head>
   <body>
-    <a class="skip-link" href="#main">{locale === 'de' ? 'Zum Inhalt' : locale === 'fr' ? 'Aller au contenu' : 'Skip to content'}</a>
+    <a class="skip-link" href="#main"
+      >{
+        locale === "de"
+          ? "Zum Inhalt"
+          : locale === "fr"
+            ? "Aller au contenu"
+            : "Skip to content"
+      }</a
+    >
     <SiteHeader locale={locale} pathname={Astro.url.pathname} active={active} />
     <main id="main"><slot /></main>
     <SiteFooter locale={locale} />
