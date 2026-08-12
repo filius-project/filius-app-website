@@ -11,7 +11,9 @@ const marketingPages = [
   "/news/",
   "/en/news/",
   "/fr/news/",
-  "/news/workshop-open/",
+  "/news/ipad-remote-link/",
+  "/en/news/ipad-remote-link/",
+  "/fr/news/ipad-remote-link/",
   "/en/support/",
   "/fr/support/",
 ];
@@ -134,7 +136,7 @@ test("the development journal is localized and labels preview content", async ({
   ] as const) {
     await page.goto(path);
     await expect(page.getByRole("heading", { name: heading })).toBeVisible();
-    await expect(page.locator("[data-news-card]")).toHaveCount(3);
+    await expect(page.locator("[data-news-card]")).toHaveCount(4);
   }
 
   await page.goto("/en/news/learning-materials-preview/");
@@ -150,6 +152,17 @@ test("the development journal is localized and labels preview content", async ({
   await expect(
     page.locator('link[rel="alternate"][hreflang="de"]'),
   ).toHaveAttribute("href", /\/news\/learning-materials-preview\/$/);
+
+  await page.goto("/en/news/ipad-remote-link/");
+  await expect(
+    page.getByRole("heading", {
+      name: "Two iPads, one simulated network: Remote Link over the local network",
+    }),
+  ).toBeVisible();
+  await expect(page.getByText("Development status")).toBeVisible();
+  await expect(
+    page.locator('link[rel="alternate"][hreflang="fr"]'),
+  ).toHaveAttribute("href", /\/fr\/news\/ipad-remote-link\/$/);
 });
 
 test("the contact form is data-minimizing and available in every language", async ({

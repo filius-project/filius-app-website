@@ -11,7 +11,6 @@ topics:
   - Produktentwicklung
   - Community
 readingMinutes: 3
-featured: true
 ---
 
 Filius on iPad entsteht nicht in einem einzigen großen Sprung. Viele kleine Entscheidungen formen die App, die Dokumentation, Lernmaterialien und die Infrastruktur rundherum. Dieses Journal macht diese Arbeit künftig sichtbarer.
