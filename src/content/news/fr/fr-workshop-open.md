@@ -11,7 +11,6 @@ topics:
   - Développement produit
   - Communauté
 readingMinutes: 3
-featured: true
 ---
 
 Filius on iPad ne naît pas d’un seul grand saut. De nombreuses petites décisions façonnent l’app, sa documentation, les supports pédagogiques et l’infrastructure qui l’entoure. Ce journal permettra désormais de mieux suivre ce travail.

@@ -11,7 +11,6 @@ topics:
   - Product development
   - Community
 readingMinutes: 3
-featured: true
 ---
 
 Filius on iPad is not appearing in one giant leap. Many small decisions shape the app, its documentation, learning materials, and the infrastructure around it. This journal will make that work easier to follow.
