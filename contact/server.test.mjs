@@ -1,7 +1,21 @@
 import assert from "node:assert/strict";
 import { once } from "node:events";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { join } from "node:path";
+import { tmpdir } from "node:os";
 import test from "node:test";
-import { createContactServer } from "./server.mjs";
+import { createContactServer, loadConfig } from "./server.mjs";
+
+const baseEnv = {
+  PORT: "3000",
+  CONTACT_SMTP_HOST: "mx2e75.netcup.net",
+  CONTACT_SMTP_PORT: "465",
+  CONTACT_SMTP_SECURE: "true",
+  CONTACT_SMTP_USERNAME: "kontakt@filius.app",
+  CONTACT_SMTP_PASSWORD: "mailbox-secret",
+  CONTACT_FROM_ADDRESS: "kontakt@filius.app",
+  CONTACT_TO_ADDRESS: "support@filius.app",
+};
 
 const baseConfig = {
   allowedOrigins: new Set(["https://filius.app"]),
@@ -19,6 +33,111 @@ const validBody = new URLSearchParams({
   message: "The simulated DNS request never receives a response.",
   appVersion: "1.0",
   device: "iPadOS 19, iPad Air",
+});
+
+test("the Compose override mounts the SMTP password as a runtime secret", async () => {
+  const override = await readFile(
+    new URL("../compose.smtp-secret.yaml", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(override, /user:\s*"1000:1000"/);
+  assert.match(override, /CONTACT_SMTP_PASSWORD:\s*""/);
+  assert.match(
+    override,
+    /CONTACT_SMTP_PASSWORD_FILE:\s*\/run\/secrets\/contact_smtp_password/,
+  );
+  assert.match(override, /secrets:\s*[\r\n]+\s*- contact_smtp_password/);
+  assert.match(
+    override,
+    /file:\s*\$\{CONTACT_SMTP_PASSWORD_SECRET_FILE:\?[^}]+\}/,
+  );
+});
+
+test("loadConfig requires an SMTP password", () => {
+  assert.throws(
+    () =>
+      loadConfig({
+        ...baseEnv,
+        CONTACT_SMTP_PASSWORD: "",
+        CONTACT_SMTP_PASSWORD_FILE: "",
+      }),
+    /CONTACT_SMTP_PASSWORD or CONTACT_SMTP_PASSWORD_FILE/,
+  );
+});
+
+test("loadConfig accepts a password from a mounted secret file", async () => {
+  const directory = await mkdtemp(`${tmpdir()}/filius-contact-`);
+  const secretPath = `${directory}/smtp-password`;
+  await writeFile(secretPath, "file-secret\n", "utf8");
+
+  try {
+    const config = loadConfig({
+      ...baseEnv,
+      CONTACT_SMTP_PASSWORD: "",
+      CONTACT_SMTP_PASSWORD_FILE: secretPath,
+    });
+
+    assert.equal(config.smtp.password, "file-secret");
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
+test("loadConfig rejects an empty mounted secret file", async () => {
+  const directory = await mkdtemp(`${tmpdir()}/filius-contact-`);
+  const secretPath = join(directory, "smtp-password");
+  await writeFile(secretPath, "\n", "utf8");
+
+  try {
+    assert.throws(
+      () =>
+        loadConfig({
+          ...baseEnv,
+          CONTACT_SMTP_PASSWORD: "",
+          CONTACT_SMTP_PASSWORD_FILE: secretPath,
+        }),
+      /CONTACT_SMTP_PASSWORD or CONTACT_SMTP_PASSWORD_FILE/,
+    );
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
+test("loadConfig reports an unreadable password file", async () => {
+  const directory = await mkdtemp(`${tmpdir()}/filius-contact-`);
+
+  try {
+    assert.throws(
+      () =>
+        loadConfig({
+          ...baseEnv,
+          CONTACT_SMTP_PASSWORD: "",
+          CONTACT_SMTP_PASSWORD_FILE: join(directory, "missing-password"),
+        }),
+      /ENOENT/,
+    );
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
+test("loadConfig prefers the direct password when both sources are set", async () => {
+  const directory = await mkdtemp(`${tmpdir()}/filius-contact-`);
+  const secretPath = `${directory}/smtp-password`;
+  await writeFile(secretPath, "file-secret\n", "utf8");
+
+  try {
+    const config = loadConfig({
+      ...baseEnv,
+      CONTACT_SMTP_PASSWORD: "direct-secret",
+      CONTACT_SMTP_PASSWORD_FILE: secretPath,
+    });
+
+    assert.equal(config.smtp.password, "direct-secret");
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
 });
 
 async function withServer(options, run) {

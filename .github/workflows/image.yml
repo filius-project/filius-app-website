@@ -43,6 +43,8 @@ jobs:
         run: npm run validate
       - name: Run test suite
         run: npm test
+      - name: Verify Compose SMTP secret delivery
+        run: npm run test:contact:compose
 
   validate:
     if: github.event_name == 'pull_request'
