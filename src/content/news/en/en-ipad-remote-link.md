@@ -12,7 +12,7 @@ topics:
   - Classroom
   - Security
 readingMinutes: 5
-featured: true
+featured: false
 ---
 
 Two groups design separate networks, start their simulations on two iPads, and then join both topologies across the real local network. That is the classroom situation the new iPad-to-iPad mode for Remote Link is designed to support.

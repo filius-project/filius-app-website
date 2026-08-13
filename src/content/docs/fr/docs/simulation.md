@@ -65,6 +65,31 @@ Recherchez la dernière étape réussie :
 - **établissement TCP sans réponse applicative :** vérifiez service, port et application serveur,
 - **erreur SMTP, POP3 ou HTTP :** vérifiez données applicatives et identifiants.
 
+## Simuler volontairement une perte de paquets
+
+Utilisez **Perdre les paquets** pour introduire une panne globale contrôlée dans une expérience en cours. Maintenez la commande enfoncée : tant qu’elle le reste, chaque nouvelle trame du réseau simulé est supprimée. Relâchez-la pour que le nouveau trafic circule à nouveau normalement.
+
+Une expérience reproductible :
+
+1. Lancez un `ping` continu ou des requêtes client répétées.
+2. Maintenez **Perdre les paquets** enfoncé pendant quelques secondes.
+3. Observez les expirations et les événements marqués comme supprimés.
+4. Relâchez la commande et vérifiez que les nouvelles requêtes réussissent.
+
+La commande agit sur toute la topologie simulée, pas seulement sur l’appareil sélectionné. Elle est volontairement momentanée et se désactive lorsque la simulation s’arrête ou redémarre.
+
+## Exporter la capture de paquets en texte
+
+Ouvrez **Échange de paquets** sur un appareil, choisissez une interface si nécessaire, puis touchez **Exporter**. Filius on iPad enregistre un texte UTF-8 séparé par des tabulations, limité à l’appareil choisi et, le cas échéant, à son interface.
+
+L’ordre est déterministe et le fichier convient à un tableur ou à une analyse personnalisée. Les mots de passe, identifiants, codes Remote Link, charges utiles et corps de messages sont retirés ou signalés. La conservation est limitée afin qu’une longue simulation n’augmente pas la mémoire sans fin. Si d’anciens événements ont déjà été supprimés, leur nombre figure explicitement dans l’export.
+
+## Exporter un rapport détaillé
+
+Ouvrez **Plus** et choisissez **Exporter le rapport détaillé**. Le rapport texte résume les métadonnées du projet, les liaisons, appareils et interfaces, applications, routes, DNS, DHCP, NAT et redirections de ports, pare-feu, configurations web et e-mail, Remote Links, perte de paquets, statistiques de trafic et événements individuels.
+
+Utilisez-le pour un devoir, un diagnostic ou la comparaison de deux états d’expérience. Les valeurs sensibles et le contenu des messages sont masqués. Il représente l’état actuel du projet et les données d’exécution encore conservées ; lorsque la rétention a supprimé d’anciens événements, le rapport en indique aussi le nombre.
+
 ## Ordre de diagnostic
 
 1. Câble et état du lien

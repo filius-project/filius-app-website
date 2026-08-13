@@ -21,7 +21,18 @@ Ziehe Rechner, Notebook, Switch, Vermittlungsrechner, Gateway oder Remote Link a
 
 Nach dem Auswählen eines Geräts können – abhängig vom Typ – Name, Schnittstellen, Position und Netzwerkkonfiguration bearbeitet werden.
 
-## 3. Kabel erstellen
+## 3. Beschriftung aus IP- und MAC-Adresse ableiten
+
+Für Rechner und Notebooks kann die Beschriftung auf der Arbeitsfläche automatisch aus der Netzwerkkonfiguration entstehen. Öffne die Gerätekonfiguration und wähle unter **Gerätebeschriftung** eine Quelle:
+
+- **Manueller Name:** zeigt den eingegebenen Gerätenamen,
+- **IP-Adresse:** zeigt die Adresse der primären Schnittstelle,
+- **MAC-Adresse:** zeigt deren Hardwareadresse,
+- **IP- und MAC-Adresse:** zeigt beide Werte gemeinsam.
+
+Der manuelle Name bleibt als Ersatz erhalten, falls für die gewählte Quelle noch kein Wert verfügbar ist. Für Arbeitsblätter ist die IP-Beschriftung hilfreich; bei ARP- und Switch-Versuchen macht die MAC-Beschriftung die Zuordnung auf der Arbeitsfläche sichtbar.
+
+## 4. Kabel erstellen
 
 1. Kabelwerkzeug auswählen.
 2. Erstes Gerät bzw. einen freien Anschluss antippen.
@@ -30,7 +41,7 @@ Nach dem Auswählen eines Geräts können – abhängig vom Typ – Name, Schnit
 
 Direkte Endgerät-zu-Endgerät-Verbindungen sind möglich. Ein Switch wird benötigt, wenn mehrere Geräte gemeinsam in einem LAN arbeiten sollen.
 
-## 4. IPv4-Adressen vergeben
+## 5. IPv4-Adressen vergeben
 
 Für einen direkten Test müssen beide Geräte im selben Netz liegen:
 
@@ -41,7 +52,7 @@ Für einen direkten Test müssen beide Geräte im selben Netz liegen:
 
 Bei `/24` müssen die ersten drei Zahlenblöcke übereinstimmen; die letzte Zahl muss pro Gerät eindeutig sein.
 
-## 5. Zwei Subnetze verbinden
+## 6. Zwei Subnetze verbinden
 
 Beispiel:
 
@@ -52,7 +63,7 @@ Beispiel:
 
 Der Vermittlungsrechner benötigt eine Schnittstelle in jedem Netz. Ohne passendes Standardgateway senden Endgeräte Pakete für das andere Netz nicht zum Router.
 
-## 6. Entwurf prüfen
+## 7. Entwurf prüfen
 
 Vor dem Aktionsmodus:
 

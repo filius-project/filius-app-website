@@ -27,3 +27,15 @@ Filius on iPad folgt drei Arbeitsschritten:
 - **Entwerfen:** Geräte und Kabel zu einer Topologie verbinden.
 - **Konfigurieren:** Adressen, Routen, Dienste und Anwendungen einrichten.
 - **Simulieren:** Netzwerkverkehr erzeugen, beobachten und erklären.
+
+## Vertiefende Netzwerkversuche
+
+Die aktuelle iPad-Implementierung unterstützt zusätzliche Versuche, die über den ersten Ping hinausgehen:
+
+- [Netzwerkfunktionen](./networking/): DNS mit `A`-, `MX`- und `NS`-Records, rekursive Auflösung sowie Webadministration auf Router und Gateway,
+- [Simulierte Anwendungen](./applications/): Webserver mit virtuellen Hosts sowie Antworten und Löschen im E-Mail-Client,
+- [Simulationsmodus](./simulation/): globaler Paketverlust, Paketmitschnitt als TSV und redigierter Detailbericht,
+- [Entwurfsmodus](./design/): Gerätebeschriftungen aus Name, IP-Adresse, MAC-Adresse oder beiden Adressen,
+- [Kompatibilität](./compatibility/): aktueller Freigabestatus von LAN Remote Link zwischen zwei iPads.
+
+Der Entwicklungsbericht [Von der Java-Referenz zum iPad](/news/java-ipad-parity/) beschreibt, wie diese Unterschiede gefunden, implementiert und geprüft wurden.

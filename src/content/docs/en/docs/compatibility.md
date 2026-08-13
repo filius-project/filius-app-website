@@ -19,6 +19,16 @@ Filius on iPad treats the FILIUS project format as a compatibility contract.
 
 Unknown JavaBean/XML content may remain in a project even when Filius on iPad cannot execute it.
 
+## LAN Remote Link release status
+
+The **This project** connection between two Remote Links in one topology remains supported. A saved **Another iPad** configuration is preserved, but it remains inactive in release-ready builds.
+
+The LAN implementation exists and has automated coverage. Its final acceptance still requires two physical iPads on the same local network, including the iPadOS Local Network permission, automatic discovery, manual address fallback, reconnection, and a realistic classroom workflow.
+
+:::caution[Do not plan a lesson around it yet]
+Use **This project** for a Remote Link experiment that must run reliably today. Plan **Another iPad** only after two-iPad acceptance has been recorded for the specific release.
+:::
+
 ## Desktop boundary
 
 Arbitrary applications from the desktop software wizard require a compiler, JVM, and desktop APIs that are unavailable on iPad.
