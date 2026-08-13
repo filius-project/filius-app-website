@@ -17,6 +17,7 @@
     "test": "npm run test:contact && npm run test:browser",
     "test:browser": "playwright test",
     "test:contact": "npm --prefix contact test",
+    "test:contact:compose": "bash scripts/test-smtp-compose-secret.sh",
     "validate:content": "node scripts/validate-content.mjs",
     "validate": "npm run format:check && npm run validate:content && npm run check && npm run build",
     "build:learning": "node scripts/build-filiuspad-learning-materials.mjs"

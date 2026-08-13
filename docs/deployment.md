@@ -32,17 +32,90 @@ Production should use an immutable semantic version or digest. Do not use `lates
 1. Identify the existing Nginx Proxy Manager Docker network.
 2. Copy `.env.example` to `.env`.
 3. Set both full GHCR image names, one exact version tag, and the network name.
-4. Add the SMTP host, username, sender, recipient, and password to the server-side `.env`. Prefer `CONTACT_SMTP_PASSWORD_FILE` when the deployment platform provides a mounted secret. Never use a `PUBLIC_*` name for SMTP credentials.
+4. Add the SMTP host, username, sender, recipient, and password to the server-side `.env`. The repository intentionally contains no SMTP password. Never use a `PUBLIC_*` name for SMTP credentials.
 5. Keep `CONTACT_RETENTION_DAYS`, `CONTACT_RATE_LIMIT_WINDOW_MINUTES`, `PUBLIC_SUPPORT_RETENTION_DAYS`, and `PUBLIC_CONTACT_RATE_LIMIT_WINDOW_MINUTES` aligned with the published privacy notice.
 6. Authenticate the Docker host to GHCR if either package is private.
 
+`docker compose` automatically reads the `.env` file next to this Compose file. Choose one of the following two secret-delivery methods.
+
+### Direct environment variable
+
+The minimum production configuration for the current the configured mailbox provider mailbox is:
+
+```dotenv
+CONTACT_SMTP_HOST=provider-smtp.example.invalid
+CONTACT_SMTP_PORT=465
+CONTACT_SMTP_SECURE=true
+CONTACT_SMTP_USERNAME=deployment-mailbox@example.invalid
+CONTACT_SMTP_PASSWORD='replace-with-the-the configured mailbox provider-mailbox-password'
+CONTACT_SMTP_PASSWORD_FILE=
+CONTACT_SMTP_PASSWORD_SECRET_FILE=
+CONTACT_FROM_ADDRESS=deployment-mailbox@example.invalid
+CONTACT_TO_ADDRESS=support@filius.app
+```
+
+Use the password for the mailbox named by `CONTACT_SMTP_USERNAME`; this is not the Cloudflare, GHCR, or server-login password. Keep the file private (`chmod 600 .env`) and do not paste the password into a Dockerfile, image build argument, Git repository, or `PUBLIC_*` variable. Single-quote the value so characters such as `$` remain literal in Compose’s environment-file parser.
+
+Validate and deploy without printing the rendered environment:
+
 ```bash
 docker network ls
-docker compose config
+docker compose config --quiet
 docker compose pull filius-web filius-contact
-docker compose up -d filius-web filius-contact
+docker compose up -d filius-contact filius-web
 docker compose ps
+docker compose logs --tail=100 filius-contact
 ```
+
+### Compose-mounted secret file
+
+The repository includes `compose.smtp-secret.yaml`, an override that mounts one host file at `/run/secrets/contact_smtp_password` and configures the contact service to read it. Store the file outside the Git checkout, make it readable by Docker without making it public, and set only its host path in `.env`:
+
+```dotenv
+CONTACT_SMTP_PASSWORD=
+CONTACT_SMTP_PASSWORD_FILE=
+CONTACT_SMTP_PASSWORD_SECRET_FILE=/srv/filius/secrets/contact-smtp-password
+```
+
+The contact image runs as UID/GID `1000:1000`. File-backed Compose secrets use the host file's permissions, so make the file owned by that numeric identity before starting the service. Create the file without a trailing shell-history leak, restrict it, and use both Compose files for every command:
+
+```bash
+sudo install -d -o 1000 -g 1000 -m 700 /srv/filius/secrets
+secret_tmp=$(mktemp)
+trap 'rm -f "$secret_tmp"; unset password' EXIT
+chmod 600 "$secret_tmp"
+read -r -s -p "SMTP mailbox password: " password
+printf "\n"
+printf "%s\n" "$password" > "$secret_tmp"
+sudo install -o 1000 -g 1000 -m 600 \
+  "$secret_tmp" /srv/filius/secrets/contact-smtp-password
+rm -f "$secret_tmp"
+unset password
+trap - EXIT
+
+docker compose -f compose.yaml -f compose.smtp-secret.yaml config --quiet
+docker compose -f compose.yaml -f compose.smtp-secret.yaml pull filius-web filius-contact
+docker compose -f compose.yaml -f compose.smtp-secret.yaml up -d filius-contact filius-web
+docker compose -f compose.yaml -f compose.smtp-secret.yaml ps
+```
+
+Deployment platforms that mount secrets themselves may omit the override and set `CONTACT_SMTP_PASSWORD_FILE` directly to the existing path inside the `filius-contact` container. The service uses the direct password when both direct and file-based values are present.
+
+### Rotate only the SMTP secret
+
+A password change does not require restarting the public web container. For the mounted-secret method, rerun the secure creation block above instead of editing the file in place; the `install` command reapplies the required mode and numeric ownership to the replacement. Recreate only `filius-contact`, using the same Compose-file selection as the original deployment:
+
+```bash
+# Direct environment variable
+docker compose config --quiet
+docker compose up -d --force-recreate filius-contact
+
+# Or, for the checked-in mounted-secret override
+docker compose -f compose.yaml -f compose.smtp-secret.yaml config --quiet
+docker compose -f compose.yaml -f compose.smtp-secret.yaml up -d --force-recreate filius-contact
+```
+
+Avoid non-quiet `docker compose config` on a shared terminal or in CI logs after setting a direct password: the rendered Compose configuration includes environment values. The contact service refuses to start when the SMTP host, username, password (or password file), or sender address is missing. A bad mailbox password instead appears as a failed contact request and is recorded in the contact-service log by error type/code only.
 
 ## Configure Nginx Proxy Manager
 
