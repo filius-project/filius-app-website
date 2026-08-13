@@ -65,6 +65,31 @@ Look for the last successful stage:
 - **TCP setup without application response:** check the service, port, and server application,
 - **SMTP, POP3, or HTTP error:** check application data and credentials.
 
+## Simulate packet loss deliberately
+
+Use **Drop packets** to introduce a controlled global outage into a running experiment. Press and hold the control: while it remains pressed, every newly transmitted simulated network frame is dropped. Release it and new traffic flows normally again.
+
+A repeatable experiment:
+
+1. Start a continuous `ping` or repeated client requests.
+2. Press and hold **Drop packets** for several seconds.
+3. Observe timeouts and events marked as dropped.
+4. Release the control and verify that new requests succeed again.
+
+The control affects the entire simulated topology, not only the selected device. It is intentionally momentary and is disabled when the simulation stops or restarts.
+
+## Export packet capture as text
+
+Open **Packet Exchange** on a device, select an interface when needed, and choose **Export**. Filius on iPad saves UTF-8 tab-separated text scoped to the selected device and, when selected, its interface.
+
+The export has deterministic ordering and works with spreadsheets or custom analysis. Passwords, credentials, Remote Link codes, payloads, and message bodies are removed or marked. Capture retention is bounded so a long simulation cannot grow memory without limit. If older events have already been discarded, the export reports their count explicitly.
+
+## Export a detailed report
+
+Open **More** and choose **Export detailed report**. The text report summarizes project metadata, links, devices and interfaces, applications, routes, DNS, DHCP, NAT and port forwarding, firewall, web and email configuration, Remote Links, packet loss, traffic statistics, and individual events.
+
+Use the report for submissions, troubleshooting, or comparing two experiment states. Sensitive values and message content are redacted. It is a snapshot of the current project and retained runtime data; when packet retention has removed older events, the report also states how many were discarded.
+
 ## Diagnostic order
 
 1. Cable and link state

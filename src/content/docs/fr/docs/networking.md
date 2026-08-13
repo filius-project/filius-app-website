@@ -48,7 +48,15 @@ DHCP automatise adresse, masque, passerelle et DNS via les ports UDP simulés `6
 
 ## DNS
 
-DNS associe les noms aux adresses IPv4 sur le port UDP `53`. Utilisez `host` ou `nslookup` pour tester la résolution indépendamment d’une application web ou e-mail.
+DNS utilise le port UDP `53` et ne se limite pas à une simple table de noms :
+
+- `A` associe un nom d’hôte à une adresse IPv4,
+- `MX` désigne le serveur de messagerie d’un domaine,
+- `NS` délègue un espace de noms à un autre serveur DNS.
+
+Un résolveur récursif peut transmettre les requêtes à un serveur configuré ou suivre les délégations `NS` jusqu’au serveur faisant autorité. Les adresses complémentaires fournies avec la délégation (« glue records ») rendent le serveur de noms suivant accessible sans créer une nouvelle recherche circulaire. Les réponses réussies sont mises en cache selon leur TTL.
+
+**À observer :** Placez des serveurs DNS racine, de zone et cible dans des réseaux distincts. Dans l’application Serveur DNS, choisissez le type de recherche `A`, `MX` ou `NS`, répétez une recherche pour observer le cache, puis interrompez une route afin de comparer une réponse en cache avec une nouvelle récursion. Utilisez les commandes CMD `host` ou `nslookup` pour tester la résolution normale d’un nom vers une adresse, indépendamment des applications web ou e-mail.
 
 ## Pare-feu
 
@@ -57,6 +65,18 @@ Le pare-feu personnel filtre le trafic TCP, UDP et ICMP entrant par terminal. D�
 ## Passerelle, NAT et redirection de ports
 
 La passerelle sépare LAN et WAN. NAT peut associer les émetteurs internes à une adresse externe ; la vue d’exécution montre les correspondances. La redirection publie un service interne sélectionné vers le côté extérieur.
+
+## Administration web des routeurs et passerelles
+
+Les routeurs et passerelles peuvent publier leur configuration simulée sous forme d’une administration HTTP à l’adresse `/admin`. Un autre ordinateur virtuel peut ainsi consulter et modifier le routage, DHCP, NAT, les redirections de ports et le pare-feu pendant l’expérience.
+
+1. Ouvrez le routeur ou la passerelle en mode action.
+2. Activez **Autoriser l’administration web**, choisissez un port de `1` à `65535` et ajoutez au moins un réseau source IPv4 autorisé avec son masque.
+3. Enregistrez la politique et démarrez l’administration.
+4. Sur un client autorisé, ouvrez `http://<adresse-du-routeur>:<port>/admin` dans le navigateur.
+5. Modifiez **Routes**, **DHCP**, **NAT** ou **Firewall**, puis répétez le test réseau.
+
+Un service activé sans réseau source autorisé refuse tout accès. Les modifications invalides sont rejetées au lieu d’appliquer une configuration partielle. Ce site d’administration appartient à la simulation ; il ne donne pas accès aux réglages réels de l’iPad ou du routeur Wi-Fi.
 
 ## Observer plutôt que traiter le réseau comme une boîte noire
 

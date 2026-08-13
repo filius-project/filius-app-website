@@ -70,13 +70,26 @@ Erstellt und bearbeitet Textdateien im virtuellen Dateisystem. Entwürfe können
 
 Stellt HTTP-Inhalte von einem virtuellen Rechner bereit. Der Dienst kann gestartet, gestoppt und neu gestartet werden; standardmäßig wird Port `80` verwendet.
 
-**Vorgehen:**
+**Einfachen Webserver einrichten:**
 
 1. Webserver auf dem Servergerät installieren.
 2. Inhalte im virtuellen Dateisystem vorbereiten.
-3. Dienst starten und Status kontrollieren.
-4. Auf einem zweiten Gerät den Webbrowser öffnen und IP-Adresse oder auflösbaren Hostnamen eingeben.
-5. Bei Problemen zuerst `ping`, dann DNS und zuletzt den Dienststatus prüfen.
+3. Dokumentenstamm und Port festlegen.
+4. Dienst starten und Status kontrollieren.
+5. Auf einem zweiten Gerät den Webbrowser öffnen und IP-Adresse oder auflösbaren Hostnamen eingeben.
+6. Bei Problemen zuerst `ping`, dann DNS und zuletzt den Dienststatus prüfen.
+
+### Mehrere Websites mit virtuellen Hosts
+
+Ein Webserver kann mehrere Websites über denselben simulierten Rechner bereitstellen. Für jeden virtuellen Host werden Hostname, optionaler Port, Dokumentenstamm und Aktivierungsstatus gespeichert. Einer der Einträge kann als Standard dienen, wenn keine genauere Zuordnung passt.
+
+1. Für jeden Host einen eigenen Ordner mit Webinhalten anlegen.
+2. Unter **Virtuelle Hosts** Hostname, optionalen Port und Dokumentenstamm eintragen.
+3. Den Eintrag aktivieren und bei Bedarf als Standard auswählen.
+4. Im DNS für jeden Hostnamen einen `A`-Record auf die IP-Adresse des Webservers anlegen.
+5. Die Websites im Browser über ihre Hostnamen aufrufen und die unterschiedlichen Antworten vergleichen.
+
+Die Zuordnung verwendet den angefragten Hostnamen und Port. Ein DNS-Eintrag allein wählt noch keinen Dokumentenstamm aus; die passende virtuelle-Host-Konfiguration muss ebenfalls aktiv sein.
 
 ## Webbrowser
 
@@ -106,16 +119,25 @@ Verbindet sich über simulierte TCP- oder UDP-Sockets mit einer Zieladresse und 
 
 <img class="doc-app-icon" src="/docs-assets/applications/dns-server.png" alt="DNS-Server-Symbol">
 
-Verwaltet Hostname-zu-IPv4-Einträge und beantwortet simulierte DNS-Anfragen über UDP-Port `53`.
+Verwaltet typisierte DNS-Records und beantwortet simulierte Anfragen über UDP-Port `53`.
 
-**Vorgehen:**
+| Record | Bedeutung im Lernmodell                         | Beispiel                            |
+| ------ | ----------------------------------------------- | ----------------------------------- |
+| `A`    | Ordnet einen Hostnamen einer IPv4-Adresse zu.   | `web.schule → 192.168.10.20`        |
+| `MX`   | Nennt den Mailserver für eine Domain.           | `schule → mail.schule`              |
+| `NS`   | Delegiert einen Namensraum an einen DNS-Server. | `klasse.schule → dns.klasse.schule` |
+
+**Autoritativen Server einrichten:**
 
 1. DNS-Server eine feste IP-Adresse geben.
-2. Einträge wie `web.schule → 192.168.10.20` anlegen.
-3. Auf Clients diese DNS-Server-Adresse konfigurieren.
-4. Mit `host web.schule` oder dem Webbrowser testen.
+2. Record-Typ, Namen, Ziel und TTL eintragen.
+3. Für die Ziele von `MX`- und `NS`-Records passende `A`-Records bereitstellen. Bei einer Delegation kann die Adresse des nächsten Nameservers als Glue-Adresse zusammen mit dem `NS`-Record geliefert werden.
+4. Auf Clients diese DNS-Server-Adresse konfigurieren.
+5. In der DNS-Server-Anwendung den Suchtyp `A`, `MX` oder `NS` wählen und die Abfrage starten. `host` und `nslookup` in CMD prüfen weiterhin die normale Hostname-zu-Adresse-Auflösung.
 
-DNS ersetzt keine Route. Der Client muss sowohl den DNS-Server als auch die aufgelöste Zieladresse erreichen können.
+**Rekursive Auflösung:** Aktiviere sie, wenn der Server Anfragen über weitere DNS-Server verfolgen soll. Optional kann ein weiterleitender DNS-Server angegeben werden. Ohne Forwarder folgt der Resolver erreichbaren `NS`-Verweisen, verwendet mitgelieferte Glue-Adressen und speichert Antworten bis zum Ablauf ihrer TTL im Cache.
+
+DNS ersetzt keine Route. Der Client muss den ersten DNS-Server erreichen können; für rekursive Abfragen müssen auch die nachgelagerten DNS-Server und das aufgelöste Ziel erreichbar sein.
 
 ## DHCP-Server
 
@@ -151,7 +173,9 @@ Stellt lokale Postfächer bereit und betreibt simulierte SMTP- und POP3-Dienste.
 
 Sendet Nachrichten über den konfigurierten SMTP-Server und ruft sie über POP3 ab. Benötigt E-Mail-Adresse, Zugangsdaten sowie Host und Port beider Dienste.
 
-**Empfohlener Aufbau:** Ein E-Mail-Server mit zwei Konten und zwei Clientgeräte. Zuerst beide Clients mit der Server-IP konfigurieren; anschließend kann DNS ergänzt und die IP durch einen Hostnamen ersetzt werden.
+**Empfohlener Aufbau:** Ein E-Mail-Server mit zwei Konten und zwei Clientgeräten. Zuerst beide Clients mit der Server-IP konfigurieren; anschließend kann DNS ergänzt und die IP durch einen Hostnamen ersetzt werden.
+
+**Nachrichten bearbeiten:** Öffne eine Nachricht im Posteingang und wähle **Antworten** oder **Allen antworten**. Die Empfänger und der Bezug zur ursprünglichen Nachricht werden in den neuen Entwurf übernommen und können vor dem Senden geprüft werden. **Nachricht löschen** entfernt nach Bestätigung nur die ausgewählte Kopie aus dem aktuell geöffneten Ordner. Dadurch lassen sich Nachrichten getrennt aus Posteingang und Gesendet löschen.
 
 ## Gnutella
 

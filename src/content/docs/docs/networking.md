@@ -48,7 +48,15 @@ DHCP automatisiert Adresse, Maske, Gateway und DNS-Angaben. Der simulierte Austa
 
 ## DNS
 
-DNS ordnet Hostnamen IPv4-Adressen zu und nutzt UDP-Port `53`. Mit `host` oder `nslookup` lässt sich die Auflösung unabhängig von einer Web- oder E-Mail-Anwendung prüfen.
+DNS nutzt UDP-Port `53` und bildet mehr als eine einfache Namenstabelle ab:
+
+- `A` ordnet einen Hostnamen einer IPv4-Adresse zu,
+- `MX` nennt den Mailserver einer Domain,
+- `NS` delegiert einen Namensraum an einen anderen DNS-Server.
+
+Ein rekursiver Resolver kann Anfragen an einen konfigurierten Forwarder weitergeben oder `NS`-Verweisen bis zum autoritativen Server folgen. Glue-Adressen machen den nächsten Nameserver erreichbar, ohne eine endlose Zusatzabfrage zu erzeugen. Erfolgreiche Antworten werden entsprechend ihrer TTL zwischengespeichert.
+
+**Beobachten:** Baue Root-, Zonen- und Ziel-DNS-Server in getrennten Netzen auf. Wähle in der DNS-Server-Anwendung den Suchtyp `A`, `MX` oder `NS`, wiederhole die Suche für einen Cache-Treffer und unterbrich anschließend eine Route, um den Unterschied zwischen Cache und neuer Rekursion zu sehen. Mit `host` oder `nslookup` in CMD lässt sich die normale Hostname-zu-Adresse-Auflösung unabhängig von Web- oder E-Mail-Anwendungen prüfen.
 
 ## Firewall
 
@@ -57,6 +65,18 @@ Die persönliche Firewall filtert eingehenden TCP-, UDP- und ICMP-Verkehr pro En
 ## Gateway, NAT und Portweiterleitung
 
 Das Gateway trennt LAN- und WAN-Seite. NAT kann interne Absender auf eine äußere Adresse abbilden; die Laufzeitansicht zeigt entstandene Zuordnungen. Portweiterleitung macht einen ausgewählten internen Dienst von der äußeren Seite erreichbar.
+
+## Webadministration auf Router und Gateway
+
+Router und Gateways können ihre simulierte Konfiguration als HTTP-Administration unter `/admin` bereitstellen. Damit lässt sich von einem anderen virtuellen Rechner aus untersuchen, wie Änderungen an Routing, DHCP, NAT, Portweiterleitungen und Firewallregeln das Netz beeinflussen.
+
+1. Router oder Gateway im Aktionsmodus öffnen.
+2. **Webadministration erlauben**, einen Port zwischen `1` und `65535` wählen und mindestens ein erlaubtes IPv4-Quellnetz mit Maske hinzufügen.
+3. Richtlinie speichern und die Administration starten.
+4. Auf einem berechtigten Client `http://<router-adresse>:<port>/admin` im Webbrowser öffnen.
+5. Über **Routes**, **DHCP**, **NAT** oder **Firewall** eine Änderung vornehmen und den Versuch wiederholen.
+
+Ein aktivierter Dienst ohne erlaubtes Quellnetz verweigert jeden Zugriff. Ungültige Änderungen werden abgelehnt, statt eine unvollständige Konfiguration zu übernehmen. Das Administrationsnetz ist Teil der Simulation und kein Zugriff auf die Einstellungen des echten iPads oder WLAN-Routers.
 
 ## Beobachtung statt Blackbox
 

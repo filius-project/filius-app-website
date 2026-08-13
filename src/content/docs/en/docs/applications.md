@@ -70,13 +70,26 @@ Opens supported virtual image files. It reads only from the simulated file syste
 
 Provides HTTP content from a virtual computer. The service can be started, stopped, and restarted; its default port is `80`.
 
-**Procedure:**
+**Set up a simple web server:**
 
 1. Install the web server on the server device.
 2. Prepare content in its virtual file system.
-3. Start the service and check its status.
-4. On a second device, open the web browser and enter the IP address or a resolvable hostname.
-5. If it fails, check `ping` first, DNS second, and service status last.
+3. Set the document root and port.
+4. Start the service and check its status.
+5. On a second device, open the web browser and enter the IP address or a resolvable hostname.
+6. If it fails, check `ping` first, DNS second, and service status last.
+
+### Serve several sites with virtual hosts
+
+One web server can serve several sites from the same simulated computer. Each virtual host stores a hostname, optional port, document root, and enabled state. One entry can be the default when no more specific mapping matches.
+
+1. Create a separate content directory for each site.
+2. Under **Virtual hosts**, enter the hostname, optional port, and document root.
+3. Enable the entry and select it as the default when appropriate.
+4. Add a DNS `A` record for each hostname that points to the web server’s IP address.
+5. Open the hostnames in the browser and compare the different responses.
+
+Dispatch uses the requested hostname and port. A DNS record alone does not select a document root; the matching virtual-host configuration must also be enabled.
 
 ## Web browser
 
@@ -106,16 +119,25 @@ Connects to a destination address and port over simulated TCP or UDP sockets, se
 
 <img class="doc-app-icon" src="/docs-assets/applications/dns-server.png" alt="DNS server icon">
 
-Stores hostname-to-IPv4 records and answers simulated DNS queries on UDP port `53`.
+Stores typed DNS records and answers simulated queries on UDP port `53`.
 
-**Procedure:**
+| Record | Meaning in the learning model          | Example                           |
+| ------ | -------------------------------------- | --------------------------------- |
+| `A`    | Maps a hostname to an IPv4 address.    | `web.school → 192.168.10.20`      |
+| `MX`   | Names the mail exchanger for a domain. | `school → mail.school`            |
+| `NS`   | Delegates a namespace to a DNS server. | `class.school → dns.class.school` |
+
+**Set up an authoritative server:**
 
 1. Give the DNS server a fixed IP address.
-2. Add records such as `web.school → 192.168.10.20`.
-3. Configure clients to use that DNS server address.
-4. Test with `host web.school` or the web browser.
+2. Enter the record type, name, target, and TTL.
+3. Provide suitable `A` records for `MX` and `NS` targets. A delegation can include the next name server’s address as glue alongside its `NS` record.
+4. Configure clients to use that DNS server address.
+5. In the DNS Server application, select the `A`, `MX`, or `NS` lookup type and run the query. CMD `host` and `nslookup` continue to check normal hostname-to-address resolution.
 
-DNS does not replace routing. The client must be able to reach both the DNS server and the resolved target address.
+**Recursive resolution:** Enable it when this server should follow requests through other DNS servers. You can also set an optional forwarding DNS server. Without a forwarder, the resolver follows reachable `NS` referrals, uses the supplied glue addresses, and caches answers until their TTL expires.
+
+DNS does not replace routing. The client must reach the first DNS server; recursive experiments also require reachability to the downstream DNS servers and the resolved target.
 
 ## DHCP server
 
@@ -152,6 +174,8 @@ Hosts local mailboxes and runs simulated SMTP and POP3 services. SMTP defaults t
 Sends messages through the configured SMTP server and retrieves them through POP3. It needs an email address, credentials, and the host and port for both services.
 
 **Recommended topology:** One email server with two accounts and two client devices. Configure both clients with the server IP first; add DNS later and replace the IP with a hostname.
+
+**Work with messages:** Open an inbox message and choose **Reply** or **Reply All**. The recipients and reference to the original message are copied into a new draft for review before sending. **Delete Message** removes only the selected copy from the currently open folder after confirmation. Inbox and sent copies can therefore be deleted independently.
 
 ## Gnutella
 

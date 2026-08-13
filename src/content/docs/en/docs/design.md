@@ -21,7 +21,18 @@ Drag PCs, notebooks, switches, routers, gateways, or Remote Links from the palet
 
 After selecting a device, its name, interfaces, position, and network settings can be edited as supported by that device kind.
 
-## 3. Create cables
+## 3. Derive labels from IP and MAC addresses
+
+PC and notebook labels on the canvas can follow their network configuration automatically. Open the device configuration and choose a source under **Device label**:
+
+- **Manual name:** shows the device name you entered,
+- **IP address:** shows the primary interface address,
+- **MAC address:** shows its hardware address,
+- **IP and MAC address:** shows both values together.
+
+The manual name remains the fallback when the selected source has no value yet. IP labels work well on address-planning worksheets; MAC labels make ARP and switch-learning experiments easier to follow on the canvas.
+
+## 4. Create cables
 
 1. Select the cable tool.
 2. Tap the first device or a free port.
@@ -30,7 +41,7 @@ After selecting a device, its name, interfaces, position, and network settings c
 
 Direct endpoint-to-endpoint links are supported. Use a switch when several devices must share one LAN.
 
-## 4. Assign IPv4 addresses
+## 5. Assign IPv4 addresses
 
 For a direct test, both devices belong to the same network:
 
@@ -41,7 +52,7 @@ For a direct test, both devices belong to the same network:
 
 With `/24`, the first three address groups match and the final number must be unique per device.
 
-## 5. Connect two subnets
+## 6. Connect two subnets
 
 Example:
 
@@ -52,7 +63,7 @@ Example:
 
 The router needs one interface in each network. Without the correct default gateway, an endpoint does not send traffic for the other network to the router.
 
-## 6. Review before simulation
+## 7. Review before simulation
 
 - every required cable is present,
 - every IPv4 address is unique in its network,

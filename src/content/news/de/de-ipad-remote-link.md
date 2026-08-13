@@ -12,7 +12,7 @@ topics:
   - Unterricht
   - Sicherheit
 readingMinutes: 5
-featured: true
+featured: false
 ---
 
 Zwei Lerngruppen entwerfen getrennte Netze, starten ihre Simulationen auf zwei iPads – und verbinden beide Topologien über das echte lokale Netzwerk. Genau diese Unterrichtssituation soll der neue iPad-zu-iPad-Modus von Remote Link ermöglichen.

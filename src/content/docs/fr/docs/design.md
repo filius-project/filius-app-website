@@ -21,7 +21,18 @@ Faites glisser PC, portables, switches, routeurs, passerelles ou Remote Links de
 
 Après sélection, le nom, les interfaces, la position et les réglages réseau peuvent être modifiés selon le type d’appareil.
 
-## 3. Créer les câbles
+## 3. Créer les étiquettes à partir des adresses IP et MAC
+
+L’étiquette d’un PC ou d’un portable sur le canevas peut suivre automatiquement sa configuration réseau. Ouvrez la configuration de l’appareil et choisissez une source sous **Étiquette de l’appareil** :
+
+- **Nom manuel :** affiche le nom saisi,
+- **Adresse IP :** affiche l’adresse de l’interface principale,
+- **Adresse MAC :** affiche son adresse matérielle,
+- **Adresses IP et MAC :** affiche les deux valeurs ensemble.
+
+Le nom manuel reste la valeur de secours lorsque la source choisie n’est pas encore disponible. L’adresse IP facilite les exercices de plan d’adressage ; l’adresse MAC rend les expériences ARP et d’apprentissage du switch plus lisibles sur le canevas.
+
+## 4. Créer les câbles
 
 1. Sélectionnez l’outil câble.
 2. Touchez le premier appareil ou un port libre.
@@ -30,7 +41,7 @@ Après sélection, le nom, les interfaces, la position et les réglages réseau 
 
 Une liaison directe entre terminaux est possible. Utilisez un switch lorsque plusieurs appareils partagent un LAN.
 
-## 4. Attribuer les adresses IPv4
+## 5. Attribuer les adresses IPv4
 
 Pour un essai direct, les deux appareils appartiennent au même réseau :
 
@@ -41,7 +52,7 @@ Pour un essai direct, les deux appareils appartiennent au même réseau :
 
 Avec `/24`, les trois premiers groupes sont identiques et le dernier nombre doit être unique.
 
-## 5. Relier deux sous-réseaux
+## 6. Relier deux sous-réseaux
 
 | Zone                    | Adresse du routeur | Terminal        | Passerelle du terminal |
 | ----------------------- | ------------------ | --------------- | ---------------------- |
@@ -50,7 +61,7 @@ Avec `/24`, les trois premiers groupes sont identiques et le dernier nombre doit
 
 Le routeur exige une interface dans chaque réseau. Sans passerelle correcte, le terminal n’envoie pas les paquets destinés à l’autre réseau au routeur.
 
-## 6. Vérifier avant la simulation
+## 7. Vérifier avant la simulation
 
 - tous les câbles nécessaires sont présents,
 - chaque adresse IPv4 est unique dans son réseau,

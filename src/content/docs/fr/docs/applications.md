@@ -70,13 +70,26 @@ Ouvre les images virtuelles prises en charge. Elle lit uniquement le système de
 
 Fournit du contenu HTTP depuis un ordinateur virtuel. Le service peut être démarré, arrêté et redémarré ; son port par défaut est `80`.
 
-**Procédure :**
+**Configurer un serveur web simple :**
 
 1. Installez le serveur web sur l’appareil serveur.
 2. Préparez le contenu dans son système de fichiers virtuel.
-3. Démarrez le service et vérifiez son état.
-4. Sur un second appareil, ouvrez le navigateur et saisissez l’adresse IP ou un nom d’hôte résolvable.
-5. En cas d’échec, vérifiez d’abord `ping`, ensuite DNS, puis l’état du service.
+3. Définissez la racine des documents et le port.
+4. Démarrez le service et vérifiez son état.
+5. Sur un second appareil, ouvrez le navigateur et saisissez l’adresse IP ou un nom d’hôte résolvable.
+6. En cas d’échec, vérifiez d’abord `ping`, ensuite DNS, puis l’état du service.
+
+### Servir plusieurs sites avec des hôtes virtuels
+
+Un serveur web peut fournir plusieurs sites depuis le même ordinateur simulé. Chaque hôte virtuel possède un nom d’hôte, un port facultatif, une racine de documents et un état d’activation. Une entrée peut servir de valeur par défaut lorsqu’aucune correspondance plus précise n’existe.
+
+1. Créez un dossier de contenu distinct pour chaque site.
+2. Sous **Hôtes virtuels**, saisissez le nom d’hôte, le port facultatif et la racine des documents.
+3. Activez l’entrée et choisissez-la comme valeur par défaut si nécessaire.
+4. Ajoutez dans DNS un enregistrement `A` pour chaque nom, pointant vers l’adresse IP du serveur web.
+5. Ouvrez les différents noms dans le navigateur et comparez les réponses.
+
+La sélection utilise le nom d’hôte et le port demandés. Un enregistrement DNS ne choisit pas à lui seul une racine de documents ; la configuration d’hôte virtuel correspondante doit également être active.
 
 ## Navigateur web
 
@@ -106,16 +119,25 @@ Se connecte à une adresse et un port via des sockets TCP ou UDP simulés, envoi
 
 <img class="doc-app-icon" src="/docs-assets/applications/dns-server.png" alt="Icône Serveur DNS">
 
-Stocke les correspondances nom d’hôte–IPv4 et répond aux requêtes DNS simulées sur le port UDP `53`.
+Stocke des enregistrements DNS typés et répond aux requêtes simulées sur le port UDP `53`.
 
-**Procédure :**
+| Enregistrement | Signification dans le modèle pédagogique       | Exemple                           |
+| -------------- | ---------------------------------------------- | --------------------------------- |
+| `A`            | Associe un nom d’hôte à une adresse IPv4.      | `web.ecole → 192.168.10.20`       |
+| `MX`           | Désigne le serveur de messagerie d’un domaine. | `ecole → mail.ecole`              |
+| `NS`           | Délègue un espace de noms à un serveur DNS.    | `classe.ecole → dns.classe.ecole` |
+
+**Configurer un serveur faisant autorité :**
 
 1. Attribuez une adresse IP fixe au serveur DNS.
-2. Ajoutez, par exemple, `web.ecole → 192.168.10.20`.
-3. Configurez cette adresse DNS sur les clients.
-4. Testez avec `host web.ecole` ou le navigateur.
+2. Saisissez le type, le nom, la cible et le TTL de l’enregistrement.
+3. Fournissez des enregistrements `A` adaptés aux cibles `MX` et `NS`. Une délégation peut joindre au record `NS` l’adresse du serveur de noms suivant : c’est un enregistrement d’adresse complémentaire, ou « glue record ».
+4. Configurez cette adresse DNS sur les clients.
+5. Dans l’application Serveur DNS, choisissez le type de recherche `A`, `MX` ou `NS`, puis lancez la requête. Les commandes CMD `host` et `nslookup` vérifient toujours la résolution normale d’un nom vers une adresse.
 
-DNS ne remplace pas le routage. Le client doit pouvoir atteindre le serveur DNS et l’adresse cible obtenue.
+**Résolution récursive :** Activez-la lorsque ce serveur doit poursuivre la requête auprès d’autres serveurs DNS. Un serveur DNS de transfert peut aussi être indiqué. Sans serveur de transfert, le résolveur suit les délégations `NS` accessibles, utilise les adresses complémentaires fournies et met les réponses en cache jusqu’à l’expiration de leur TTL.
+
+DNS ne remplace pas le routage. Le client doit atteindre le premier serveur DNS ; une expérience récursive exige aussi l’accessibilité des serveurs DNS suivants et de la cible résolue.
 
 ## Serveur DHCP
 
@@ -152,6 +174,8 @@ Héberge les boîtes locales et exécute les services SMTP et POP3 simulés. SMT
 Envoie les messages via le serveur SMTP configuré et les relève via POP3. Il exige une adresse e-mail, des identifiants, ainsi que l’hôte et le port des deux services.
 
 **Topologie recommandée :** Un serveur avec deux comptes et deux appareils clients. Configurez d’abord l’IP du serveur ; ajoutez ensuite DNS et remplacez l’IP par un nom d’hôte.
+
+**Gérer les messages :** Ouvrez un message reçu, puis choisissez **Répondre** ou **Répondre à tous**. Les destinataires et la référence au message d’origine sont copiés dans un nouveau brouillon à vérifier avant l’envoi. **Supprimer le message** ne retire, après confirmation, que la copie sélectionnée du dossier actuellement ouvert. Les copies de la boîte de réception et des messages envoyés peuvent ainsi être supprimées séparément.
 
 ## Gnutella
 

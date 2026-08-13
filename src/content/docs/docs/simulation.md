@@ -65,6 +65,31 @@ Die Paketansicht ordnet aufgezeichnete Nachrichten ihren Schichten zu. Suche bei
 - **TCP-Aufbau ohne Anwendungsantwort:** Dienst, Port und Serveranwendung prüfen,
 - **SMTP/POP3/HTTP-Fehler:** Anwendungsdaten und Zugangskonfiguration prüfen.
 
+## Gezielten Paketverlust simulieren
+
+Mit **Pakete verwerfen** lässt sich ein globaler Ausfall gezielt in einen laufenden Versuch einbauen. Halte das Steuerelement gedrückt: Solange der Druck aktiv ist, werden alle neu übertragenen simulierten Netzwerk-Frames verworfen. Nach dem Loslassen fließt neuer Verkehr wieder normal.
+
+Ein reproduzierbarer Versuch:
+
+1. Einen fortlaufenden `ping` oder wiederholte Clientanfragen starten.
+2. **Pakete verwerfen** einige Sekunden gedrückt halten.
+3. Währenddessen Timeouts und als verworfen markierte Ereignisse beobachten.
+4. Loslassen und prüfen, ob neue Anfragen wieder erfolgreich sind.
+
+Die Funktion wirkt auf die gesamte simulierte Topologie, nicht nur auf das ausgewählte Gerät. Sie ist absichtlich momentbezogen und wird beim Beenden oder Neustarten der Simulation deaktiviert.
+
+## Paketmitschnitt als Text exportieren
+
+Öffne auf einem Gerät **Paketaustausch**, wähle bei Bedarf eine Schnittstelle und tippe **Exportieren**. Filius on iPad speichert einen UTF-8-Text im TSV-Format, der dem aktuell gewählten Gerät und – falls ausgewählt – der Schnittstelle entspricht.
+
+Der Export ist deterministisch sortiert und für Tabellenprogramme sowie eigene Auswertungen geeignet. Passwörter, Zugangsdaten, Remote-Link-Codes, Nutzdaten und Nachrichtentexte werden entfernt oder markiert. Die Paketaufzeichnung ist begrenzt, damit lange Simulationen den Speicher nicht unbegrenzt vergrößern. Wenn ältere Ereignisse bereits verworfen wurden, weist der Export ihre Anzahl ausdrücklich aus.
+
+## Detailbericht exportieren
+
+Öffne **Mehr** und wähle **Detailbericht exportieren**. Der Textbericht fasst Projektmetadaten, Verbindungen, Geräte und Schnittstellen, Anwendungen, Routen, DNS, DHCP, NAT und Portweiterleitungen, Firewall, Web- und E-Mail-Konfiguration, Remote Links, Paketverlust sowie Verkehrsstatistik und einzelne Ereignisse zusammen.
+
+Der Bericht ist für Abgabe, Fehlersuche und Vergleich zweier Versuchsstände gedacht. Sensible Werte und Nachrichteninhalte werden redigiert. Er ist eine Momentaufnahme des aktuellen Projekts und der noch gespeicherten Laufzeitdaten; bei begrenzter Paketaufzeichnung nennt er auch die Zahl älterer, bereits entfernter Ereignisse.
+
 ## Diagnose-Reihenfolge
 
 1. Kabel und Linkstatus

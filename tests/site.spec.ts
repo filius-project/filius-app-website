@@ -14,6 +14,9 @@ const marketingPages = [
   "/news/ipad-remote-link/",
   "/en/news/ipad-remote-link/",
   "/fr/news/ipad-remote-link/",
+  "/news/java-ipad-parity/",
+  "/en/news/java-ipad-parity/",
+  "/fr/news/java-ipad-parity/",
   "/en/support/",
   "/fr/support/",
 ];
@@ -93,6 +96,35 @@ test("expanded documentation includes app pictures and detailed sections", async
     page.getByRole("heading", { name: "DHCP-Server" }),
   ).toBeVisible();
   await expect(page.getByRole("heading", { name: "Gnutella" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", {
+      name: "Mehrere Websites mit virtuellen Hosts",
+    }),
+  ).toBeVisible();
+
+  await page.goto("/docs/networking/");
+  await expect(
+    page.getByRole("heading", {
+      name: "Webadministration auf Router und Gateway",
+    }),
+  ).toBeVisible();
+  await expect(page.locator("code", { hasText: "MX" }).first()).toBeVisible();
+  await expect(page.locator("code", { hasText: "NS" }).first()).toBeVisible();
+
+  await page.goto("/docs/simulation/");
+  await expect(
+    page.getByRole("heading", { name: "Gezielten Paketverlust simulieren" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Detailbericht exportieren" }),
+  ).toBeVisible();
+
+  await page.goto("/docs/design/");
+  await expect(
+    page.getByRole("heading", {
+      name: "Beschriftung aus IP- und MAC-Adresse ableiten",
+    }),
+  ).toBeVisible();
 
   await page.goto("/docs/devices/");
   await expect(page.locator(".doc-device")).toHaveCount(7);
@@ -104,10 +136,26 @@ test("expanded documentation includes app pictures and detailed sections", async
 test("expanded documentation is available in all supported languages", async ({
   page,
 }) => {
-  await page.goto("/en/docs/interface/");
-  await expect(page.locator("h1")).toContainText("Interface and controls");
+  await page.goto("/en/docs/networking/");
+  await expect(page.locator("h1")).toContainText("Networking features");
+  await expect(
+    page.getByRole("heading", {
+      name: "Web administration on routers and gateways",
+    }),
+  ).toBeVisible();
+
   await page.goto("/fr/docs/applications/");
   await expect(page.locator("h1")).toContainText("Applications simulées");
+  await expect(
+    page.getByRole("heading", {
+      name: "Servir plusieurs sites avec des hôtes virtuels",
+    }),
+  ).toBeVisible();
+
+  await page.goto("/fr/docs/simulation/");
+  await expect(
+    page.getByRole("heading", { name: "Exporter un rapport détaillé" }),
+  ).toBeVisible();
 });
 
 test("mobile navigation exposes all primary destinations", async ({ page }) => {
@@ -129,14 +177,18 @@ test("mobile navigation exposes all primary destinations", async ({ page }) => {
 test("the development journal is localized and labels preview content", async ({
   page,
 }) => {
-  for (const [path, heading] of [
-    ["/news/", "Neues aus der Werkstatt."],
-    ["/en/news/", "Notes from the workshop."],
-    ["/fr/news/", "Nouvelles de l’atelier."],
+  for (const [path, heading, featuredPath] of [
+    ["/news/", "Neues aus der Werkstatt.", "/news/java-ipad-parity/"],
+    ["/en/news/", "Notes from the workshop.", "/en/news/java-ipad-parity/"],
+    ["/fr/news/", "Nouvelles de l’atelier.", "/fr/news/java-ipad-parity/"],
   ] as const) {
     await page.goto(path);
     await expect(page.getByRole("heading", { name: heading })).toBeVisible();
-    await expect(page.locator("[data-news-card]")).toHaveCount(4);
+    await expect(page.locator("[data-news-card]")).toHaveCount(5);
+    await expect(page.locator("[data-news-card]").first()).toHaveAttribute(
+      "href",
+      featuredPath,
+    );
   }
 
   await page.goto("/en/news/learning-materials-preview/");
@@ -163,6 +215,20 @@ test("the development journal is localized and labels preview content", async ({
   await expect(
     page.locator('link[rel="alternate"][hreflang="fr"]'),
   ).toHaveAttribute("href", /\/fr\/news\/ipad-remote-link\/$/);
+
+  await page.goto("/en/news/java-ipad-parity/");
+  await expect(
+    page.getByRole("heading", {
+      name: "From the Java reference to iPad: closing the next parity gap",
+    }),
+  ).toBeVisible();
+  await expect(
+    page.getByText("One release gate remains deliberately closed"),
+  ).toBeVisible();
+  await expect(page.getByText(/two physical iPads/).first()).toBeVisible();
+  await expect(
+    page.locator('link[rel="alternate"][hreflang="de"]'),
+  ).toHaveAttribute("href", /\/news\/java-ipad-parity\/$/);
 });
 
 test("the contact form is data-minimizing and available in every language", async ({

@@ -25,3 +25,15 @@ App Store availability, privacy statements, and the public source license have n
 - **Design:** place devices and connect a topology.
 - **Configure:** assign addresses, routes, services, and applications.
 - **Simulate:** generate traffic, inspect it, and explain the result.
+
+## Advanced network experiments
+
+The current iPad implementation supports several experiments beyond the first ping:
+
+- [Networking features](./networking/): DNS with `A`, `MX`, and `NS` records, recursive resolution, and router or gateway web administration,
+- [Simulated applications](./applications/): web-server virtual hosts plus reply and deletion workflows in the email client,
+- [Simulation mode](./simulation/): global packet loss, packet capture as TSV, and a redacted detailed report,
+- [Design mode](./design/): device labels derived from a name, IP address, MAC address, or both addresses,
+- [Compatibility](./compatibility/): the current release status of LAN Remote Link between two iPads.
+
+The development article [From the Java reference to iPad](/en/news/java-ipad-parity/) explains how these gaps were found, implemented, and verified.
