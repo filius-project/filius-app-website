@@ -12,7 +12,7 @@ topics:
   - Qualität
   - Entwicklung
 readingMinutes: 7
-featured: true
+featured: false
 ---
 
 Ein Kompatibilitätsprojekt kann vollständig aussehen, lange bevor es sich vollständig verhält. Die wichtigsten Ansichten sind vorhanden, Projekte lassen sich öffnen und die ersten Unterrichtsversuche funktionieren. Die verbleibenden Unterschiede liegen oft eine Ebene tiefer: Ein Record-Typ ist nicht auswählbar, ein Ablauf endet nach dem Senden oder Diagnosedaten lassen sich ansehen, aber nicht abgeben.

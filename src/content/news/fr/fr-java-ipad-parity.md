@@ -12,7 +12,7 @@ topics:
   - Qualité
   - Développement
 readingMinutes: 7
-featured: true
+featured: false
 ---
 
 Un projet de compatibilité peut sembler complet bien avant de se comporter de manière complète. Les principaux écrans existent, les projets s’ouvrent et les premiers exercices fonctionnent. Les différences restantes se cachent souvent un niveau plus bas : un type d’enregistrement impossible à choisir, un parcours qui s’arrête après l’envoi ou des données de diagnostic visibles, mais impossibles à remettre.
