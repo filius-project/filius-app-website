@@ -195,6 +195,8 @@ The native TCP/UDP protocol builder is intended for limited experiments and is h
 It does not run arbitrary Java source code and is not a compatible replacement for the desktop edition’s Java source assistant. Existing teaching projects that depend on custom Java software must be evaluated separately.
 :::
 
+The development article [Custom applications on iPad: why we do not simply run the Java code](/en/news/custom-java-applications-ipad/) explains the technical boundary, the current substitute, and the evidence required before a broader redesign.
+
 ## Fast troubleshooting sequence
 
 1. **Link present?** Check cables and occupied ports.

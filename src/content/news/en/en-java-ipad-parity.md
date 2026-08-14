@@ -12,7 +12,7 @@ topics:
   - Quality
   - Development
 readingMinutes: 7
-featured: true
+featured: false
 ---
 
 A compatibility project can look complete long before it behaves completely. The main screens may exist, projects may open, and the first classroom exercises may work. The remaining differences are often hidden one level deeper: a record type that cannot be selected, an action that stops at “send,” or diagnostic data that can be viewed but not handed in.

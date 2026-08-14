@@ -195,6 +195,8 @@ Le générateur natif TCP/UDP est destiné à des expériences limitées et rest
 Il n’exécute pas de code source Java arbitraire et ne remplace pas de façon compatible l’assistant Java de la version de bureau. Les projets pédagogiques qui dépendent d’un logiciel Java personnalisé doivent être évalués séparément.
 :::
 
+L’article de développement [Applications personnalisées sur iPad : pourquoi nous n’exécutons pas simplement le code Java](/fr/news/custom-java-applications-ipad/) explique la limite technique, la solution actuelle et les éléments nécessaires avant une refonte plus large.
+
 ## Dépannage rapide
 
 1. **Liaison présente ?** Vérifiez les câbles et les ports occupés.

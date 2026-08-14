@@ -195,6 +195,8 @@ Der native TCP/UDP-Protokoll-Baukasten ist für begrenzte, ausdrücklich aktivie
 Er führt keinen beliebigen Java-Quellcode aus und ist kein kompatibler Ersatz für den Java-Quellcode-Assistenten der Desktop-Version. Vorhandene Unterrichtsprojekte mit eigener Java-Software müssen gesondert geprüft werden.
 :::
 
+Der Entwicklungsbericht [Eigene Anwendungen auf dem iPad: Warum wir Java-Code nicht einfach ausführen](/news/custom-java-applications-ipad/) erklärt die technische Grenze, den heutigen Ersatz und die nötigen Erkenntnisse vor einer umfassenderen Neugestaltung.
+
 ## Schnelle Fehlerdiagnose
 
 1. **Link vorhanden?** Kabel und belegte Ports prüfen.

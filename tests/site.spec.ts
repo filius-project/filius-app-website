@@ -17,6 +17,9 @@ const marketingPages = [
   "/news/java-ipad-parity/",
   "/en/news/java-ipad-parity/",
   "/fr/news/java-ipad-parity/",
+  "/news/custom-java-applications-ipad/",
+  "/en/news/custom-java-applications-ipad/",
+  "/fr/news/custom-java-applications-ipad/",
   "/en/support/",
   "/fr/support/",
 ];
@@ -178,13 +181,25 @@ test("the development journal is localized and labels preview content", async ({
   page,
 }) => {
   for (const [path, heading, featuredPath] of [
-    ["/news/", "Neues aus der Werkstatt.", "/news/java-ipad-parity/"],
-    ["/en/news/", "Notes from the workshop.", "/en/news/java-ipad-parity/"],
-    ["/fr/news/", "Nouvelles de l’atelier.", "/fr/news/java-ipad-parity/"],
+    [
+      "/news/",
+      "Neues aus der Werkstatt.",
+      "/news/custom-java-applications-ipad/",
+    ],
+    [
+      "/en/news/",
+      "Notes from the workshop.",
+      "/en/news/custom-java-applications-ipad/",
+    ],
+    [
+      "/fr/news/",
+      "Nouvelles de l’atelier.",
+      "/fr/news/custom-java-applications-ipad/",
+    ],
   ] as const) {
     await page.goto(path);
     await expect(page.getByRole("heading", { name: heading })).toBeVisible();
-    await expect(page.locator("[data-news-card]")).toHaveCount(5);
+    await expect(page.locator("[data-news-card]")).toHaveCount(6);
     await expect(page.locator("[data-news-card]").first()).toHaveAttribute(
       "href",
       featuredPath,
@@ -229,6 +244,20 @@ test("the development journal is localized and labels preview content", async ({
   await expect(
     page.locator('link[rel="alternate"][hreflang="de"]'),
   ).toHaveAttribute("href", /\/news\/java-ipad-parity\/$/);
+
+  await page.goto("/en/news/custom-java-applications-ipad/");
+  await expect(
+    page.getByRole("heading", {
+      name: "Custom applications on iPad: why we do not simply run the Java code",
+    }),
+  ).toBeVisible();
+  await expect(
+    page.getByText("Why the iPad builder remains experimental"),
+  ).toBeVisible();
+  await expect(page.getByText("How we may move forward")).toBeVisible();
+  await expect(
+    page.locator('link[rel="alternate"][hreflang="fr"]'),
+  ).toHaveAttribute("href", /\/fr\/news\/custom-java-applications-ipad\/$/);
 });
 
 test("the contact form is data-minimizing and available in every language", async ({
