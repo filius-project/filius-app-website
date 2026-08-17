@@ -11,6 +11,6 @@
     "test": "node --test server.test.mjs"
   },
   "dependencies": {
-    "nodemailer": "^9.0.3"
+    "nodemailer": "^9.0.5"
   }
 }
