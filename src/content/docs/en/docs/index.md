@@ -16,8 +16,8 @@ Filius on iPad is a native iPad application for designing, configuring, and simu
 5. Install the clients and services described under [Simulated applications](./applications/).
 6. Check [Compatibility](./compatibility/) before preparing a lesson and use [Troubleshooting](./troubleshooting/) when results differ from expectations.
 
-:::note[Pre-release documentation]
-App Store availability, privacy statements, and the public source license have not received final approval yet.
+:::note[Publication status]
+App Store availability will be announced separately. Source repositories, licensing basis, privacy information, and provider details are already documented publicly.
 :::
 
 ## Three-step model

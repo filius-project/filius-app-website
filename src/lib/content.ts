@@ -2,6 +2,12 @@ import type { Locale, NavKey } from "../config";
 
 type QuickStep = { title: string; body: string; result: string };
 type Faq = { question: string; answer: string };
+type RepositoryKey = "appUrl" | "javaUrl" | "websiteUrl";
+export type TrustSection = {
+  title: string;
+  body: string;
+  links?: Array<{ label: string; repository: RepositoryKey }>;
+};
 
 type SiteCopy = {
   languageName: string;
@@ -14,9 +20,7 @@ type SiteCopy = {
     readDocs: string;
     learnMore: string;
     supportEmail: string;
-    viewSource: string;
     preRelease: string;
-    legalDraft: string;
   };
   hero: { eyebrow: string; title: string; body: string; compatibility: string };
   workflow: {
@@ -33,7 +37,13 @@ type SiteCopy = {
     nodes: Array<{ title: string; body: string }>;
   };
   compatibility: { eyebrow: string; title: string; body: string; note: string };
-  source: { eyebrow: string; title: string; body: string; pending: string };
+  source: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    appLink: string;
+    javaLink: string;
+  };
   finalCta: { title: string; body: string };
   quickstart: {
     title: string;
@@ -66,7 +76,7 @@ type SiteCopy = {
   licenses: {
     title: string;
     intro: string;
-    sections: Array<{ title: string; body: string }>;
+    sections: TrustSection[];
   };
   footer: { tagline: string; original: string; rights: string };
 };
@@ -94,9 +104,7 @@ export const copy: Record<Locale, SiteCopy> = {
       readDocs: "Dokumentation lesen",
       learnMore: "Mehr erfahren",
       supportEmail: "Support per E-Mail",
-      viewSource: "Quellcode auf GitHub",
       preRelease: "Vorabversion",
-      legalDraft: "Entwurf – Freigabe vor Veröffentlichung erforderlich",
     },
     hero: {
       eyebrow: "Netzwerksimulation für das iPad",
@@ -160,8 +168,9 @@ export const copy: Record<Locale, SiteCopy> = {
     source: {
       eyebrow: "Offen und nachvollziehbar",
       title: "Quellcode mit sauberer Herkunft.",
-      body: "Die iPad-App wird als eigenständig gepflegtes Apple-Projekt veröffentlicht. Die ausgeführte Apple-Plattform-Zusatzgenehmigung ergänzt die GPL für Apple-Vertriebswege und direkte Projektkanäle.",
-      pending: "Öffentliche Quelle jetzt verfügbar",
+      body: "Der Quellcode von Filius on iPad ist öffentlich auf GitHub verfügbar. Die ursprüngliche Java-Version von FILIUS wird separat im offiziellen GitLab-Repository gepflegt.",
+      appLink: "Filius on iPad auf GitHub",
+      javaLink: "Java-FILIUS auf GitLab",
     },
     finalCta: {
       title: "Das erste Netzwerk dauert nur wenige Minuten.",
@@ -252,7 +261,7 @@ export const copy: Record<Locale, SiteCopy> = {
         {
           question: "Benötigt die Simulation Internetzugang?",
           answer:
-            "Die simulierten Netzwerke sind als lokale Lernumgebung gedacht. Eine endgültige Offline- und Datenschutzaussage wird gegen den Release-Build geprüft.",
+            "Die simulierten Netzwerke laufen lokal auf dem iPad. Für die Übung ist kein externer Internetzugang erforderlich.",
         },
         {
           question: "Werden Daten gesammelt?",
@@ -272,7 +281,7 @@ export const copy: Record<Locale, SiteCopy> = {
         {
           question: "Ist der Quellcode öffentlich?",
           answer:
-            "Ein eigener öffentlicher Spiegel ist geplant. Er wird nach Freigabe von Lizenz, Attribution und Exportumfang verlinkt.",
+            "Ja. Filius on iPad ist auf GitHub öffentlich; der Quellcode des ursprünglichen Java-FILIUS wird separat auf GitLab gepflegt.",
         },
       ],
     },
@@ -314,7 +323,7 @@ export const copy: Record<Locale, SiteCopy> = {
     imprint: {
       title: "Impressum",
       intro: "Anbieterinformationen und Kontaktangaben für filius.app.",
-      body: "Name, ladungsfähige Anschrift und aktive Kontaktadresse sind eingetragen. Die Anbieterkennzeichnung bleibt bis zur abschließenden rechtlichen Prüfung als Entwurf markiert.",
+      body: "Name, ladungsfähige Anschrift und aktive Kontaktadresse sind veröffentlicht. Die Angaben entsprechen dem bestätigten Betrieb von filius.app.",
     },
     accessibility: {
       title: "Barrierefreiheit",
@@ -337,30 +346,35 @@ export const copy: Record<Locale, SiteCopy> = {
     licenses: {
       title: "Lizenzen und Herkunft",
       intro:
-        "Veröffentlichung und Weitergabe erfolgen erst nach vollständiger Rechteprüfung.",
+        "Öffentliche Quellen, Lizenzgrundlagen und Herkunft der verwendeten Bestandteile.",
       sections: [
         {
           title: "Filius on iPad",
-          body: "Der Quellcode von Filius on iPad ist öffentlich verfügbar. Die GPLv2 oder GPLv3 gilt zusammen mit der privat aufbewahrten Apple-Plattform-Zusatzgenehmigung; im App-Repository steht nur ein SHA-256-Nachweis ohne Vertragstext oder persönliche Daten.",
+          body: "Der Quellcode von Filius on iPad ist öffentlich verfügbar. GPLv2 oder GPLv3 gilt zusammen mit der privat aufbewahrten Apple-Plattform-Zusatzgenehmigung; das Repository veröffentlicht dafür einen SHA-256-Nachweis.",
+          links: [{ label: "Filius on iPad auf GitHub", repository: "appUrl" }],
         },
         {
           title: "FILIUS",
-          body: "Die ursprüngliche Lernsoftware FILIUS und ihre Materialien werden separat gepflegt. Herkunft, Autoren und Lizenztexte werden präzise verlinkt und nicht als eigene Arbeit dargestellt.",
+          body: "Die ursprüngliche Java-Lernsoftware FILIUS und ihre Materialien werden vom ursprünglichen Projekt separat gepflegt. Filius on iPad wird unabhängig entwickelt und unterstützt das Java-Projektformat.",
+          links: [{ label: "Java-FILIUS auf GitLab", repository: "javaUrl" }],
         },
         {
           title: "Website-Assets",
-          body: "App-Icon und Produktscreenshot stammen aus dem Filius on iPad-Projekt. Weitere Gerätegrafiken werden erst nach dokumentierter Provenienz verwendet.",
+          body: "App-Icon und Produktscreenshot stammen aus dem Filius on iPad-Projekt. Die übrigen Website-Grafiken werden als eigenständige CSS- und Vektorillustrationen gepflegt.",
+          links: [
+            { label: "Website-Quellcode auf GitHub", repository: "websiteUrl" },
+          ],
         },
         {
           title: "Schriften und Frameworks",
-          body: "Astro, Starlight und die selbst gehosteten Schriften behalten ihre jeweiligen Open-Source-Lizenzen. Eine maschinenlesbare Drittanbieter-Liste folgt im Releaseprozess.",
+          body: "Astro, Starlight und die selbst gehosteten Schriften behalten ihre jeweiligen Open-Source-Lizenzen. Die zugehörigen Paketmetadaten und Upstream-Lizenztexte bleiben maßgeblich.",
         },
       ],
     },
     footer: {
       tagline: "Netzwerke auf dem iPad entwerfen, konfigurieren und verstehen.",
       original: "Mit Anerkennung des ursprünglichen FILIUS-Projekts.",
-      rights: "Vorabwebsite – rechtliche Freigaben stehen aus.",
+      rights: "Filius on iPad wird unabhängig gepflegt.",
     },
   },
   en: {
@@ -385,9 +399,7 @@ export const copy: Record<Locale, SiteCopy> = {
       readDocs: "Read documentation",
       learnMore: "Learn more",
       supportEmail: "Email support",
-      viewSource: "View source on GitHub",
       preRelease: "Preview",
-      legalDraft: "Draft – approval required before publication",
     },
     hero: {
       eyebrow: "Network simulation for iPad",
@@ -451,8 +463,9 @@ export const copy: Record<Locale, SiteCopy> = {
     source: {
       eyebrow: "Open and traceable",
       title: "Source code with clear provenance.",
-      body: "The iPad app is published as an independently maintained Apple project. The privately retained Apple-platform additional permission supplements the GPL for Apple distribution and direct project channels; the app repository publishes only a SHA-256 attestation, not the agreement text or personal details.",
-      pending: "Public source now available",
+      body: "The Filius on iPad source is public on GitHub. The original Java version of FILIUS is maintained separately in its official GitLab repository.",
+      appLink: "Filius on iPad on GitHub",
+      javaLink: "Java FILIUS on GitLab",
     },
     finalCta: {
       title: "Your first network takes only a few minutes.",
@@ -465,7 +478,7 @@ export const copy: Record<Locale, SiteCopy> = {
       before: [
         "Filius on iPad on an iPad running iPadOS 17 or later",
         "About five to ten minutes",
-        "No external internet needed for the simulated exercise—final release privacy statement pending",
+        "No external internet access is needed for the simulated exercise",
       ],
       steps: [
         {
@@ -520,7 +533,7 @@ export const copy: Record<Locale, SiteCopy> = {
         {
           question: "Is it the desktop FILIUS application?",
           answer:
-            "No. Filius on iPad is an independent iPad implementation with compatible project workflows. Exact relationship wording and attribution require final approval.",
+            "No. Filius on iPad is an independently maintained iPad implementation with compatible project workflows. It is not published, operated, or officially supported by the original FILIUS project.",
         },
         {
           question: "Which devices are supported?",
@@ -540,7 +553,7 @@ export const copy: Record<Locale, SiteCopy> = {
         {
           question: "Does simulation need internet access?",
           answer:
-            "Simulated networks are intended to run locally. The final offline and privacy statement will be checked against the release build.",
+            "The simulated networks run locally on the iPad. The exercise does not require external internet access.",
         },
         {
           question: "Does it collect data?",
@@ -560,7 +573,7 @@ export const copy: Record<Locale, SiteCopy> = {
         {
           question: "Is the source public?",
           answer:
-            "A dedicated public mirror is planned after license, attribution, and export approval.",
+            "Yes. Filius on iPad is public on GitHub; the original Java FILIUS source is maintained separately on GitLab.",
         },
       ],
     },
@@ -602,7 +615,7 @@ export const copy: Record<Locale, SiteCopy> = {
     imprint: {
       title: "Legal notice",
       intro: "Provider and contact information for filius.app.",
-      body: "The name, service address, and active contact address are supplied. The legal notice remains marked as a draft until final legal review.",
+      body: "The provider name, service address, and active contact address are published for the confirmed operation of filius.app.",
     },
     accessibility: {
       title: "Accessibility",
@@ -625,30 +638,35 @@ export const copy: Record<Locale, SiteCopy> = {
     licenses: {
       title: "Licenses and provenance",
       intro:
-        "Publication and redistribution follow only after the rights review is complete.",
+        "Public source repositories, licensing basis, and provenance of the components in use.",
       sections: [
         {
           title: "Filius on iPad",
-          body: "The Filius on iPad source is publicly available. GPLv2 or GPLv3 applies together with the privately retained Apple-platform additional permission; the complete GPL texts and a SHA-256 attestation are available in the app repository, but not the agreement text or personal details.",
+          body: "The Filius on iPad source is publicly available. GPLv2 or GPLv3 applies together with the privately retained Apple-platform additional permission; the repository publishes a SHA-256 attestation for it.",
+          links: [{ label: "Filius on iPad on GitHub", repository: "appUrl" }],
         },
         {
           title: "FILIUS",
-          body: "The original FILIUS software and teaching material are maintained separately and will receive precise attribution.",
+          body: "The original Java FILIUS software and teaching materials are maintained separately by the original project. Filius on iPad is independently maintained and supports the Java project format.",
+          links: [{ label: "Java FILIUS on GitLab", repository: "javaUrl" }],
         },
         {
           title: "Website assets",
-          body: "The app icon and product screenshot come from Filius on iPad. Additional legacy device artwork is withheld until provenance is documented.",
+          body: "The app icon and product screenshot come from Filius on iPad. The remaining website graphics are maintained as independent CSS and vector illustrations.",
+          links: [
+            { label: "Website source on GitHub", repository: "websiteUrl" },
+          ],
         },
         {
           title: "Fonts and frameworks",
-          body: "Astro, Starlight, and self-hosted fonts retain their open-source licenses. A generated third-party notice will follow.",
+          body: "Astro, Starlight, and the self-hosted fonts retain their respective open-source licenses. Their package metadata and upstream license texts remain authoritative.",
         },
       ],
     },
     footer: {
       tagline: "Design, configure, and understand networks on iPad.",
       original: "With acknowledgement of the original FILIUS project.",
-      rights: "Preview website—legal approvals remain pending.",
+      rights: "Filius on iPad is independently maintained.",
     },
   },
   fr: {
@@ -673,9 +691,7 @@ export const copy: Record<Locale, SiteCopy> = {
       readDocs: "Lire la documentation",
       learnMore: "En savoir plus",
       supportEmail: "Contacter l’assistance",
-      viewSource: "Voir le code source sur GitHub",
       preRelease: "Aperçu",
-      legalDraft: "Brouillon – validation requise avant publication",
     },
     hero: {
       eyebrow: "Simulation de réseau pour iPad",
@@ -739,8 +755,9 @@ export const copy: Record<Locale, SiteCopy> = {
     source: {
       eyebrow: "Ouvert et traçable",
       title: "Un code source à la provenance claire.",
-      body: "Un miroir public distinct est prévu. Il sera lié après validation de la licence, des notices tierces et du processus d’export.",
-      pending: "Source publique après validation de la licence",
+      body: "Le code source de Filius on iPad est public sur GitHub. La version Java d’origine de FILIUS est maintenue séparément dans son dépôt GitLab officiel.",
+      appLink: "Filius on iPad sur GitHub",
+      javaLink: "FILIUS Java sur GitLab",
     },
     finalCta: {
       title: "Votre premier réseau ne prend que quelques minutes.",
@@ -809,7 +826,7 @@ export const copy: Record<Locale, SiteCopy> = {
         {
           question: "Est-ce la version de bureau de FILIUS ?",
           answer:
-            "Non. Filius on iPad est une implémentation iPad indépendante avec des flux de projets compatibles. L’attribution finale doit être validée.",
+            "Non. Filius on iPad est une implémentation iPad maintenue indépendamment avec des flux de projets compatibles. Elle n’est ni publiée, ni exploitée, ni officiellement prise en charge par le projet FILIUS d’origine.",
         },
         {
           question: "Quels appareils sont pris en charge ?",
@@ -829,7 +846,7 @@ export const copy: Record<Locale, SiteCopy> = {
         {
           question: "La simulation nécessite-t-elle Internet ?",
           answer:
-            "Les réseaux simulés sont destinés à fonctionner localement. La déclaration finale sera vérifiée avec le build de sortie.",
+            "Les réseaux simulés s’exécutent localement sur l’iPad. L’exercice ne nécessite pas d’accès Internet externe.",
         },
         {
           question: "Des données sont-elles collectées ?",
@@ -849,7 +866,7 @@ export const copy: Record<Locale, SiteCopy> = {
         {
           question: "Le code source est-il public ?",
           answer:
-            "Un miroir public distinct est prévu après validation de la licence, de l’attribution et de l’export.",
+            "Oui. Filius on iPad est public sur GitHub ; le code source du FILIUS Java d’origine est maintenu séparément sur GitLab.",
         },
       ],
     },
@@ -891,7 +908,7 @@ export const copy: Record<Locale, SiteCopy> = {
     imprint: {
       title: "Mentions légales",
       intro: "Informations sur l’éditeur et le contact de filius.app.",
-      body: "Le nom, l’adresse de service et l’adresse de contact active sont renseignés. Les mentions restent indiquées comme projet jusqu’à la vérification juridique finale.",
+      body: "Le nom de l’éditeur, l’adresse de service et l’adresse de contact active sont publiés pour l’exploitation confirmée de filius.app.",
     },
     accessibility: {
       title: "Accessibilité",
@@ -914,30 +931,38 @@ export const copy: Record<Locale, SiteCopy> = {
     licenses: {
       title: "Licences et provenance",
       intro:
-        "Publication et redistribution uniquement après vérification complète des droits.",
+        "Dépôts publics, bases de licence et provenance des composants utilisés.",
       sections: [
         {
           title: "Filius on iPad",
-          body: "Le code source de Filius on iPad est public. La GPLv2 ou GPLv3 s’applique avec l’autorisation supplémentaire Apple exécutée ; les textes complets et la copie publique de l’autorisation sont disponibles dans le dépôt de l’app.",
+          body: "Le code source de Filius on iPad est public. La GPLv2 ou GPLv3 s’applique avec l’autorisation supplémentaire Apple conservée en privé ; le dépôt en publie une attestation SHA-256.",
+          links: [{ label: "Filius on iPad sur GitHub", repository: "appUrl" }],
         },
         {
           title: "FILIUS",
-          body: "Le logiciel FILIUS d’origine et ses ressources sont maintenus séparément et recevront une attribution précise.",
+          body: "Le logiciel Java FILIUS et ses ressources pédagogiques sont maintenus séparément par le projet d’origine. Filius on iPad est maintenu indépendamment et prend en charge le format de projet Java.",
+          links: [{ label: "FILIUS Java sur GitLab", repository: "javaUrl" }],
         },
         {
           title: "Ressources du site",
-          body: "L’icône et la capture proviennent de Filius on iPad. Les anciens dessins d’appareils attendent une provenance documentée.",
+          body: "L’icône et la capture du produit proviennent de Filius on iPad. Les autres visuels du site sont maintenus comme illustrations CSS et vectorielles indépendantes.",
+          links: [
+            {
+              label: "Code source du site sur GitHub",
+              repository: "websiteUrl",
+            },
+          ],
         },
         {
           title: "Polices et frameworks",
-          body: "Astro, Starlight et les polices auto-hébergées conservent leurs licences open source. Une notice générée suivra.",
+          body: "Astro, Starlight et les polices auto-hébergées conservent leurs licences open source respectives. Les métadonnées des paquets et les textes de licence en amont restent déterminants.",
         },
       ],
     },
     footer: {
       tagline: "Concevoir, configurer et comprendre les réseaux sur iPad.",
       original: "Avec reconnaissance du projet FILIUS d’origine.",
-      rights: "Site en aperçu — validations juridiques en attente.",
+      rights: "Filius on iPad est maintenu indépendamment.",
     },
   },
 };

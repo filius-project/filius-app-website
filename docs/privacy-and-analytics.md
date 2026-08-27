@@ -24,7 +24,6 @@ The image workflow passes non-secret public configuration as Docker build argume
 | `UMAMI_SCRIPT_URL`                  | `https://analytics.filius.app/script.js`                         | Analytics script; keep empty to disable tracking and the banner    |
 | `UMAMI_WEBSITE_ID`                  | Umami website UUID                                               | Enables analytics when combined with the script URL                |
 | `UMAMI_DOMAINS`                     | `filius.app,www.filius.app`                                      | Prevents collection on preview hosts                               |
-| `LEGAL_REVIEWED`                    | `false` until approved                                           | Removes draft/noindex treatment only after review                  |
 | `LEGAL_CONTROLLER_NAME`             | Public operator name                                             | GDPR controller and legal notice                                   |
 | `LEGAL_CONTROLLER_ADDRESS`          | Public service address on one line                               | GDPR and provider identification                                   |
 | `LEGAL_CONTROLLER_EMAIL`            | approved support address                                         | Privacy and legal contact                                          |
@@ -34,7 +33,7 @@ The image workflow passes non-secret public configuration as Docker build argume
 | `HOSTING_PROVIDER_NAME`             | `Oracle Cloud Infrastructure (Oracle Deutschland B.V. & Co. KG)` | Hosting disclosure                                                 |
 | `HOSTING_PROVIDER_ADDRESS`          | `Riesstraße 25, 80992 München`                                   | German Oracle contracting-entity address; verify against OCI order |
 | `HOSTING_COUNTRY`                   | `Germany`                                                        | Physical hosting country                                           |
-| `HOSTING_REGION`                    | `eu-frankfurt-1`                                                 | Exact OCI region; required before legal approval                   |
+| `HOSTING_REGION`                    | `eu-frankfurt-1`                                                 | Exact OCI region disclosed by the privacy notice                   |
 | `CLOUDFLARE_PROXY_ENABLED`          | `true`                                                           | Declares Cloudflare as the visitor-facing proxy                    |
 | `ACCESS_LOG_RETENTION_DAYS`         | `35`                                                             | Upper bound from NPM weekly rotation plus four archives            |
 | `ERROR_LOG_RETENTION_DAYS`          | `77`                                                             | Upper bound from NPM weekly rotation plus ten archives             |
@@ -45,7 +44,7 @@ The image workflow passes non-secret public configuration as Docker build argume
 | `SUPPORT_RETENTION_DAYS`            | `180`                                                            | Deletion period for completed support requests                     |
 | `CONTACT_RATE_LIMIT_WINDOW_MINUTES` | `15`                                                             | Maximum lifetime of the in-memory salted rate-limit key            |
 | `ANALYTICS_RETENTION_DAYS`          | `180`                                                            | Must match Umami deletion policy                                   |
-| `PRIVACY_NOTICE_DATE`               | `6 August 2026`                                                  | Date displayed in the privacy notice                               |
+| `PRIVACY_NOTICE_DATE`               | `27 August 2026`                                                 | Date displayed in the privacy notice                               |
 | `ENABLE_ARTIFACT_ATTESTATION`       | `false`                                                          | Set only when a private repository supports GitHub attestations    |
 
 These values are public in the generated website and must not contain secrets. Enter addresses and other build arguments as single-line values (for example, comma-separated) so the Docker build-argument list remains valid.
@@ -107,7 +106,7 @@ The runtime retention and rate-limit values must match the corresponding public 
 
 ## Operational checklist
 
-Before setting `LEGAL_REVIEWED=true`:
+Before deployment or after any provider or infrastructure change:
 
 - Verify controller name, service address, and contact details.
 - Confirm the exact Oracle contracting entity and OCI region from the tenancy/order.
@@ -120,4 +119,4 @@ Before setting `LEGAL_REVIEWED=true`:
 - Verify the competent supervisory authority for the controller’s establishment.
 - Test consent in all languages and ensure no analytics request occurs before opt-in.
 - Record the exact deployed Umami version and configuration.
-- Have the privacy notice and legal notice reviewed for the operator’s jurisdiction.
+- Confirm that the deployed operation still matches the approved privacy notice and legal notice.

@@ -20,7 +20,7 @@ This is the cross-repository execution record for publishing Filius on iPad and 
 1. Link the website’s source section and license page to the public app repository.
 2. Publish the website repository at `https://github.com/filius-project/filius-app-website`.
 3. Leave the App Store badge in coming-soon mode until an App Store listing exists.
-4. Keep `PUBLIC_LEGAL_REVIEWED=false` until the website privacy/imprint content and infrastructure values have been reviewed by the accountable owner.
+4. Treat the website privacy notice, legal notice, source attribution, and repository links as approved as of **August 27, 2026**; keep deployment values aligned with those notices.
 5. Build and test the static site; publish the container image through the existing GitHub Actions workflow.
 6. Deploy through the existing Nginx Proxy Manager/Compose path only after DNS, variables, SMTP end-to-end delivery, privacy consent behavior, and accessibility checks are approved.
 
@@ -28,5 +28,5 @@ This is the cross-repository execution record for publishing Filius on iPad and 
 
 - Apple Developer/App Store Connect account actions, certificates, profiles, and signing secrets.
 - Final App Store metadata, screenshots, age rating, export compliance, and privacy answers.
-- Website legal review, content license selection, and production privacy approval.
+- Production infrastructure values and processor records must continue to match the approved website notices.
 - Production server access, DNS/proxy changes, external uptime monitoring, and SMTP delivery confirmation.

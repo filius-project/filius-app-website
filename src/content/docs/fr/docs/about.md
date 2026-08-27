@@ -9,12 +9,16 @@ Filius on iPad est une implémentation iPad native de l’approche pédagogique 
 
 ## Projet d’origine
 
-Le logiciel de bureau, son histoire, ses téléchargements et ses ressources pédagogiques restent disponibles sur le site officiel FILIUS. Filius.app se concentre sur l’app iPad.
+Le logiciel de bureau, son histoire, ses téléchargements et ses ressources pédagogiques restent disponibles sur le [site officiel de FILIUS](https://www.lernsoftware-filius.de/). Filius.app se concentre sur l’app iPad.
 
 ## Source
 
-Un miroir public séparé est prévu. Le dépôt de développement privé ne sera pas exposé avant la vérification de la licence, des notices tierces, des ressources et de l’export.
+Les sources sont maintenues dans des dépôts publics séparés :
+
+- [Filius on iPad sur GitHub](https://github.com/filius-project/filius-ipad)
+- [FILIUS Java d’origine sur GitLab](https://gitlab.com/filius1/filius)
+- [Code source de ce site sur GitHub](https://github.com/filius-project/filius-app-website)
 
 ## Ressources
 
-L’icône et la capture d’écran proviennent de Filius on iPad. Les anciens dessins basse résolution ne sont pas utilisés comme grandes illustrations tant que leur provenance n’est pas documentée.
+L’icône et la capture d’écran proviennent de Filius on iPad. Les autres visuels du site sont maintenus comme illustrations CSS et vectorielles indépendantes.

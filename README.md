@@ -17,7 +17,7 @@ This repository contains an implementation-ready pre-release website:
 - Docker and Compose deployment configuration; and
 - GitHub Actions image publishing to GitHub Container Registry.
 
-The repository is being published as the public website source. The app source is now published separately at `https://github.com/filius-project/filius-ipad`; the website itself remains a preview until the owner-controlled values in the launch checklist are approved. In particular, privacy decisions, website content licensing, App Store URL, and final attribution remain open.
+The website source is public at `https://github.com/filius-project/filius-app-website`. The Filius on iPad source is public at `https://github.com/filius-project/filius-ipad`, and the original Java FILIUS source is maintained at `https://gitlab.com/filius1/filius`. The site remains in pre-release mode only because the App Store listing and deployment checks are separate release steps.
 
 ## Local development
 
@@ -71,7 +71,7 @@ See [Content and localization](docs/content.md).
 
 ## Privacy-first usage analytics
 
-Optional self-hosted Umami analytics is built in but disabled until both `UMAMI_SCRIPT_URL` and `UMAMI_WEBSITE_ID` repository variables are set. The analytics script is consent-gated and is never requested before opt-in. Legal publisher, hosting, Cloudflare, and retention values are also supplied as public build variables. See `docs/privacy-and-analytics.md` before enabling analytics or setting `LEGAL_REVIEWED=true`.
+Optional self-hosted Umami analytics is built in but disabled until both `UMAMI_SCRIPT_URL` and `UMAMI_WEBSITE_ID` repository variables are set. The analytics script is consent-gated and is never requested before opt-in. Legal publisher, hosting, Cloudflare, and retention values are supplied as public build variables. See `docs/privacy-and-analytics.md` before enabling analytics or changing the production infrastructure.
 
 ## Docker image
 
@@ -102,7 +102,7 @@ See [Deployment](docs/deployment.md) and [DNS and mail](docs/dns-and-mail.md).
 
 ## Product assets
 
-The app icon comes from the Filius on iPad asset catalog. The current product screenshot comes from a synthetic iPad simulator test artifact. Legacy low-resolution hardware artwork is deliberately not used as large website illustration while provenance remains unresolved.
+The app icon comes from the Filius on iPad asset catalog. The current product screenshot comes from a synthetic iPad simulator test artifact. The remaining website graphics are independently maintained CSS and vector illustrations.
 
 Do not add third-party or original FILIUS assets without documenting origin, license, and modification rights.
 
@@ -116,7 +116,7 @@ The contact service is built and published as `ghcr.io/OWNER/filius-app-website-
 
 ## License status
 
-The Filius on iPad application source is public under the applicable GPLv2 or GPLv3 terms together with the privately retained Apple-platform additional permission represented by a public SHA-256 attestation in the app repository; the agreement text is not published. This website repository contains independently maintained website code and content; its redistribution terms and complete third-party notices remain an owner-controlled launch item.
+The Filius on iPad application source is public under the applicable GPLv2 or GPLv3 terms together with the privately retained Apple-platform additional permission represented by a public SHA-256 attestation in the app repository; the agreement text is not published. The original Java FILIUS project and this independently maintained website publish their source in the repositories linked above. Dependency and font licenses remain governed by their respective upstream notices.
 
 ## Launch gate
 

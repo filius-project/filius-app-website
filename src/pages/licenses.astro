@@ -5,6 +5,6 @@ import { copy } from '../lib/content';
 const locale = 'de' as const;
 const c = copy[locale];
 ---
-<BaseLayout locale={locale} title={`${c.licenses.title} – Filius on iPad`} description={c.licenses.intro} noindex>
+<BaseLayout locale={locale} title={`${c.licenses.title} – Filius on iPad`} description={c.licenses.intro}>
   <TrustPage locale={locale} kind="licenses" />
 </BaseLayout>

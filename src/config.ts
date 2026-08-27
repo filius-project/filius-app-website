@@ -57,11 +57,11 @@ export const site = {
     appId: "",
   },
   source: {
-    status: "available" as "pending-license" | "available",
-    url: "https://github.com/filius-project/filius-ipad",
+    appUrl: "https://github.com/filius-project/filius-ipad",
+    javaUrl: "https://gitlab.com/filius1/filius",
+    websiteUrl: "https://github.com/filius-project/filius-app-website",
   },
   legal: {
-    reviewed: envFlag("PUBLIC_LEGAL_REVIEWED"),
     controllerName: envText("PUBLIC_LEGAL_CONTROLLER_NAME", "Sören Schröder"),
     controllerAddress: envText(
       "PUBLIC_LEGAL_CONTROLLER_ADDRESS",
@@ -100,7 +100,7 @@ export const site = {
       15,
     ),
     analyticsRetentionDays: envDays("PUBLIC_ANALYTICS_RETENTION_DAYS", 180),
-    privacyNoticeDate: envText("PUBLIC_PRIVACY_NOTICE_DATE", "6 August 2026"),
+    privacyNoticeDate: envText("PUBLIC_PRIVACY_NOTICE_DATE", "27 August 2026"),
   },
   analytics: {
     enabled: analyticsAllowedUrl && Boolean(analyticsWebsiteId),
@@ -113,7 +113,6 @@ export const site = {
 } as const;
 
 export const legalNoticeReady = Boolean(
-  site.legal.reviewed &&
   site.legal.controllerName &&
   site.legal.controllerAddress &&
   site.legal.controllerEmail,

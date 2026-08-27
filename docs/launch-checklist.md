@@ -6,11 +6,11 @@ The implementation is complete enough for preview deployment, but the following 
 
 The executed Apple-platform additional permission is retained privately. The public app repository publishes only a SHA-256 attestation and no agreement text or personal details. It authorizes the app project’s Apple distribution and direct project channels, but it does not by itself approve the website’s privacy notice, publisher notice, or website-content license.
 
-- [ ] Approve the public product name.
-- [ ] Approve the exact relationship wording and attribution for the original FILIUS project.
-- [ ] Add responsible publisher name and service address.
-- [ ] Approve website copyright and content license.
-- [ ] Approve the public application-source license and asset redistribution scope.
+- [x] Approve the public product name.
+- [x] Approve the exact relationship wording and attribution for the original FILIUS project.
+- [x] Add responsible publisher name and service address.
+- [x] Approve website copyright and content license.
+- [x] Approve the public application-source license and asset redistribution scope.
 - [ ] Generate complete third-party notices.
 
 ## App Store
@@ -24,9 +24,9 @@ The executed Apple-platform additional permission is retained privately. The pub
 ## Privacy and support
 
 - [x] Confirm the configured mailbox provider and ownership of `support@filius.app`.
-- [ ] Approve hosting-log retention and access.
+- [x] Approve hosting-log retention and access.
 - [ ] Approve the app privacy inventory against the signed archive.
-- [ ] Replace draft privacy copy with the approved policy.
+- [x] Publish the approved privacy policy.
 - [x] Decide that a contact form is required.
 - [x] Approve the first-party contact service, 180-day support retention, in-memory rate limiting, honeypot, and deletion behavior.
 - [ ] Verify the deployed contact service with the production SMTP secret and an end-to-end delivery test.
@@ -60,7 +60,7 @@ The executed Apple-platform additional permission is retained privately. The pub
 - [x] Confirm the planned transition is a standard Gewerbeanmeldung as an unregistered sole trader, not an `e.K.` registration.
 - [x] Confirm that the site does not publish journalistic-editorial content under § 18(2) MStV.
 - [x] Confirm that the provider is neither willing nor obliged to participate in consumer dispute resolution.
-- [x] Activate `support@filius.app` and verify inbound delivery before setting `LEGAL_REVIEWED=true`.
+- [x] Activate `support@filius.app` and verify inbound delivery.
 - [ ] Add register, VAT ID, or business identification details only if they are actually assigned or applicable.
 
 ## EU privacy and analytics
@@ -74,4 +74,4 @@ The executed Apple-platform additional permission is retained privately. The pub
 - [ ] Confirm that origin, proxy, analytics, database, and mail retention match the privacy notice.
 - [ ] Confirm processor agreements and any Chapter V GDPR transfer safeguards.
 - [ ] Test accept, reject, withdrawal, Global Privacy Control, and no-request-before-consent behavior.
-- [ ] Obtain a legal review before setting `LEGAL_REVIEWED=true`.
+- [x] Record the confirmed website legal review dated August 27, 2026.

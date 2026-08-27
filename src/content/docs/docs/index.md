@@ -16,8 +16,8 @@ Filius on iPad ist eine native iPad-Anwendung zum Entwerfen, Konfigurieren und S
 5. Installiere gezielt die unter [Simulierte Anwendungen](./applications/) beschriebenen Clients und Dienste.
 6. Prüfe vor einer Unterrichtsplanung die [Kompatibilität](./compatibility/); bei Problemen hilft die [Fehlersuche](./troubleshooting/).
 
-:::note[Vorab-Dokumentation]
-App-Store-Verfügbarkeit, Datenschutzangaben und öffentliche Quellcode-Lizenz sind noch nicht endgültig freigegeben. Die Website benennt diese Grenzen bewusst.
+:::note[Veröffentlichungsstatus]
+Die App-Store-Verfügbarkeit wird separat angekündigt. Quellcode, Lizenzgrundlagen, Datenschutz- und Anbieterangaben sind bereits öffentlich dokumentiert.
 :::
 
 ## Grundprinzip

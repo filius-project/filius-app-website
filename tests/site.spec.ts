@@ -73,6 +73,23 @@ test("homepage navigation uses canonical trailing-slash URLs", async ({
   ).toBe(true);
 });
 
+test("homepages link the public iPad and Java FILIUS repositories", async ({
+  page,
+}) => {
+  for (const path of ["/", "/en/", "/fr/"]) {
+    await page.goto(path);
+    await expect(
+      page.locator('a[href="https://github.com/filius-project/filius-ipad"]'),
+    ).toHaveCount(1);
+    await expect(
+      page.locator('a[href="https://gitlab.com/filius1/filius"]'),
+    ).toHaveCount(1);
+    await expect(page.locator("main")).not.toContainText(
+      /legal approvals? remain|rechtliche Freigaben stehen aus|validations juridiques en attente/i,
+    );
+  }
+});
+
 test("documentation search and navigation load", async ({ page }) => {
   await page.goto("/docs/");
   await expect(page.locator("h1")).toContainText("Dokumentation");
@@ -483,7 +500,7 @@ for (const path of [
   });
 }
 
-test("privacy notice documents the contact service and remains draft until legal review", async ({
+test("privacy notice documents the approved contact service and is indexable", async ({
   page,
 }) => {
   await page.goto("/en/privacy/");
@@ -514,10 +531,7 @@ test("privacy notice documents the contact service and remains draft until legal
   );
   await expect(page.locator("main")).toContainText("approximately 35 days");
   await expect(page.locator("main")).toContainText("approximately 77 days");
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
-    "content",
-    /noindex/,
-  );
+  await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
 });
 
 test("legal notice publishes the individual operator details without inapplicable register placeholders", async ({
@@ -542,8 +556,26 @@ test("legal notice publishes the individual operator details without inapplicabl
   );
   await expect(page.locator("main")).not.toContainText("External-link notice");
   await expect(page.locator("main")).not.toContainText("To be completed");
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
-    "content",
-    /noindex/,
-  );
+  await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
+});
+
+test("license pages link all public source repositories without draft treatment", async ({
+  page,
+}) => {
+  for (const path of ["/licenses/", "/en/licenses/", "/fr/licenses/"]) {
+    await page.goto(path);
+    await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
+    await expect(page.locator(".draft-notice")).toHaveCount(0);
+    await expect(
+      page.locator('a[href="https://github.com/filius-project/filius-ipad"]'),
+    ).toHaveCount(1);
+    await expect(
+      page.locator('a[href="https://gitlab.com/filius1/filius"]'),
+    ).toHaveCount(1);
+    await expect(
+      page.locator(
+        'a[href="https://github.com/filius-project/filius-app-website"]',
+      ),
+    ).toHaveCount(1);
+  }
 });

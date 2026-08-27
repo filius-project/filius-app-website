@@ -1,17 +1,37 @@
 ---
 import type { Locale } from '../config';
-import { copy } from '../lib/content';
+import { site } from '../config';
+import { copy, type TrustSection } from '../lib/content';
 type Kind = 'privacy' | 'imprint' | 'accessibility' | 'licenses';
 interface Props { locale: Locale; kind: Kind }
 const { locale, kind } = Astro.props;
 const c = copy[locale];
 const content = c[kind];
-const sections = 'sections' in content ? content.sections : [{ title: content.title, body: content.body }];
+const sections: TrustSection[] = 'sections' in content ? content.sections : [{ title: content.title, body: content.body }];
+const repositoryUrls = site.source;
 ---
-<section class="page-hero trust-hero"><div class="reading"><p class="eyebrow">Trust & legal</p><h1>{content.title}</h1><p class="lede">{content.intro}</p><p class="draft-notice">{c.common.legalDraft}</p></div></section>
-<section class="section trust-section"><div class="reading prose content-card">{sections.map((section) => <section><h2>{section.title}</h2><p>{section.body}</p></section>)}</div></section>
+<section class="page-hero trust-hero"><div class="reading"><p class="eyebrow">Trust & legal</p><h1>{content.title}</h1><p class="lede">{content.intro}</p></div></section>
+<section class="section trust-section">
+  <div class="reading prose content-card">
+    {sections.map((section) => (
+      <section>
+        <h2>{section.title}</h2>
+        <p>{section.body}</p>
+        {section.links && (
+          <p class="trust-links">
+            {section.links.map((link) => (
+              <a href={repositoryUrls[link.repository]} rel="external">{link.label}<span aria-hidden="true">↗</span></a>
+            ))}
+          </p>
+        )}
+      </section>
+    ))}
+  </div>
+</section>
 <style>
   .trust-hero { background: var(--paper); }
   .trust-section { padding-top: 0; background: var(--paper); }
   .prose section:first-child h2 { margin-top: 0; }
+  .trust-links { display: flex; flex-wrap: wrap; gap: .75rem 1.25rem; }
+  .trust-links a { display: inline-flex; gap: .35rem; align-items: center; font-weight: 700; }
 </style>
