@@ -108,11 +108,11 @@ Do not add third-party or original FILIUS assets without documenting origin, lic
 
 ## Support and contact form
 
-The support page offers both `support@filius.app` and a progressively enhanced contact form. The static Astro site posts to `/api/contact`; the inner Nginx container proxies only that route to the separate `filius-contact` service. The contact service validates a small URL-encoded payload and submits it through the authenticated the configured mailbox provider SMTP account.
+The support page offers both `support@filius.app` and a progressively enhanced contact form. The static Astro site posts to `/api/contact`; the inner Nginx container proxies only that route to the separate `filius-contact` service. The contact service validates a small URL-encoded payload and submits it through the authenticated mailbox-provider SMTP account.
 
 The form deliberately has no attachment upload, database, tracking script, or external CAPTCHA. Abuse controls are a honeypot, strict input limits, same-origin checks, and a rate-limit key derived from the connection address with a per-process random salt. The key remains only in memory for the configured window; the address is not copied into the support message. Completed support messages use the configured 180-day operational deletion period unless a legal retention or evidence duty applies.
 
-The contact service is built and published as `ghcr.io/OWNER/filius-app-website-contact`. SMTP credentials are runtime-only values in the deployment environment. Never expose `CONTACT_SMTP_PASSWORD` as an Astro variable, Docker build argument, repository variable, or committed file. See [Deployment](docs/deployment.md) for the complete setup.
+The contact service is built and published as `ghcr.io/OWNER/filius-app-website-contact`. SMTP endpoint, account name, and password are runtime-only values in the deployment environment. Never expose `CONTACT_SMTP_PASSWORD` as an Astro variable, Docker build argument, repository variable, or committed file. See [Deployment](docs/deployment.md) for the complete setup.
 
 ## License status
 

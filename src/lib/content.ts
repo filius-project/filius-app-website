@@ -303,7 +303,7 @@ export const copy: Record<Locale, SiteCopy> = {
         },
         {
           title: "Support",
-          body: "Das Kontaktformular übermittelt erforderliche Angaben ohne eigene Datenbank an das the configured mailbox provider-Supportpostfach. Direkte E-Mail bleibt als Alternative verfügbar; Löschung, Rechtsgrundlage und Missbrauchsschutz sind in der Datenschutzerklärung beschrieben.",
+          body: "Das Kontaktformular übermittelt erforderliche Angaben ohne eigene Datenbank an das konfigurierte Supportpostfach. Direkte E-Mail bleibt als Alternative verfügbar; Löschung, Rechtsgrundlage und Missbrauchsschutz sind in der Datenschutzerklärung beschrieben.",
         },
         {
           title: "App",
@@ -591,7 +591,7 @@ export const copy: Record<Locale, SiteCopy> = {
         },
         {
           title: "Support",
-          body: "The contact form relays necessary details without its own database to the the configured mailbox provider support mailbox. Direct email remains available; deletion, legal basis, and abuse protection are described in the privacy notice.",
+          body: "The contact form relays necessary details without its own database to the configured support mailbox. Direct email remains available; deletion, legal basis, and abuse protection are described in the privacy notice.",
         },
         {
           title: "App",
@@ -880,7 +880,7 @@ export const copy: Record<Locale, SiteCopy> = {
         },
         {
           title: "Assistance",
-          body: "Le formulaire transmet les informations nécessaires, sans base de données propre, à la boîte d’assistance the configured mailbox provider. L’e-mail direct reste disponible ; la suppression, la base juridique et la protection contre les abus sont décrites dans la politique de confidentialité.",
+          body: "Le formulaire transmet les informations nécessaires, sans base de données propre, à la boîte d’assistance configurée. L’e-mail direct reste disponible ; la suppression, la base juridique et la protection contre les abus sont décrites dans la politique de confidentialité.",
         },
         {
           title: "App",

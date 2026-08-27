@@ -23,7 +23,7 @@ The executed Apple-platform additional permission is retained privately. The pub
 
 ## Privacy and support
 
-- [x] Confirm the the configured mailbox provider mailbox provider and ownership of `support@filius.app`.
+- [x] Confirm the configured mailbox provider and ownership of `support@filius.app`.
 - [ ] Approve hosting-log retention and access.
 - [ ] Approve the app privacy inventory against the signed archive.
 - [ ] Replace draft privacy copy with the approved policy.
@@ -68,7 +68,7 @@ The executed Apple-platform additional permission is retained privately. The pub
 - [ ] Fill all `LEGAL_*`, hosting, OCI-region, Cloudflare, log-retention, and email-provider repository variables.
 - [ ] Confirm the Oracle contracting entity and `eu-frankfurt-1` region in the tenancy/order.
 - [ ] Retain the applicable Oracle and Cloudflare DPAs and document Oracle’s BCR-P/SCC safeguards and Cloudflare’s DPF/SCC safeguards.
-- [x] Confirm the active the configured mailbox provider mailbox, 180-day operational retention period, and accepted privacy/contract terms.
+- [x] Confirm the active configured mailbox provider, 180-day operational retention period, and accepted privacy/contract terms.
 - [ ] If support mail is forwarded to Gmail later, switch the provider mode and update the privacy notice before deployment.
 - [ ] Deploy the self-hosted analytics instance and set `UMAMI_SCRIPT_URL` and `UMAMI_WEBSITE_ID`, or leave both empty to disable tracking.
 - [ ] Confirm that origin, proxy, analytics, database, and mail retention match the privacy notice.

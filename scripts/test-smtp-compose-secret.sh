@@ -26,7 +26,7 @@ chmod 600 "$work_directory/contact-smtp-password"
 
 export FILIUS_CONTACT_IMAGE=${image%:*}
 export FILIUS_IMAGE_TAG=${image##*:}
-export CONTACT_SMTP_PASSWORD="direct-value-must-be-cleared"
+export CONTACT_SMTP_PASSWORD="unit-test-direct-placeholder.invalid"
 export CONTACT_SMTP_PASSWORD_FILE=""
 export CONTACT_SMTP_PASSWORD_SECRET_FILE="$work_directory/contact-smtp-password"
 

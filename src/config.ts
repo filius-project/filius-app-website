@@ -21,15 +21,15 @@ const envDays = (name: string, fallback: number) => {
 
 const emailProviderModeValue = envText(
   "PUBLIC_EMAIL_PROVIDER_MODE",
-  "mailbox-provider-mailbox",
+  "mailbox-provider",
 );
 const emailProviderMode = [
   "consumer-gmail",
   "google-workspace",
-  "mailbox-provider-mailbox",
+  "mailbox-provider",
 ].includes(emailProviderModeValue)
   ? (emailProviderModeValue as
-      "consumer-gmail" | "google-workspace" | "mailbox-provider-mailbox")
+      "consumer-gmail" | "google-workspace" | "mailbox-provider")
   : null;
 
 const analyticsScriptUrl = envText("PUBLIC_UMAMI_SCRIPT_URL");
@@ -87,12 +87,12 @@ export const site = {
     cloudflareProxyEnabled: envFlag("PUBLIC_CLOUDFLARE_PROXY_ENABLED", true),
     accessLogRetentionDays: envDays("PUBLIC_ACCESS_LOG_RETENTION_DAYS", 35),
     errorLogRetentionDays: envDays("PUBLIC_ERROR_LOG_RETENTION_DAYS", 77),
-    emailProviderName: envText("PUBLIC_EMAIL_PROVIDER_NAME", "mailbox-provider GmbH"),
-    emailProviderAddress: envText(
-      "PUBLIC_EMAIL_PROVIDER_ADDRESS",
-      "Emmy-Noether-Straße 10, 76131 Karlsruhe, Germany",
+    emailProviderName: envText(
+      "PUBLIC_EMAIL_PROVIDER_NAME",
+      "the configured mailbox provider",
     ),
-    emailProviderCountry: envText("PUBLIC_EMAIL_PROVIDER_COUNTRY", "Germany"),
+    emailProviderAddress: envText("PUBLIC_EMAIL_PROVIDER_ADDRESS", ""),
+    emailProviderCountry: envText("PUBLIC_EMAIL_PROVIDER_COUNTRY", ""),
     emailProviderMode,
     supportRetentionDays: envDays("PUBLIC_SUPPORT_RETENTION_DAYS", 180),
     contactRateLimitWindowMinutes: envDays(

@@ -8,7 +8,7 @@ interface Props {
 
 const { locale } = Astro.props;
 const usesConsumerGmail = site.legal.emailProviderMode === "consumer-gmail";
-const usesthe configured mailbox providerMailbox = site.legal.emailProviderMode === "mailbox-provider-mailbox";
+const usesMailboxProvider = site.legal.emailProviderMode === "mailbox-provider";
 const missing =
   locale === "de"
     ? "Noch einzutragen"
@@ -49,11 +49,11 @@ const copy = {
     support: "5. Support und Kontaktformular",
     supportBody: `Bei Nutzung des Kontaktformulars werden E-Mail-Adresse, Thema und Nachricht sowie freiwillig Name, App-Version und Geräteangaben verarbeitet. Das Formular nimmt keine Anhänge an und legt keine Anfrage in einer eigenen Datenbank oder Datei ab. Der getrennte Kontakt-Dienst prüft die Eingabe und übermittelt sie verschlüsselt per SMTP an das Support-Postfach. Zur Missbrauchsbegrenzung wird eine aus der Verbindungsadresse abgeleitete, pro Prozess gesalzene Kennung ausschließlich im Arbeitsspeicher für höchstens ${site.legal.contactRateLimitWindowMinutes} Minuten gehalten; die Verbindungsadresse wird nicht in die Supportnachricht übernommen. Bei einer direkten E-Mail werden zusätzlich die üblichen technischen E-Mail-Kopfdaten und freiwillig übermittelte Anhänge verarbeitet. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, wenn die Anfrage auf einen Vertrag oder vorvertragliche Maßnahmen gerichtet ist, andernfalls Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse liegt in der Beantwortung und dem Schutz des Kontaktwegs vor Missbrauch. Supportnachrichten werden spätestens ${site.legal.supportRetentionDays} Tage nach abschließender Bearbeitung gelöscht, soweit keine gesetzlichen Aufbewahrungs- oder Nachweispflichten eine längere Speicherung erfordern.`,
     emailRouting:
-      "Die aktuelle DNS-Konfiguration leitet Nachrichten für support@filius.app an den the configured mailbox provider-Maildienst. the configured mailbox provider verarbeitet die Zustellung und – sofern im Konto aktiviert – die Speicherung im Postfach. Für diesen Mailbetrieb wird weder Cloudflare Email Routing noch ein Webmail-Hostname benötigt.",
+      "Die aktuelle DNS-Konfiguration leitet Nachrichten für support@filius.app an den konfigurierten Mailbox-Anbieter. Dieser verarbeitet die Zustellung und – sofern im Konto aktiviert – die Speicherung im Postfach. Für diesen Mailbetrieb wird weder Cloudflare Email Routing noch ein Webmail-Hostname benötigt.",
     emailProvider: "Zielpostfach-Anbieter",
     consumerGmail:
       "Das Ziel ist ein persönliches Gmail-Postfach. Für Gmail-Dienste im EWR ist Google Ireland Limited grundsätzlich selbst Verantwortlicher und nicht Auftragsverarbeiter des Websitebetreibers. Daher besteht für das persönliche Gmail-Postfach kein Auftragsverarbeitungsvertrag nach Art. 28 DSGVO. Google beschreibt internationale Übermittlungen über das EU-U.S. Data Privacy Framework und Standardvertragsklauseln.",
-    mailbox-providerMailbox: `Der Maildienst und das Support-Postfach werden von mailbox-provider GmbH bereitgestellt. Die für das aktive Konto geltenden Vertrags- und Datenschutzunterlagen werden in den Verarbeitungsunterlagen des Verantwortlichen geführt. Die operative Löschfrist für abgeschlossene Supportanfragen beträgt ${site.legal.supportRetentionDays} Tage, vorbehaltlich gesetzlicher Aufbewahrungs- und Nachweispflichten.`,
+    mailboxProvider: `Der Maildienst und das Support-Postfach werden vom konfigurierten Mailbox-Anbieter bereitgestellt. Die für das aktive Konto geltenden Vertrags- und Datenschutzunterlagen werden in den Verarbeitungsunterlagen des Verantwortlichen geführt. Die operative Löschfrist für abgeschlossene Supportanfragen beträgt ${site.legal.supportRetentionDays} Tage, vorbehaltlich gesetzlicher Aufbewahrungs- und Nachweispflichten.`,
     workspaceGmail:
       "Das Ziel ist ein Google-Workspace-Postfach. Google verarbeitet die Supportnachrichten insoweit nach dem Google Workspace Cloud Data Processing Addendum als Auftragsverarbeiter; die tatsächlich akzeptierte Vertragsversion und die gewählten Datenregionen müssen dokumentiert werden.",
     recipients: "6. Empfänger und Drittlandübermittlungen",
@@ -96,11 +96,11 @@ const copy = {
     support: "5. Support and contact form",
     supportBody: `When the contact form is used, the email address, topic, and message are processed together with any optional name, app version, and device details. The form does not accept attachments or store requests in its own database or file. The separate contact service validates the submission and relays it over encrypted SMTP to the support mailbox. To limit abuse, a per-process salted identifier derived from the connection address is held only in memory for no more than ${site.legal.contactRateLimitWindowMinutes} minutes; the connection address is not added to the support message. Direct email also processes the usual technical email headers and any voluntarily supplied attachments. The basis is Article 6(1)(b) GDPR for contractual or pre-contractual requests and otherwise Article 6(1)(f) GDPR. The legitimate interest is answering enquiries and protecting the contact channel from abuse. Support messages are deleted no later than ${site.legal.supportRetentionDays} days after the request is completed unless statutory retention or evidential duties require longer storage.`,
     emailRouting:
-      "The current DNS configuration delivers messages for support@filius.app to the the configured mailbox provider mail service. the configured mailbox provider handles delivery and, when enabled in the account, mailbox storage. This mail setup does not require Cloudflare Email Routing or a webmail hostname.",
+      "The current DNS configuration delivers messages for support@filius.app to the configured mailbox provider. That provider handles delivery and, when enabled in the account, mailbox storage. This mail setup does not require Cloudflare Email Routing or a webmail hostname.",
     emailProvider: "Destination mailbox provider",
     consumerGmail:
       "The destination is a personal Gmail mailbox. For Gmail services in the EEA, Google Ireland Limited generally acts as an independent controller rather than as the website operator’s processor. Consequently, there is no Article 28 processor agreement for the personal Gmail mailbox. Google describes international transfers under the EU-U.S. Data Privacy Framework and Standard Contractual Clauses.",
-    mailbox-providerMailbox: `The mail service and support mailbox are provided by mailbox-provider GmbH. The contractual and privacy documents applicable to the active account are retained in the controller’s processing records. The operational deletion period for completed support requests is ${site.legal.supportRetentionDays} days, subject to statutory retention and evidential duties.`,
+    mailboxProvider: `The mail service and support mailbox are provided by the configured mailbox provider. The contractual and privacy documents applicable to the active account are retained in the controller’s processing records. The operational deletion period for completed support requests is ${site.legal.supportRetentionDays} days, subject to statutory retention and evidential duties.`,
     workspaceGmail:
       "The destination is a Google Workspace mailbox. Google processes support messages as a processor under the Google Workspace Cloud Data Processing Addendum; the accepted contract version and selected data regions must be recorded.",
     recipients: "6. Recipients and international transfers",
@@ -142,11 +142,11 @@ const copy = {
     support: "5. Assistance et formulaire de contact",
     supportBody: `Lors de l’utilisation du formulaire, l’adresse e-mail, le sujet et le message sont traités, ainsi que le nom, la version de l’app et les informations sur l’appareil lorsqu’ils sont fournis. Le formulaire n’accepte aucune pièce jointe et ne conserve aucune demande dans une base de données ou un fichier propre. Le service de contact séparé valide la saisie et la transmet par SMTP chiffré à la boîte d’assistance. Pour limiter les abus, un identifiant salé propre au processus et dérivé de l’adresse de connexion est conservé uniquement en mémoire pendant au plus ${site.legal.contactRateLimitWindowMinutes} minutes ; l’adresse de connexion n’est pas ajoutée au message d’assistance. Un e-mail direct traite également les en-têtes techniques habituels et les pièces jointes fournies volontairement. La base est l’article 6(1)(b) du RGPD pour les demandes contractuelles ou précontractuelles, sinon l’article 6(1)(f). L’intérêt légitime est de répondre aux demandes et de protéger le canal de contact contre les abus. Les messages d’assistance sont supprimés au plus tard ${site.legal.supportRetentionDays} jours après la clôture de la demande, sauf obligation légale de conservation ou de preuve plus longue.`,
     emailRouting:
-      "La configuration DNS actuelle remet les messages destinés à support@filius.app au service de messagerie the configured mailbox provider. the configured mailbox provider assure l’acheminement et, si le compte le prévoit, le stockage dans la boîte. Cette configuration ne nécessite ni Cloudflare Email Routing ni nom d’hôte webmail.",
+      "La configuration DNS actuelle remet les messages destinés à support@filius.app au fournisseur de boîte configuré. Celui-ci assure l’acheminement et, si le compte le prévoit, le stockage dans la boîte. Cette configuration ne nécessite ni Cloudflare Email Routing ni nom d’hôte webmail.",
     emailProvider: "Fournisseur de la boîte de destination",
     consumerGmail:
       "La destination est une boîte Gmail personnelle. Pour les services Gmail dans l’EEE, Google Ireland Limited agit en principe comme responsable de traitement indépendant et non comme sous-traitant de l’exploitant du site. Il n’existe donc pas de contrat de sous-traitance au titre de l’article 28 pour cette boîte Gmail personnelle. Google décrit les transferts internationaux au moyen du cadre de protection des données UE–États-Unis et de clauses contractuelles types.",
-    mailbox-providerMailbox: `Le service de messagerie et la boîte d’assistance sont fournis par mailbox-provider GmbH. Les documents contractuels et de confidentialité applicables au compte actif sont conservés dans le registre des traitements du responsable. Le délai opérationnel de suppression des demandes closes est de ${site.legal.supportRetentionDays} jours, sous réserve des obligations légales de conservation et de preuve.`,
+    mailboxProvider: `Le service de messagerie et la boîte d’assistance sont fournis par le fournisseur de boîte configuré. Les documents contractuels et de confidentialité applicables au compte actif sont conservés dans le registre des traitements du responsable. Le délai opérationnel de suppression des demandes closes est de ${site.legal.supportRetentionDays} jours, sous réserve des obligations légales de conservation et de preuve.`,
     workspaceGmail:
       "La destination est une boîte Google Workspace. Google traite alors les messages de support comme sous-traitant sur la base du Google Workspace Cloud Data Processing Addendum ; la version acceptée et les régions choisies doivent être consignées.",
     recipients: "6. Destinataires et transferts internationaux",
@@ -249,8 +249,8 @@ const copy = {
         {
           usesConsumerGmail
             ? copy.consumerGmail
-            : usesthe configured mailbox providerMailbox
-              ? copy.mailbox-providerMailbox
+            : usesMailboxProvider
+              ? copy.mailboxProvider
               : copy.workspaceGmail
         }
       </p>

@@ -8,19 +8,19 @@ import { createContactServer, loadConfig } from "./server.mjs";
 
 const baseEnv = {
   PORT: "3000",
-  CONTACT_SMTP_HOST: "provider-smtp.example.invalid",
+  CONTACT_SMTP_HOST: "smtp.example.invalid",
   CONTACT_SMTP_PORT: "465",
   CONTACT_SMTP_SECURE: "true",
-  CONTACT_SMTP_USERNAME: "deployment-mailbox@example.invalid",
+  CONTACT_SMTP_USERNAME: "smtp-user@example.invalid",
   CONTACT_SMTP_PASSWORD: "unit-test-placeholder.invalid",
-  CONTACT_FROM_ADDRESS: "deployment-mailbox@example.invalid",
-  CONTACT_TO_ADDRESS: "support@filius.app",
+  CONTACT_FROM_ADDRESS: "smtp-user@example.invalid",
+  CONTACT_TO_ADDRESS: "recipient@example.invalid",
 };
 
 const baseConfig = {
   allowedOrigins: new Set(["https://filius.app"]),
-  fromAddress: "deployment-mailbox@example.invalid",
-  toAddress: "support@filius.app",
+  fromAddress: "smtp-user@example.invalid",
+  toAddress: "recipient@example.invalid",
   rateLimitMax: 5,
   rateLimitWindowMs: 15 * 60 * 1000,
   retentionDays: 180,
@@ -187,7 +187,7 @@ test("valid submissions are relayed without visitor IP or attachments", async ()
 
   assert.equal(messages.length, 1);
   assert.equal(messages[0].replyTo, "learner@example.org");
-  assert.equal(messages[0].to, "support@filius.app");
+  assert.equal(messages[0].to, baseConfig.toAddress);
   assert.equal(messages[0].disableFileAccess, true);
   assert.equal(messages[0].disableUrlAccess, true);
   assert.match(messages[0].text, /The simulated DNS request/);

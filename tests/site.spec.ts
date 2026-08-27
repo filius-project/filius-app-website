@@ -492,8 +492,9 @@ test("privacy notice documents the contact service and remains draft until legal
   );
   await expect(page.locator("main")).toContainText("Cloudflare, Inc.");
   await expect(page.locator("main")).toContainText("eu-frankfurt-1");
-  await expect(page.locator("main")).toContainText("the configured mailbox provider mail service");
-  await expect(page.locator("main")).toContainText("mailbox-provider GmbH");
+  await expect(page.locator("main")).toContainText(
+    "the configured mailbox provider",
+  );
   await expect(page.locator("main")).not.toContainText(
     "Cloudflare Email Routing receives",
   );

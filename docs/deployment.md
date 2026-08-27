@@ -14,12 +14,12 @@ Cloudflare DNS/proxy
       → private Docker bridge
       → filius-contact:3000
           → authenticated TLS SMTP
-          → the configured mailbox provider support mailbox
+          → configured support mailbox
 ```
 
 The web container serves static files and proxies only `/api/contact` to the private contact-service bridge. It does not manage public certificates and does not expose a host port. Duplicate access logging is disabled in this inner container; Nginx Proxy Manager remains the visitor-facing access-log source.
 
-The contact service has no public port, database, or file storage. It validates requests and submits accepted messages through the authenticated the configured mailbox provider SMTP service. Keep the configured mailbox provider MX, SPF, DKIM, and DMARC records DNS-only and follow [DNS and mail](dns-and-mail.md); no `webmail` hostname is required.
+The contact service has no public port, database, or file storage. It validates requests and submits accepted messages through the configured authenticated SMTP service. Keep mail DNS records DNS-only and follow [DNS and mail](dns-and-mail.md); no `webmail` hostname is required.
 
 ## Registry image
 
@@ -32,7 +32,7 @@ Production should use an immutable semantic version or digest. Do not use `lates
 1. Identify the existing Nginx Proxy Manager Docker network.
 2. Copy `.env.example` to `.env`.
 3. Set both full GHCR image names, one exact version tag, and the network name.
-4. Add the SMTP host, username, sender, recipient, and password to the server-side `.env`. The repository intentionally contains no SMTP password. Never use a `PUBLIC_*` name for SMTP credentials.
+4. Add the SMTP endpoint, account name, sender, recipient, and password only to the server-side secret configuration. The repository intentionally contains none of those production values. Never use a `PUBLIC_*` name for SMTP credentials.
 5. Keep `CONTACT_RETENTION_DAYS`, `CONTACT_RATE_LIMIT_WINDOW_MINUTES`, `PUBLIC_SUPPORT_RETENTION_DAYS`, and `PUBLIC_CONTACT_RATE_LIMIT_WINDOW_MINUTES` aligned with the published privacy notice.
 6. Authenticate the Docker host to GHCR if either package is private.
 
@@ -40,21 +40,21 @@ Production should use an immutable semantic version or digest. Do not use `lates
 
 ### Direct environment variable
 
-The minimum production configuration for the current the configured mailbox provider mailbox is:
+If the deployment platform does not provide a file-backed secret, set the production-only values in the server-side `.env`:
 
 ```dotenv
-CONTACT_SMTP_HOST=provider-smtp.example.invalid
-CONTACT_SMTP_PORT=465
+CONTACT_SMTP_HOST=<deployment-only SMTP endpoint>
+CONTACT_SMTP_PORT=<deployment-only TLS port>
 CONTACT_SMTP_SECURE=true
-CONTACT_SMTP_USERNAME=deployment-mailbox@example.invalid
-CONTACT_SMTP_PASSWORD='replace-with-the-the configured mailbox provider-mailbox-password'
+CONTACT_SMTP_USERNAME=<deployment-only mailbox account>
+CONTACT_SMTP_PASSWORD=
 CONTACT_SMTP_PASSWORD_FILE=
 CONTACT_SMTP_PASSWORD_SECRET_FILE=
-CONTACT_FROM_ADDRESS=deployment-mailbox@example.invalid
-CONTACT_TO_ADDRESS=support@filius.app
+CONTACT_FROM_ADDRESS=<deployment-only sender address>
+CONTACT_TO_ADDRESS=<approved support address>
 ```
 
-Use the password for the mailbox named by `CONTACT_SMTP_USERNAME`; this is not the Cloudflare, GHCR, or server-login password. Keep the file private (`chmod 600 .env`) and do not paste the password into a Dockerfile, image build argument, Git repository, or `PUBLIC_*` variable. Single-quote the value so characters such as `$` remain literal in Compose’s environment-file parser.
+Use the password for the mailbox named by `CONTACT_SMTP_USERNAME`; this is not a Cloudflare, GHCR, or server-login password. Keep the file private (`chmod 600 .env`) and do not paste any endpoint, account name, password, or sender value into a Dockerfile, image build argument, Git repository, or `PUBLIC_*` variable. Single-quote the value so characters such as `$` remain literal in Compose’s environment-file parser.
 
 Validate and deploy without printing the rendered environment:
 
@@ -99,7 +99,7 @@ docker compose -f compose.yaml -f compose.smtp-secret.yaml up -d filius-contact 
 docker compose -f compose.yaml -f compose.smtp-secret.yaml ps
 ```
 
-Deployment platforms that mount secrets themselves may omit the override and set `CONTACT_SMTP_PASSWORD_FILE` directly to the existing path inside the `filius-contact` container. The service uses the direct password when both direct and file-based values are present.
+Deployment platforms that mount secrets themselves may omit the override and set `CONTACT_SMTP_PASSWORD_FILE` directly to the existing path inside the `filius-contact` container. Prefer the mounted-file method so the password never appears in the container environment.
 
 ### Rotate only the SMTP secret
 
