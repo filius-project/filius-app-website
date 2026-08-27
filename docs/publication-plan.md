@@ -1,10 +1,9 @@
 # Publication plan — August 27, 2026
 
-This is the cross-repository execution record for publishing Filius on iPad and its website after the returned signed permission was received.
+This is the cross-repository execution record for publishing Filius on iPad and its website after private legal verification.
 
 ## Executed legal transition
 
-- The scanned 23-page contract is retained privately at `filius-on-ipad-prod/docs/legal/Filius-app-store-exception-signed.pdf`.
 - It is not published: the agreement text, scan, signatures, and private postal details remain outside GitHub.
 - The public app repository contains GPLv2, GPLv3, and a SHA-256 attestation for the privately retained executed Apple-platform permission. It does not contain the agreement text, scan, signatures, or addresses.
 - The public record contains only the SHA-256 fingerprint; contract terms and personal details remain private.
