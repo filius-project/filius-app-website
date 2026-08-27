@@ -1,14 +1,24 @@
 import { execFileSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const root = process.cwd();
-const trackedFiles = execFileSync("git", ["ls-files", "-z"], {
-  cwd: root,
-  encoding: "utf8",
-})
-  .split("\0")
-  .filter(Boolean);
+const trackedFiles = existsSync(join(root, ".git"))
+  ? execFileSync("git", ["ls-files", "-z"], {
+      cwd: root,
+      encoding: "utf8",
+    })
+      .split("\0")
+      .filter(Boolean)
+  : [
+      ".env.example",
+      "compose.yaml",
+      "compose.smtp-secret.yaml",
+      "Dockerfile",
+      "docs/deployment.md",
+      "docs/dns-and-mail.md",
+      "docs/privacy-and-analytics.md",
+    ];
 
 const publicConfigurationFiles = trackedFiles.filter((file) =>
   /^(?:\.env\.example|compose(?:\.[^/]+)?\.ya?ml|Dockerfile|docs\/[^/]+\.md)$/.test(
@@ -22,7 +32,9 @@ const nonEmptyAssignment =
 const privateKey = /-----BEGIN (?:RSA |OPENSSH |EC |DSA )?PRIVATE KEY-----/;
 
 for (const file of publicConfigurationFiles) {
-  const text = readFileSync(join(root, file), "utf8");
+  const path = join(root, file);
+  if (!existsSync(path)) continue;
+  const text = readFileSync(path, "utf8");
   for (const match of text.matchAll(nonEmptyAssignment)) {
     if (match[1].trim()) {
       violations.push(
