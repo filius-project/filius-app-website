@@ -26,6 +26,10 @@ chmod 600 "$work_directory/contact-smtp-password"
 
 export FILIUS_CONTACT_IMAGE=${image%:*}
 export FILIUS_IMAGE_TAG=${image##*:}
+export CONTACT_SMTP_HOST="smtp.example.invalid"
+export CONTACT_SMTP_USERNAME="smtp-user@example.invalid"
+export CONTACT_FROM_ADDRESS="smtp-user@example.invalid"
+export CONTACT_TO_ADDRESS="recipient@example.invalid"
 export CONTACT_SMTP_PASSWORD="unit-test-$RANDOM"
 export CONTACT_SMTP_PASSWORD_FILE=""
 export CONTACT_SMTP_PASSWORD_SECRET_FILE="$work_directory/contact-smtp-password"
