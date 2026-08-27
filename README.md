@@ -116,7 +116,7 @@ The contact service is built and published as `ghcr.io/OWNER/filius-app-website-
 
 ## License status
 
-The Filius on iPad application source is public under the applicable GPLv2 or GPLv3 terms together with the executed Apple-platform additional permission documented in the app repository. This website repository contains independently maintained website code and content; its redistribution terms and complete third-party notices remain an owner-controlled launch item.
+The Filius on iPad application source is public under the applicable GPLv2 or GPLv3 terms together with the privately retained Apple-platform additional permission represented by a public SHA-256 attestation in the app repository; the agreement text is not published. This website repository contains independently maintained website code and content; its redistribution terms and complete third-party notices remain an owner-controlled launch item.
 
 ## Launch gate
 

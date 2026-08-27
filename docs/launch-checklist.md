@@ -4,7 +4,7 @@ The implementation is complete enough for preview deployment, but the following 
 
 ## Identity and legal
 
-The executed Apple-platform additional permission is recorded in the public app repository. It authorizes the app project’s Apple distribution and direct project channels, but it does not by itself approve the website’s privacy notice, publisher notice, or website-content license.
+The executed Apple-platform additional permission is retained privately. The public app repository publishes only a SHA-256 attestation and no agreement text or personal details. It authorizes the app project’s Apple distribution and direct project channels, but it does not by itself approve the website’s privacy notice, publisher notice, or website-content license.
 
 - [ ] Approve the public product name.
 - [ ] Approve the exact relationship wording and attribution for the original FILIUS project.

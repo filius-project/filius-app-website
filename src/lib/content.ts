@@ -341,7 +341,7 @@ export const copy: Record<Locale, SiteCopy> = {
       sections: [
         {
           title: "Filius on iPad",
-          body: "Der Quellcode von Filius on iPad ist öffentlich verfügbar. Die GPLv2 oder GPLv3 gilt zusammen mit der ausgeführten Apple-Plattform-Zusatzgenehmigung; die vollständigen Texte und die öffentliche Genehmigungsfassung stehen im App-Repository.",
+          body: "Der Quellcode von Filius on iPad ist öffentlich verfügbar. Die GPLv2 oder GPLv3 gilt zusammen mit der privat aufbewahrten Apple-Plattform-Zusatzgenehmigung; im App-Repository steht nur ein SHA-256-Nachweis ohne Vertragstext oder persönliche Daten.",
         },
         {
           title: "FILIUS",
@@ -451,7 +451,7 @@ export const copy: Record<Locale, SiteCopy> = {
     source: {
       eyebrow: "Open and traceable",
       title: "Source code with clear provenance.",
-      body: "The iPad app is published as an independently maintained Apple project. The executed Apple-platform additional permission supplements the GPL for Apple distribution and direct project channels.",
+      body: "The iPad app is published as an independently maintained Apple project. The privately retained Apple-platform additional permission supplements the GPL for Apple distribution and direct project channels; the app repository publishes only a SHA-256 attestation, not the agreement text or personal details.",
       pending: "Public source now available",
     },
     finalCta: {
@@ -629,7 +629,7 @@ export const copy: Record<Locale, SiteCopy> = {
       sections: [
         {
           title: "Filius on iPad",
-          body: "The Filius on iPad source is publicly available. GPLv2 or GPLv3 applies together with the executed Apple-platform additional permission; the complete texts and public permission copy are available in the app repository.",
+          body: "The Filius on iPad source is publicly available. GPLv2 or GPLv3 applies together with the privately retained Apple-platform additional permission; the complete GPL texts and a SHA-256 attestation are available in the app repository, but not the agreement text or personal details.",
         },
         {
           title: "FILIUS",
