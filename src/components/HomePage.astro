@@ -1,6 +1,6 @@
 ---
 import type { Locale } from '../config';
-import { localizedPath } from '../config';
+import { localizedPath, site } from '../config';
 import { copy } from '../lib/content';
 import AppStoreBadge from './AppStoreBadge.astro';
 import HeroVisual from './HeroVisual.astro';
@@ -51,7 +51,7 @@ const c = copy[locale];
 <section class="section source-section">
   <div class="shell source-grid">
     <div class="source-mark" aria-hidden="true"><span>&lt;/&gt;</span><i></i><i></i><i></i></div>
-    <div><p class="eyebrow">{c.source.eyebrow}</p><h2>{c.source.title}</h2><p class="lede">{c.source.body}</p><p class="source-status">{c.source.pending}</p></div>
+    <div><p class="eyebrow">{c.source.eyebrow}</p><h2>{c.source.title}</h2><p class="lede">{c.source.body}</p><p class="source-status">{c.source.pending}</p>{site.source.status === 'available' && site.source.url && <a class="button button--quiet" href={site.source.url} rel="external">{c.common.viewSource}<span aria-hidden="true">↗</span></a>}</div>
   </div>
 </section>
 <section class="section final-cta">

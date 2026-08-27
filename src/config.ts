@@ -57,8 +57,8 @@ export const site = {
     appId: "",
   },
   source: {
-    status: "pending-license" as "pending-license" | "available",
-    url: "",
+    status: "available" as "pending-license" | "available",
+    url: "https://github.com/filius-project/filius-ipad",
   },
   legal: {
     reviewed: envFlag("PUBLIC_LEGAL_REVIEWED"),

@@ -17,7 +17,7 @@ This repository contains an implementation-ready pre-release website:
 - Docker and Compose deployment configuration; and
 - GitHub Actions image publishing to GitHub Container Registry.
 
-The site is **not ready for public production** until the owner-controlled values in the launch checklist are approved. In particular, legal publisher details, privacy decisions, source licensing, App Store URL, and final attribution remain open.
+The repository is being published as the public website source. The app source is now published separately at `https://github.com/filius-project/filius-ipad`; the website itself remains a preview until the owner-controlled values in the launch checklist are approved. In particular, privacy decisions, website content licensing, App Store URL, and final attribution remain open.
 
 ## Local development
 
@@ -116,7 +116,7 @@ The contact service is built and published as `ghcr.io/OWNER/filius-app-website-
 
 ## License status
 
-No license is granted by this repository yet. The website, application source, screenshots, and compatibility material require owner review before public redistribution. Add an approved root license and third-party notices before making the repository public.
+The Filius on iPad application source is public under the applicable GPLv2 or GPLv3 terms together with the executed Apple-platform additional permission documented in the app repository. This website repository contains independently maintained website code and content; its redistribution terms and complete third-party notices remain an owner-controlled launch item.
 
 ## Launch gate
 

@@ -14,6 +14,7 @@ type SiteCopy = {
     readDocs: string;
     learnMore: string;
     supportEmail: string;
+    viewSource: string;
     preRelease: string;
     legalDraft: string;
   };
@@ -93,6 +94,7 @@ export const copy: Record<Locale, SiteCopy> = {
       readDocs: "Dokumentation lesen",
       learnMore: "Mehr erfahren",
       supportEmail: "Support per E-Mail",
+      viewSource: "Quellcode auf GitHub",
       preRelease: "Vorabversion",
       legalDraft: "Entwurf – Freigabe vor Veröffentlichung erforderlich",
     },
@@ -158,8 +160,8 @@ export const copy: Record<Locale, SiteCopy> = {
     source: {
       eyebrow: "Offen und nachvollziehbar",
       title: "Quellcode mit sauberer Herkunft.",
-      body: "Für die iPad-App ist ein eigener öffentlicher Quellcode-Spiegel vorgesehen. Er wird erst verlinkt, wenn Lizenz, Drittanbieter-Hinweise und der Exportprozess freigegeben sind.",
-      pending: "Öffentliche Quelle folgt nach Lizenzfreigabe",
+      body: "Die iPad-App wird als eigenständig gepflegtes Apple-Projekt veröffentlicht. Die ausgeführte Apple-Plattform-Zusatzgenehmigung ergänzt die GPL für Apple-Vertriebswege und direkte Projektkanäle.",
+      pending: "Öffentliche Quelle jetzt verfügbar",
     },
     finalCta: {
       title: "Das erste Netzwerk dauert nur wenige Minuten.",
@@ -339,7 +341,7 @@ export const copy: Record<Locale, SiteCopy> = {
       sections: [
         {
           title: "Filius on iPad",
-          body: "Der öffentliche Quellcode benötigt eine freigegebene Root-Lizenz. Die aktuelle Entwicklungsquelle darf nicht ohne Prüfung veröffentlicht werden.",
+          body: "Der Quellcode von Filius on iPad ist öffentlich verfügbar. Die GPLv2 oder GPLv3 gilt zusammen mit der ausgeführten Apple-Plattform-Zusatzgenehmigung; die vollständigen Texte und die öffentliche Genehmigungsfassung stehen im App-Repository.",
         },
         {
           title: "FILIUS",
@@ -383,6 +385,7 @@ export const copy: Record<Locale, SiteCopy> = {
       readDocs: "Read documentation",
       learnMore: "Learn more",
       supportEmail: "Email support",
+      viewSource: "View source on GitHub",
       preRelease: "Preview",
       legalDraft: "Draft – approval required before publication",
     },
@@ -448,8 +451,8 @@ export const copy: Record<Locale, SiteCopy> = {
     source: {
       eyebrow: "Open and traceable",
       title: "Source code with clear provenance.",
-      body: "A dedicated public source mirror is planned for the iPad app. It will be linked only after the license, third-party notices, and export process are approved.",
-      pending: "Public source follows after license approval",
+      body: "The iPad app is published as an independently maintained Apple project. The executed Apple-platform additional permission supplements the GPL for Apple distribution and direct project channels.",
+      pending: "Public source now available",
     },
     finalCta: {
       title: "Your first network takes only a few minutes.",
@@ -626,7 +629,7 @@ export const copy: Record<Locale, SiteCopy> = {
       sections: [
         {
           title: "Filius on iPad",
-          body: "The public source requires an approved root license. The current development repository must not be published without review.",
+          body: "The Filius on iPad source is publicly available. GPLv2 or GPLv3 applies together with the executed Apple-platform additional permission; the complete texts and public permission copy are available in the app repository.",
         },
         {
           title: "FILIUS",
@@ -670,6 +673,7 @@ export const copy: Record<Locale, SiteCopy> = {
       readDocs: "Lire la documentation",
       learnMore: "En savoir plus",
       supportEmail: "Contacter l’assistance",
+      viewSource: "Voir le code source sur GitHub",
       preRelease: "Aperçu",
       legalDraft: "Brouillon – validation requise avant publication",
     },
@@ -914,7 +918,7 @@ export const copy: Record<Locale, SiteCopy> = {
       sections: [
         {
           title: "Filius on iPad",
-          body: "La source publique nécessite une licence racine approuvée. Le dépôt de développement ne doit pas être publié sans vérification.",
+          body: "Le code source de Filius on iPad est public. La GPLv2 ou GPLv3 s’applique avec l’autorisation supplémentaire Apple exécutée ; les textes complets et la copie publique de l’autorisation sont disponibles dans le dépôt de l’app.",
         },
         {
           title: "FILIUS",

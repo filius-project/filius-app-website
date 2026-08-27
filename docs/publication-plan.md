@@ -1,0 +1,34 @@
+# Publication plan — August 27, 2026
+
+This is the cross-repository execution record for publishing Filius on iPad and its website after the returned signed permission was received.
+
+## Executed legal transition
+
+- The scanned 23-page contract is retained privately at `filius-on-ipad-prod/docs/legal/Filius-app-store-exception-signed.pdf`.
+- It is not published: the scan contains handwritten signatures and private postal details.
+- The public app repository contains clean German and English copies of the executed Apple-platform additional permission, GPLv2, GPLv3, and a provenance inventory.
+- The permission’s effective date is **August 23, 2026**, the latest signing date visible on the returned fully signed copy.
+- The permission covers the Apple project’s direct channels, including `filius.app` and GitHub Releases, plus Apple distribution services, subject to the continuing GPL, provenance, and third-party-license conditions.
+
+## App repository — executed / next
+
+1. Sync the current reviewed iPad implementation into the curated production repository without copying the Java development runtime, generated build output, private signing material, or internal parity-only planning files.
+2. Publish the curated app repository at `https://github.com/filius-project/filius-ipad`.
+3. Keep App Store release gates in place: Apple app record, signing, archive validation, TestFlight, real-iPad acceptance, privacy/export decisions, metadata, screenshots, and App Review remain separate.
+4. Create a tagged GitHub release only after the exact candidate has passed the release checklist.
+
+## Website — executed / next
+
+1. Link the website’s source section and license page to the public app repository.
+2. Publish the website repository at `https://github.com/filius-project/filius-app-website`.
+3. Leave the App Store badge in coming-soon mode until an App Store listing exists.
+4. Keep `PUBLIC_LEGAL_REVIEWED=false` until the website privacy/imprint content and infrastructure values have been reviewed by the accountable owner.
+5. Build and test the static site; publish the container image through the existing GitHub Actions workflow.
+6. Deploy through the existing Nginx Proxy Manager/Compose path only after DNS, variables, SMTP end-to-end delivery, privacy consent behavior, and accessibility checks are approved.
+
+## Explicit blockers that cannot be automated from this checkout
+
+- Apple Developer/App Store Connect account actions, certificates, profiles, and signing secrets.
+- Final App Store metadata, screenshots, age rating, export compliance, and privacy answers.
+- Website legal review, content license selection, and production privacy approval.
+- Production server access, DNS/proxy changes, external uptime monitoring, and SMTP delivery confirmation.

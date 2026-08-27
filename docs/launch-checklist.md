@@ -4,6 +4,8 @@ The implementation is complete enough for preview deployment, but the following 
 
 ## Identity and legal
 
+The executed Apple-platform additional permission is recorded in the public app repository. It authorizes the app project’s Apple distribution and direct project channels, but it does not by itself approve the website’s privacy notice, publisher notice, or website-content license.
+
 - [ ] Approve the public product name.
 - [ ] Approve the exact relationship wording and attribution for the original FILIUS project.
 - [ ] Add responsible publisher name and service address.
@@ -31,7 +33,7 @@ The implementation is complete enough for preview deployment, but the following 
 
 ## Infrastructure
 
-- [ ] Create the public website GitHub repository.
+- [x] Create the public website GitHub repository.
 - [ ] Review and enable the GHCR workflow.
 - [ ] Confirm package visibility and server registry credentials.
 - [ ] Set the external Nginx Proxy Manager network name.
