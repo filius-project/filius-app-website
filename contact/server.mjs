@@ -101,7 +101,7 @@ export function loadConfig(env = process.env) {
       ),
     },
     fromAddress: envText(env, "CONTACT_FROM_ADDRESS"),
-    toAddress: envText(env, "CONTACT_TO_ADDRESS", "support@filius.app"),
+    toAddress: envText(env, "CONTACT_TO_ADDRESS"),
     rateLimitMax: envInteger(env, "CONTACT_RATE_LIMIT_MAX", 5),
     rateLimitWindowMs:
       envInteger(env, "CONTACT_RATE_LIMIT_WINDOW_MINUTES", 15) * 60 * 1000,
@@ -116,6 +116,7 @@ export function loadConfig(env = process.env) {
       config.smtp.password,
     ],
     ["CONTACT_FROM_ADDRESS", config.fromAddress],
+    ["CONTACT_TO_ADDRESS", config.toAddress],
   ]
     .filter(([, value]) => !value)
     .map(([name]) => name);

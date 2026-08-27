@@ -6,13 +6,15 @@ import { tmpdir } from "node:os";
 import test from "node:test";
 import { createContactServer, loadConfig } from "./server.mjs";
 
+const testDirectPassword = "unit-test-placeholder.invalid";
+
 const baseEnv = {
   PORT: "3000",
   CONTACT_SMTP_HOST: "smtp.example.invalid",
   CONTACT_SMTP_PORT: "465",
   CONTACT_SMTP_SECURE: "true",
   CONTACT_SMTP_USERNAME: "smtp-user@example.invalid",
-  CONTACT_SMTP_PASSWORD: "unit-test-placeholder.invalid",
+  CONTACT_SMTP_PASSWORD: testDirectPassword,
   CONTACT_FROM_ADDRESS: "smtp-user@example.invalid",
   CONTACT_TO_ADDRESS: "recipient@example.invalid",
 };
