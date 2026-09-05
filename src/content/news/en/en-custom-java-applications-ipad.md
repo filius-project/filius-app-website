@@ -12,7 +12,7 @@ topics:
   - Classroom
   - Development
 readingMinutes: 7
-featured: true
+featured: false
 ---
 
 One of the clearest remaining differences between desktop FILIUS and Filius on iPad is also one of the easiest to underestimate. The desktop application includes a Software Wizard for creating custom client and server applications. The iPad app does not offer a fully compatible version of that workflow.

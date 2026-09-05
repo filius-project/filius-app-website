@@ -12,7 +12,7 @@ topics:
   - Unterricht
   - Entwicklung
 readingMinutes: 7
-featured: true
+featured: false
 ---
 
 Einer der deutlichsten verbleibenden Unterschiede zwischen FILIUS auf dem Desktop und Filius on iPad wird besonders leicht unterschätzt. Die Desktop-Anwendung besitzt einen Software-Assistenten zum Erstellen eigener Client- und Server-Anwendungen. Auf dem iPad gibt es dafür derzeit keinen vollständig kompatiblen Ablauf.

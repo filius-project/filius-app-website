@@ -12,7 +12,7 @@ topics:
   - Enseignement
   - Développement
 readingMinutes: 7
-featured: true
+featured: false
 ---
 
 L’une des différences restantes les plus visibles entre FILIUS sur ordinateur et Filius on iPad est aussi l’une des plus faciles à sous-estimer. L’application de bureau propose un assistant logiciel permettant de créer des applications clientes et serveuses personnalisées. Sur iPad, ce parcours ne dispose pas encore d’un équivalent totalement compatible.

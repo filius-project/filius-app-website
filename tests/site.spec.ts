@@ -20,6 +20,9 @@ const marketingPages = [
   "/news/custom-java-applications-ipad/",
   "/en/news/custom-java-applications-ipad/",
   "/fr/news/custom-java-applications-ipad/",
+  "/news/guided-tour-first-ping/",
+  "/en/news/guided-tour-first-ping/",
+  "/fr/news/guided-tour-first-ping/",
   "/en/support/",
   "/fr/support/",
 ];
@@ -198,25 +201,21 @@ test("the development journal is localized and labels preview content", async ({
   page,
 }) => {
   for (const [path, heading, featuredPath] of [
-    [
-      "/news/",
-      "Neues aus der Werkstatt.",
-      "/news/custom-java-applications-ipad/",
-    ],
+    ["/news/", "Neues aus der Werkstatt.", "/news/guided-tour-first-ping/"],
     [
       "/en/news/",
       "Notes from the workshop.",
-      "/en/news/custom-java-applications-ipad/",
+      "/en/news/guided-tour-first-ping/",
     ],
     [
       "/fr/news/",
       "Nouvelles de l’atelier.",
-      "/fr/news/custom-java-applications-ipad/",
+      "/fr/news/guided-tour-first-ping/",
     ],
   ] as const) {
     await page.goto(path);
     await expect(page.getByRole("heading", { name: heading })).toBeVisible();
-    await expect(page.locator("[data-news-card]")).toHaveCount(6);
+    await expect(page.locator("[data-news-card]")).toHaveCount(7);
     await expect(page.locator("[data-news-card]").first()).toHaveAttribute(
       "href",
       featuredPath,
@@ -261,6 +260,18 @@ test("the development journal is localized and labels preview content", async ({
   await expect(
     page.locator('link[rel="alternate"][hreflang="de"]'),
   ).toHaveAttribute("href", /\/news\/java-ipad-parity\/$/);
+
+  await page.goto("/en/news/guided-tour-first-ping/");
+  await expect(
+    page.getByRole("heading", {
+      name: "The first ping, one clear step at a time",
+    }),
+  ).toBeVisible();
+  await expect(page.getByText("A complete first network")).toBeVisible();
+  await expect(page.getByText("Real actions, safe practice")).toBeVisible();
+  await expect(
+    page.locator('link[rel="alternate"][hreflang="de"]'),
+  ).toHaveAttribute("href", /\/news\/guided-tour-first-ping\/$/);
 
   await page.goto("/en/news/custom-java-applications-ipad/");
   await expect(
